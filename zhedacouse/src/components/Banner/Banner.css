@@ -109,6 +109,7 @@
   transform: translateX(-50%);
   display: flex;
   gap: 10px;
+  z-index: 3;
 }
 
 .carousel-indicators .slick-dots li {
@@ -135,6 +136,37 @@
   background-color: #fff;
 }
 
+.banner-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.3s ease;
+}
+
+.banner-arrow:hover {
+  background: rgba(0, 0, 0, 0.55);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.banner-arrow-prev {
+  left: 20px;
+}
+
+.banner-arrow-next {
+  right: 20px;
+}
+
 @media (max-width: 768px) {
   .banner {
     height: 520px;
@@ -150,5 +182,18 @@
 
   .carousel-content p {
     font-size: 16px;
+  }
+
+  .banner-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .banner-arrow-prev {
+    left: 12px;
+  }
+
+  .banner-arrow-next {
+    right: 12px;
   }
 }

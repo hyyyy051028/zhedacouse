@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import type { CarouselRef } from 'antd/es/carousel';
 import { bannerSlides } from '../../data';
 import './Banner.css';
@@ -24,6 +25,7 @@ export default function Banner() {
         autoplay
         autoplaySpeed={6000}
         effect="scrollx"
+        draggable
       >
         {bannerSlides.map((slide, index) => (
           <div key={index} className="carousel-slide">
@@ -76,6 +78,22 @@ export default function Banner() {
           </div>
         ))}
       </Carousel>
+      <button
+        type="button"
+        className="banner-arrow banner-arrow-prev"
+        aria-label="上一张"
+        onClick={() => carouselRef.current?.prev()}
+      >
+        <LeftOutlined />
+      </button>
+      <button
+        type="button"
+        className="banner-arrow banner-arrow-next"
+        aria-label="下一张"
+        onClick={() => carouselRef.current?.next()}
+      >
+        <RightOutlined />
+      </button>
     </section>
   );
 }
