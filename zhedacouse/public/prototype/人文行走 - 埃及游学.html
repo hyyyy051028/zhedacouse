@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>浙江大学 人文行走 · 埃及游学</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 浙大背景印花 */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Zhejiang%20University%20logo%20and%20campus%20elements%2C%20elegant%20pattern%2C%20navy%20blue%20and%20gold%20color%20scheme%2C%20academic%20atmosphere%2C%20suitable%20for%20background%20pattern&image_size=square');
+            background-repeat: repeat;
+            background-size: 200px;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* 确保内容在背景之上 */
+        .header, .main-content, .footer {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 主色调定义 - 参考图片 */
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #ffc107;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --card-bg: #fff;
+            --border-color: #e0e0e0;
+        }
+        
+        /* 头部样式 - 参考图片设计 */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            background-image: url('埃及图片/头图.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 53, 102, 0.7);
+            z-index: 1;
+        }
+        
+        .header > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* 热门课程标签 */
+        .hot-course {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        /* 统计数据样式 */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 80px;
+            padding: 10px 0;
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: block;
+            margin: auto 0;
+            line-height: 1.2;
+            vertical-align: middle;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: white;
+            margin-top: 8px;
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            padding: 40px;
+            background-color: #f5f5f5;
+        }
+        
+        /* 课程简介卡片 */
+        .course-intro {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+        
+        .intro-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .intro-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .intro-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .intro-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+
+        /* 主要内容区域 - 左右布局 */
+        .content-layout {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        /* 左侧主内容 */
+        .main-left {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        /* 右侧边栏 */
+        .main-right {
+            width: 300px;
+        }
+        
+        /* 内容区块样式 */
+        .section {
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* 标题样式 */
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: bold;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        /* 段落样式 */
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        
+        /* 列表样式 */
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            line-height: 1.8;
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+        
+        /* 图标+文字组合布局样式 */
+        .icon-text-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .icon-text-item {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-text-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .item-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .item-icon-img {
+            padding: 5px;
+        }
+        
+        .icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .module-icon-img {
+            padding: 5px;
+        }
+        
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .item-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+        }
+        
+        /* 课程特色样式 */
+        .feature-list {
+            margin-top: 20px;
+        }
+        
+        .feature-item {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-item h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .feature-item p {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        /* 课程模块样式 */
+        .module-section {
+            background-color: #f5f5f5;
+            padding: 40px 0;
+            margin: 30px 0 0;
+        }
+        
+        /* 项目特色与课程模块之间的间距调整 */
+        .module-section + .section {
+            margin-top: 30px;
+        }
+        
+        .module-section .section {
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 0;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        
+        .module {
+            margin-bottom: 30px;
+        }
+        
+        .module-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .module-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .module-image {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .city-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .module-image:hover .city-img {
+            transform: scale(1.02);
+        }
+        
+        .module-description {
+            font-size: 0.95rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .module-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .module-item {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .module-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .module-item-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .module-item-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .module-item-list li::before {
+            content: '•';
+            color: var(--secondary-color);
+            margin-right: 10px;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        /* 行程亮点样式 */
+        .highlight-section {
+            background-color: white;
+            padding: 40px 0;
+            margin: 30px 0 0;
+        }
+        
+        .highlight-section .section {
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 0;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        /* 信息模块样式 */
+        .info-section {
+            background-color: #f5f5f5;
+            padding: 40px 0;
+            margin: 30px 0 0;
+        }
+        
+        .info-section .section {
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 0;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .info-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: bold;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .info-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 12px;
+        }
+        
+        .info-card strong {
+            color: var(--primary-color);
+            min-width: 60px;
+            display: inline-block;
+        }
+        
+        .info-card ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .info-card li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+        
+        .payment-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .payment-info p {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .payment-info strong {
+            color: var(--primary-color);
+            min-width: 80px;
+            display: inline-block;
+        }
+        
+        /* 侧边栏样式 - 保留但可能不会使用 */
+        .sidebar-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .sidebar-content {
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        
+        .sidebar-content p {
+            margin-bottom: 10px;
+        }
+        
+        /* 申请事项样式 */
+        .application-section {
+            padding: 20px 0;
+        }
+        
+        .application-section h3 {
+            color: var(--primary-color);
+            font-size: 1rem;
+            margin: 20px 0 10px;
+            font-weight: bold;
+        }
+        
+        .application-section h3:first-child {
+            margin-top: 0;
+        }
+        
+        /* 汇款信息样式 */
+        .payment-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .payment-info p {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .payment-info strong {
+            color: var(--primary-color);
+            min-width: 80px;
+            display: inline-block;
+        }
+        
+        /* 底部样式 */
+        .footer {
+            background-color: #003566;
+            color: #ffffff;
+            text-align: center;
+            padding: 30px;
+            font-size: 1rem;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+            opacity: 1;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .content-layout {
+                flex-direction: column;
+            }
+            
+            .main-right {
+                width: 100%;
+            }
+            
+            .header {
+                padding: 40px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .stats {
+                gap: 40px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+            }
+            
+            .container {
+                max-width: 100%;
+                box-shadow: none;
+            }
+            
+            /* 头部模块优化 */
+            .header {
+                padding: 30px 15px;
+                text-align: center;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+            
+            .header .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+            
+            /* 统计数据优化 */
+            .stats {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 10px 0;
+            }
+            
+            .stat-item {
+                min-height: 60px;
+                min-width: 80px;
+                padding: 5px 0;
+            }
+            
+            .stat-number {
+                font-size: 1.2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            
+            .hot-course {
+                top: 15px;
+                right: 15px;
+                padding: 6px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+                padding: 12px 15px;
+                margin-bottom: 15px;
+            }
+            
+            .section p {
+                font-size: 0.9rem;
+                line-height: 1.7;
+            }
+            
+            .course-intro {
+                padding: 15px;
+            }
+            
+            .module-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .icon-text-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .icon-text-item {
+                padding: 15px;
+            }
+            
+            .item-title {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .item-description {
+                font-size: 0.85rem;
+            }
+            
+            .module-card {
+                padding: 15px;
+            }
+            
+            .module-title {
+                font-size: 1rem;
+            }
+            
+            .module-desc {
+                font-size: 0.85rem;
+            }
+            
+            .faculty-card {
+                padding: 15px;
+            }
+            
+            .faculty-name {
+                font-size: 1rem;
+            }
+            
+            .faculty-title {
+                font-size: 0.85rem;
+            }
+            
+            .faculty-intro {
+                font-size: 0.85rem;
+            }
+            
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            
+            .footer {
+                padding: 20px 15px;
+            }
+            
+            .footer h3 {
+                font-size: 1rem;
+            }
+            
+            .footer p {
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                border-radius: 0;
+                overflow-x: hidden;
+            }
+            
+            .header {
+                padding: 15px 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.2rem;
+                line-height: 1.3;
+                margin-bottom: 10px;
+                word-wrap: break-word;
+            }
+            
+            .header .subtitle {
+                font-size: 0.8rem;
+                margin-bottom: 15px;
+                padding: 0 5px;
+                word-wrap: break-word;
+            }
+            
+            .stats {
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                min-width: 60px;
+                min-height: 50px;
+                padding: 5px 0;
+            }
+            
+            .stat-number {
+                font-size: 1rem;
+            }
+            
+            .stat-label {
+                font-size: 0.65rem;
+                text-align: center;
+                line-height: 1.2;
+            }
+            
+            .hot-course {
+                top: 10px;
+                right: 10px;
+                padding: 4px 10px;
+                font-size: 0.7rem;
+            }
+            
+            .main-content {
+                padding: 8px;
+            }
+            
+            .content-layout {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .main-left {
+                min-width: 100%;
+                flex: 1;
+            }
+            
+            .main-right {
+                width: 100%;
+            }
+            
+            .section {
+                padding: 12px;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+                padding: 8px 0;
+                margin-bottom: 12px;
+                line-height: 1.2;
+                word-wrap: break-word;
+            }
+            
+            .section p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                margin-bottom: 10px;
+                word-wrap: break-word;
+            }
+            
+            .course-intro {
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+            
+            .intro-header {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+            
+            .intro-icon {
+                width: 25px;
+                height: 25px;
+                margin-right: 10px;
+            }
+            
+            .intro-title {
+                font-size: 1rem;
+            }
+            
+            .icon-text-grid {
+                gap: 10px;
+                grid-template-columns: 1fr;
+            }
+            
+            .icon-text-item {
+                padding: 12px;
+            }
+            
+            .item-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .item-title {
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+                word-wrap: break-word;
+            }
+            
+            .item-description {
+                font-size: 0.85rem;
+                line-height: 1.4;
+                word-wrap: break-word;
+            }
+            
+            .module-section {
+                padding: 20px 0;
+                margin: 20px 0 0;
+            }
+            
+            .module-section .section {
+                padding: 12px;
+                margin-bottom: 0;
+            }
+            
+            .module {
+                margin-bottom: 20px;
+            }
+            
+            .module-title {
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+                gap: 8px;
+                word-wrap: break-word;
+            }
+            
+            .module-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .module-image {
+                margin-bottom: 12px;
+                width: 100%;
+            }
+            
+            .city-img {
+                height: 150px;
+                width: 100%;
+                object-fit: cover;
+            }
+            
+            .module-description {
+                font-size: 0.85rem;
+                margin-bottom: 15px;
+                word-wrap: break-word;
+            }
+            
+            .module-content {
+                gap: 10px;
+                grid-template-columns: 1fr;
+            }
+            
+            .module-item {
+                padding: 12px;
+                font-size: 0.85rem;
+                box-sizing: border-box;
+            }
+            
+            .module-item-list li {
+                margin-bottom: 8px;
+                line-height: 1.4;
+                font-size: 0.85rem;
+                word-wrap: break-word;
+            }
+            
+            .highlight-section {
+                padding: 20px 0;
+                margin: 20px 0 0;
+            }
+            
+            .highlight-section .section {
+                padding: 12px;
+                margin-bottom: 0;
+            }
+            
+            .feature-item {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+            
+            .feature-item h3 {
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+                word-wrap: break-word;
+            }
+            
+            .feature-item p {
+                font-size: 0.85rem;
+                line-height: 1.4;
+                word-wrap: break-word;
+            }
+            
+            .info-section {
+                padding: 20px 0;
+                margin: 20px 0 0;
+            }
+            
+            .info-section .section {
+                padding: 12px;
+                margin-bottom: 0;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .info-card {
+                padding: 12px;
+                box-sizing: border-box;
+            }
+            
+            .info-card h3 {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+                padding-bottom: 8px;
+                word-wrap: break-word;
+            }
+            
+            .info-card p {
+                font-size: 0.85rem;
+                margin-bottom: 8px;
+                word-wrap: break-word;
+            }
+            
+            .info-card ul {
+                margin-left: 15px;
+                margin-bottom: 10px;
+            }
+            
+            .info-card li {
+                margin-bottom: 6px;
+                line-height: 1.4;
+                font-size: 0.85rem;
+                word-wrap: break-word;
+            }
+            
+            .payment-info {
+                padding: 12px;
+                margin-top: 12px;
+                box-sizing: border-box;
+            }
+            
+            .payment-info p {
+                margin-bottom: 6px;
+                font-size: 0.8rem;
+                line-height: 1.4;
+                word-wrap: break-word;
+            }
+            
+            .footer {
+                padding: 20px 10px;
+            }
+            
+            .footer p {
+                font-size: 0.8rem;
+                margin-bottom: 8px;
+                word-wrap: break-word;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="hot-course">热门项目</div>
+            <h1>人文行走 · 埃及游学</h1>
+            <p class="subtitle" style="text-align: center; color: white;">文明古国与商业新大陆 | 穿越时空的智慧之旅</p>
+            
+            <!-- 统计数据 -->
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">9</span>
+                    <span class="stat-label">天行程</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">大城市</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10万+</span>
+                    <span class="stat-label">文物</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" style="font-size: 1.8rem;">2026</span>
+                    <span class="stat-label">年3月</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            
+            <!-- 主要内容区域 - 左右布局 -->
+            <div class="content-layout">
+                <!-- 左侧主内容 -->
+                <div class="main-left">
+                    <!-- 项目背景 -->
+                    <div class="section">
+                        <h2 class="section-title">项目背景</h2>
+                        <p>西方史学之父希罗多德曾说：埃及是尼罗河的赠礼；拿破仑曾站在金字塔下感叹：四千年的历史正凝视着我们。埃及，是尼罗河畔的千年叹息，是人类文明的璀璨摇篮，更是连接亚非欧三大洲的战略十字路口。</p>
+                        <p>为拓宽国际视野、链接高端资源，特策划此次“文明古国商业智慧与新兴市场”考察行程。我们将穿越时空，在金字塔下思考基业长青；深入红海，探寻出海机遇。这不仅是一次文化朝圣，更是一场打破认知边界的商业发现之旅。</p>
+                    </div>
+                    
+                    <!-- 项目收益 -->
+                    <div class="section">
+                        <h2 class="section-title">项目收益</h2>
+                        <div class="icon-text-grid">
+                            <div class="icon-text-item">
+                                <div class="item-icon item-icon-img">
+                                    <img src="埃及图片/开罗.jpg" alt="拓宽国际视野" class="icon-img">
+                                </div>
+                                <h3 class="item-title">拓宽国际视野</h3>
+                                <p class="item-description">了解埃及及中东地区商业环境，把握“一带一路”合作机遇</p>
+                            </div>
+                            <div class="icon-text-item">
+                                <div class="item-icon item-icon-img">
+                                    <img src="埃及图片/埃及博物馆.jpg" alt="汲取千年智慧" class="icon-img">
+                                </div>
+                                <h3 class="item-title">汲取千年智慧</h3>
+                                <p class="item-description">深度感受古埃及文明，从历史中汲取智慧，为企业发展注入新思维</p>
+                            </div>
+                            <div class="icon-text-item">
+                                <div class="item-icon item-icon-img">
+                                    <img src="埃及图片/第二天.jpeg" alt="拓展商业人脉" class="icon-img">
+                                </div>
+                                <h3 class="item-title">拓展商业人脉</h3>
+                                <p class="item-description">建立跨行业高端人脉，拓展商业合作机会，对接埃及当地资源</p>
+                            </div>
+                            <div class="icon-text-item">
+                                <div class="item-icon item-icon-img">
+                                    <img src="埃及图片/头图.jpg" alt="提升个人品牌" class="icon-img">
+                                </div>
+                                <h3 class="item-title">提升个人品牌</h3>
+                                <p class="item-description">获得浙江大学结业证书，提升个人品牌价值与社会认可度</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 行程安排 -->
+                    <div class="module-section">
+                        <div class="section">
+                            <h2 class="section-title">行程安排</h2>
+                            
+                            <!-- 第一天 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">1</div>
+                                    第一天：上海-开罗（飞机）
+                                </h3>
+                                <div class="module-image">
+                                    <img src="埃及图片/头图.jpg" alt="上海-开罗" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <ul class="module-item-list">
+                                            <li>搭乘国际航班前往埃及首都开罗</li>
+                                            <li>抵达后入住酒店休息，调整时差</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第二天 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">2</div>
+                                    第二天：开罗商务活动
+                                </h3>
+                                <div class="module-image">
+                                    <img src="埃及图片/第二天.jpeg" alt="开罗商务活动" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <ul class="module-item-list">
+                                            <li>商务活动1：参访苏伊士运河经济园区-泰达集团</li>
+                                            <li>商务活动2：埃及商会联合会</li>
+                                            <li>感受“千塔之城”的伊斯兰文化</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第三天 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">3</div>
+                                    第三天：开罗-阿斯旺（飞机）
+                                </h3>
+                                <div class="module-image">
+                                    <img src="埃及图片/第三天.jpeg" alt="阿斯旺" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <ul class="module-item-list">
+                                            <li>搭乘飞机前往阿斯旺</li>
+                                            <li>游览菲莱女神神庙</li>
+                                            <li>参观方尖碑</li>
+                                            <li>游览阿斯旺大坝</li>
+                                            <li>费卢卡（尼罗河风帆船）体验</li>
+                                            <li>感受努比亚文化</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第四天 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">4</div>
+                                    第四天：阿斯旺-卢克索（大巴）
+                                </h3>
+                                <div class="module-image">
+                                    <img src="埃及图片/第四天.jpg" alt="卢克索" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <ul class="module-item-list">
+                                            <li>乘坐大巴前往卢克索</li>
+                                            <li>游览卡纳克神庙</li>
+                                            <li>参观帝王谷</li>
+                                            <li>马车巡游卢克索神庙（外观）</li>
+                                            <li>可选：卢克索热气球</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第五天 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">5</div>
+                                    第五天：卢克索-红海（大巴）
+                                </h3>
+                                <div class="module-image">
+                                    <img src="埃及图片/第五天.jpeg" alt="红海" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <ul class="module-item-list">
+                                            <li>乘坐大巴前往红海赫尔格达</li>
+                                            <li>抵达后入住红海沿岸酒店</li>
+                                            <li>自由活动，适应红海环境</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第六天 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">6</div>
+                                    第六天：红海
+                                </h3>
+                                <div class="module-image">
+                                    <img src="埃及图片/第六天.jpeg" alt="红海活动" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <ul class="module-item-list">
+                                            <li>红海浮潜</li>
+                                            <li>沙漠越野体验</li>
+                                            <li>阿拉伯集市</li>
+                                            <li>红海海滩休闲</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第七天 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">7</div>
+                                    第七天：红海-开罗（飞机）
+                                </h3>
+                                <div class="module-image">
+                                    <img src="埃及图片/第七天.jpeg" alt="开罗景点" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <ul class="module-item-list">
+                                            <li>搭乘飞机返回开罗</li>
+                                            <li>游览吉萨金字塔及狮身人面像</li>
+                                            <li>参观大埃及博物馆</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第八天 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">8</div>
+                                    第八天：开罗-亚历山大-开罗
+                                </h3>
+                                <div class="module-image">
+                                    <img src="埃及图片/第八天.jpeg" alt="亚历山大" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <ul class="module-item-list">
+                                            <li>前往亚历山大</li>
+                                            <li>游览孟塔扎宫花园</li>
+                                            <li>探访庞贝石柱</li>
+                                            <li>参观亚历山大图书馆</li>
+                                            <li>游览科特贝城堡（亚历山大灯塔遗址）</li>
+                                            <li>感受地中海风情</li>
+                                            <li>返回开罗</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第九天 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">9</div>
+                                    第九天：开罗-上海（飞机）
+                                </h3>
+                                <div class="module-image">
+                                    <img src="埃及图片/第九天.jpeg" alt="开罗-上海" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <ul class="module-item-list">
+                                            <li>整理行李，退房</li>
+                                            <li>前往开罗国际机场</li>
+                                            <li>搭乘国际航班返回上海</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 行程亮点 -->
+                    <div class="highlight-section">
+                        <div class="section">
+                            <h2 class="section-title">行程亮点</h2>
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <h3>商务活动深度对接</h3>
+                                    <p>参访苏伊士运河经济园区-泰达集团、埃及商会联合会，实地感受“一带一路”合作成果，探寻埃及市场机遇。</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h3>经典IP深度体验</h3>
+                                    <p>金字塔、博物馆等经典IP一个不落，私家玩法避开人潮，轻松搞懂埃及的前世今生。</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h3>大埃及博物馆</h3>
+                                    <p>全球最大单一文明博物馆、11月全新开馆。10万件文物 + 图坦卡蒙完整藏品一次看够，深度读懂古埃及的文明密码。</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h3>埃及神庙盛宴</h3>
+                                    <p>一次看爽！卡纳克神庙、卢克索神庙、莱菲神庙等众多古埃及神庙，感受古代建筑艺术的震撼。</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h3>特色活动体验</h3>
+                                    <p>尼罗河风帆船、马车巡游，感受传统交通方式的浪漫；还有卢克索热气球、红海浮潜、沙漠越野等可选活动，兼顾深度与趣味！</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h3>文化领读人解读</h3>
+                                    <p>邀请文化领读人，以哲学与文明视角深度解读古埃及千年智慧，带学员跳出商业看商业，从历史厚度中探寻穿越周期的精神力量与底层逻辑。</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h3>尊贵奢享体验</h3>
+                                    <p>金字塔旁观景餐厅以及烤鱼、烤肉等特色餐；全程国际五星级酒店，尊贵奢享体验！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目信息 -->
+                    <div class="info-section">
+                        <div class="section">
+                            <div class="info-grid">
+                                <!-- 行程信息 -->
+                                <div class="info-card">
+                                    <h3>行程信息</h3>
+                                    <p><strong>活动时间：</strong>2026年3月26-4月4日（9天7晚）</p>
+                                    <p><strong>游学费用：</strong>￥28,800元/人</p>
+                                    <p><strong>费用包含：</strong>机票、参访费、在埃期间交通、餐饮、住宿、保险等</p>
+                                    <p><strong>住宿标准：</strong>全程国际五星酒店（单房差：￥5,500元/人）</p>
+                                    <p><strong>出发地：</strong>上海</p>
+                                    <p><strong>签证所需资料：</strong>护照首页扫描件（有效期6个月以上）</p>
+                                    <p><strong>证书：</strong>完成全部行程后，颁发浙江大学「人文行走 · 埃及游学」结业证书</p>
+                                </div>
+                                
+
+                                
+                                <!-- 汇款信息 -->
+                                <div class="info-card">
+                                    <h3>汇款信息</h3>
+                                    <div class="payment-info">
+                                        <p>请将款项汇入以下指定账户，并备注姓名+埃及游学：</p>
+                                        <p><strong>公司抬头：</strong>浙江省国际合作旅行社有限公司</p>
+                                        <p><strong>银行账号：</strong>1900 5801 0400 0626 0</p>
+                                        <p><strong>开户行：</strong>杭州市农行吴山支行</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 右侧边栏 -->
+                <div class="main-right">
+
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部 -->
+        <div class="footer">
+            <p>© 2026 浙江大学传媒国际文化经济高培中心 版权所有</p>
+            <p></p>
+            <p>地址：浙江省杭州市西湖区浙江大学华家池校区</p>
+        </div>
+    </div>
+</body>
+</html>

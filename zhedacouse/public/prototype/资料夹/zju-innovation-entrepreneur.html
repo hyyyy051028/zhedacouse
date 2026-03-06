@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创新企业家课程 - 浙江大学高管教育中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --zju-blue: #0055A2;
+            --zju-gold: #E6A100;
+            --zju-gray: #F5F5F5;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --white: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--zju-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--zju-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            height: 600px;
+            background: linear-gradient(rgba(0, 85, 162, 0.8), rgba(0, 85, 162, 0.9)), url('2.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--zju-gold);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #D19100;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(230, 161, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--zju-blue);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--zju-blue);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: 16px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Course Info Section */
+        .course-info-section {
+            background-color: var(--white);
+        }
+
+        .course-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .course-info-content h3 {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--zju-blue);
+            margin-bottom: 20px;
+        }
+
+        .course-info-content p {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .course-features {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .course-features li {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .course-features li::before {
+            content: '✓';
+            color: var(--zju-gold);
+            margin-right: 12px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .course-info-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Curriculum Section */
+        .curriculum {
+            background-color: var(--zju-gray);
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .curriculum-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+
+        .curriculum-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .curriculum-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--zju-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--white);
+            font-size: 24px;
+        }
+
+        .curriculum-card h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .curriculum-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .curriculum-details {
+            list-style: none;
+        }
+
+        .curriculum-details li {
+            font-size: 14px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .curriculum-details li::before {
+            content: '•';
+            color: var(--zju-gold);
+            margin-right: 10px;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        /* Faculty Section */
+        .faculty {
+            background-color: var(--white);
+        }
+
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .faculty-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .faculty-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--zju-gray);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--zju-blue);
+            border: 3px solid var(--zju-blue);
+        }
+
+        .faculty-card h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .faculty-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .faculty-card .title {
+            font-size: 14px;
+            color: var(--zju-blue);
+            font-weight: 500;
+        }
+
+        /* Alumni Section */
+        .alumni {
+            background-color: var(--zju-gray);
+        }
+
+        .alumni-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .alumni-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .alumni-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .alumni-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--zju-gray);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--zju-blue);
+            border: 3px solid var(--zju-gold);
+        }
+
+        .alumni-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .alumni-company {
+            font-size: 14px;
+            color: var(--zju-blue);
+            margin-bottom: 15px;
+        }
+
+        .alumni-quote {
+            font-size: 14px;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* Apply Section */
+        .apply {
+            background-color: var(--zju-blue);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .apply-content h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .apply-content p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .apply-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .apply-info-item h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .apply-info-item p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--zju-blue);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title h2 {
+                font-size: 24px;
+            }
+
+            .course-info-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .apply-info {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .curriculum-grid,
+            .faculty-grid,
+            .alumni-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <img src="1.jpg" alt="浙江大学">
+                <h1>浙江大学高管教育中心</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于课程</a></li>
+                <li><a href="#curriculum">课程内容</a></li>
+                <li><a href="#faculty">师资力量</a></li>
+                <li><a href="#alumni">校友网络</a></li>
+                <li><a href="#apply">申请报名</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>创新企业家课程</h2>
+            <p>依托浙江大学百年学术底蕴，培养具有全球视野、创新精神和社会责任感的新一代企业家</p>
+            <a href="#apply" class="btn">立即申请</a>
+            <a href="#about" class="btn btn-secondary">了解详情</a>
+        </div>
+    </section>
+
+    <!-- Course Info Section -->
+    <section id="about" class="section course-info-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>项目背景</h2>
+                <p>在数字经济时代，企业面临着前所未有的机遇与挑战，创新成为企业可持续发展的核心动力</p>
+            </div>
+            <div class="course-info-grid">
+                <div class="course-info-content fade-in">
+                    <h3>为什么选择浙江大学创新企业家课程？</h3>
+                    <p>浙江大学作为国内顶尖学府，拥有深厚的学术底蕴和广泛的社会资源。创新企业家课程旨在为有志向、有潜力的企业家提供系统化的创新思维训练和实战指导，帮助企业在激烈的市场竞争中抢占先机。</p>
+                    <p>课程融合了前沿的管理理论与实践案例，邀请知名学者、行业专家和成功企业家授课，为学员提供全方位的知识体系和人脉资源。</p>
+                    <ul class="course-features">
+                        <li>前沿创新理论与实践相结合</li>
+                        <li>顶尖师资团队与行业专家指导</li>
+                        <li>高端校友网络与商业资源对接</li>
+                        <li>个性化学习路径与实战项目</li>
+                        <li>终身学习平台与持续赋能</li>
+                    </ul>
+                </div>
+                <div class="course-info-image fade-in delay-1">
+                    <img src="3.jpg" alt="创新企业家课程">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="section curriculum">
+        <div class="container">
+            <div class="section-title">
+                <h2>课程内容</h2>
+                <p>系统化的课程体系，涵盖创新思维、战略管理、数字化转型等核心领域</p>
+            </div>
+            <div class="curriculum-grid">
+                <div class="curriculum-card fade-in">
+                    <div class="curriculum-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 24L24 12L36 24V36H12V24Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>创新思维与领导力</h3>
+                    <p>培养企业家的创新思维模式，提升领导力水平，构建高效团队。</p>
+                    <ul class="curriculum-details">
+                        <li>创新思维方法论</li>
+                        <li>领导力提升策略</li>
+                        <li>团队建设与管理</li>
+                        <li>决策思维与风险管控</li>
+                    </ul>
+                </div>
+                <div class="curriculum-card fade-in delay-1">
+                    <div class="curriculum-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 14L34 14C36.2091 14 38 15.7909 38 18L38 30C38 32.2091 36.2091 34 34 34L14 34C11.7909 34 10 32.2091 10 30L10 18C10 15.7909 11.7909 14 14 14Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18 14V34" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M24 14V34" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M30 14V34" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 20H34" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 28H34" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>战略管理与商业模式</h3>
+                    <p>掌握企业战略规划方法，设计创新商业模式，提升企业核心竞争力。</p>
+                    <ul class="curriculum-details">
+                        <li>企业战略规划</li>
+                        <li>商业模式创新</li>
+                        <li>市场竞争策略</li>
+                        <li>可持续发展战略</li>
+                    </ul>
+                </div>
+                <div class="curriculum-card fade-in delay-2">
+                    <div class="curriculum-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="12" y="12" width="24" height="24" rx="4" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 20H32" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 24H32" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 28H32" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="20" cy="16" r="1" fill="#ffffff"/>
+                            <circle cx="24" cy="16" r="1" fill="#ffffff"/>
+                            <circle cx="28" cy="16" r="1" fill="#ffffff"/>
+                        </svg>
+                    </div>
+                    <h3>数字化转型与技术创新</h3>
+                    <p>把握数字经济发展趋势，推动企业数字化转型，融合前沿技术创新。</p>
+                    <ul class="curriculum-details">
+                        <li>数字化转型战略</li>
+                        <li>人工智能与大数据应用</li>
+                        <li>区块链与产业互联网</li>
+                        <li>技术创新与商业化</li>
+                    </ul>
+                </div>
+                <div class="curriculum-card fade-in delay-3">
+                    <div class="curriculum-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 24L20 28L28 20L24 16L32 24L24 32L16 24Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>资本运营与风险管理</h3>
+                    <p>了解资本市场运作规律，掌握资本运营技巧，有效管理企业风险。</p>
+                    <ul class="curriculum-details">
+                        <li>资本市场与投融资策略</li>
+                        <li>企业估值与并购重组</li>
+                        <li>财务管理与税务筹划</li>
+                        <li>企业风险管理体系</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Faculty Section -->
+    <section id="faculty" class="section faculty">
+        <div class="container">
+            <div class="section-title">
+                <h2>师资力量</h2>
+                <p>汇聚浙江大学顶尖学者、行业专家和成功企业家，为学员提供全方位指导</p>
+            </div>
+            <div class="faculty-grid">
+                <div class="faculty-card fade-in">
+                    <div class="faculty-avatar">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M24 16C27.3137 16 30 18.6863 30 22C30 25.3137 27.3137 28 24 28C20.6863 28 18 25.3137 18 22C18 18.6863 20.6863 16 24 16Z" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 36C14 32.6863 16.6863 30 20 30H28C31.3137 30 34 32.6863 34 36" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>教授 张明</h3>
+                    <p class="title">浙江大学管理学院院长</p>
+                    <p>专注于创新管理、战略管理领域研究，曾主导多个国家级科研项目，为多家知名企业提供战略咨询服务。</p>
+                </div>
+                <div class="faculty-card fade-in delay-1">
+                    <div class="faculty-avatar">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M24 16C27.3137 16 30 18.6863 30 22C30 25.3137 27.3137 28 24 28C20.6863 28 18 25.3137 18 22C18 18.6863 20.6863 16 24 16Z" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 36C14 32.6863 16.6863 30 20 30H28C31.3137 30 34 32.6863 34 36" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>教授 李华</h3>
+                    <p class="title">浙江大学经济学院教授</p>
+                    <p>数字经济领域专家，研究方向包括数字转型、平台经济等，出版多部学术专著，为政府和企业提供政策咨询。</p>
+                </div>
+                <div class="faculty-card fade-in delay-2">
+                    <div class="faculty-avatar">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M24 16C27.3137 16 30 18.6863 30 22C30 25.3137 27.3137 28 24 28C20.6863 28 18 25.3137 18 22C18 18.6863 20.6863 16 24 16Z" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 36C14 32.6863 16.6863 30 20 30H28C31.3137 30 34 32.6863 34 36" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>王总</h3>
+                    <p class="title">某知名科技公司创始人</p>
+                    <p>连续创业者，成功创办多家科技企业，拥有丰富的企业管理和资本运作经验，现任多家企业战略顾问。</p>
+                </div>
+                <div class="faculty-card fade-in delay-3">
+                    <div class="faculty-avatar">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M24 16C27.3137 16 30 18.6863 30 22C30 25.3137 27.3137 28 24 28C20.6863 28 18 25.3137 18 22C18 18.6863 20.6863 16 24 16Z" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 36C14 32.6863 16.6863 30 20 30H28C31.3137 30 34 32.6863 34 36" stroke="#0055A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>教授 陈静</h3>
+                    <p class="title">浙江大学金融学院教授</p>
+                    <p>资本市场专家，研究方向包括公司金融、投资银行等，曾任职于国际知名金融机构，拥有丰富的实践经验。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumni Section -->
+    <section id="alumni" class="section alumni">
+        <div class="container">
+            <div class="section-title">
+                <h2>校友网络</h2>
+                <p>加入浙江大学创新企业家校友网络，共享资源与商机，拓展商业视野</p>
+            </div>
+            <div class="alumni-grid">
+                <div class="alumni-card fade-in">
+                    <div class="alumni-avatar">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" stroke="#E6A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M24 16C27.3137 16 30 18.6863 30 22C30 25.3137 27.3137 28 24 28C20.6863 28 18 25.3137 18 22C18 18.6863 20.6863 16 24 16Z" stroke="#E6A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 36C14 32.6863 16.6863 30 20 30H28C31.3137 30 34 32.6863 34 36" stroke="#E6A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="alumni-name">校友 李强</h3>
+                    <p class="alumni-company">某互联网科技公司CEO</p>
+                    <p class="alumni-quote">"通过浙江大学创新企业家课程的学习，我不仅收获了前沿的管理知识，更重要的是结识了一群志同道合的企业家朋友，我们在课程中建立的合作关系至今仍在持续。"</p>
+                </div>
+                <div class="alumni-card fade-in delay-1">
+                    <div class="alumni-avatar">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" stroke="#E6A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M24 16C27.3137 16 30 18.6863 30 22C30 25.3137 27.3137 28 24 28C20.6863 28 18 25.3137 18 22C18 18.6863 20.6863 16 24 16Z" stroke="#E6A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 36C14 32.6863 16.6863 30 20 30H28C31.3137 30 34 32.6863 34 36" stroke="#E6A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="alumni-name">校友 张华</h3>
+                    <p class="alumni-company">某制造业集团董事长</p>
+                    <p class="alumni-quote">"课程中的数字化转型模块给了我很大启发，让我对企业的未来发展有了更清晰的认识。通过与教授和同学的交流，我找到了企业转型升级的新方向。"</p>
+                </div>
+                <div class="alumni-card fade-in delay-2">
+                    <div class="alumni-avatar">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" stroke="#E6A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M24 16C27.3137 16 30 18.6863 30 22C30 25.3137 27.3137 28 24 28C20.6863 28 18 25.3137 18 22C18 18.6863 20.6863 16 24 16Z" stroke="#E6A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 36C14 32.6863 16.6863 30 20 30H28C31.3137 30 34 32.6863 34 36" stroke="#E6A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="alumni-name">校友 王丽</h3>
+                    <p class="alumni-company">某金融科技公司创始人</p>
+                    <p class="alumni-quote">"浙江大学的学术氛围和师资力量让我受益匪浅，课程内容既有理论高度又有实践深度。校友网络更是为我的业务发展提供了很多机会。"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apply Section -->
+    <section id="apply" class="section apply">
+        <div class="container">
+            <div class="apply-content">
+                <h2>申请报名</h2>
+                <p>加入浙江大学创新企业家课程，开启您的创新之旅</p>
+                <div class="apply-info">
+                    <div class="apply-info-item">
+                        <h3>学制</h3>
+                        <p>一年，每月集中授课3天</p>
+                    </div>
+                    <div class="apply-info-item">
+                        <h3>学费</h3>
+                        <p>58,000元/人</p>
+                    </div>
+                    <div class="apply-info-item">
+                        <h3>招生对象</h3>
+                        <p>企业创始人、高管、合伙人</p>
+                    </div>
+                    <div class="apply-info-item">
+                        <h3>开学时间</h3>
+                        <p>2026年3月</p>
+                    </div>
+                </div>
+                <a href="#" class="btn">立即申请</a>
+                <a href="#" class="btn btn-secondary">下载招生简章</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <p>地址：浙江省杭州市西湖区浙江大学紫金港校区</p>
+                    <p>电话：0571-88888888</p>
+                    <p>邮箱：execed@zju.edu.cn</p>
+                </div>
+                <div class="footer-section">
+                    <h3>课程导航</h3>
+                    <ul>
+                        <li><a href="#about">项目介绍</a></li>
+                        <li><a href="#curriculum">课程内容</a></li>
+                        <li><a href="#faculty">师资力量</a></li>
+                        <li><a href="#alumni">校友网络</a></li>
+                        <li><a href="#apply">申请报名</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <ul>
+                        <li><a href="#">浙江大学高管教育中心</a></li>
+                        <li><a href="#">项目介绍</a></li>
+                        <li><a href="#">师资教研</a></li>
+                        <li><a href="#">校友平台</a></li>
+                        <li><a href="#">信息资讯</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>关注我们</h3>
+                    <p>扫描二维码关注浙江大学高管教育中心</p>
+                    <div style="width: 120px; height: 120px; background-color: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                        <span style="font-size: 12px;">二维码</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 浙江大学高管教育中心. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Fade in animation on scroll
+        function checkFade() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = "1";
+                    element.style.transform = "translateY(0)";
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkFade);
+        // Initial check
+        checkFade();
+    </script>
+</body>
+</html>

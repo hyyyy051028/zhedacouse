@@ -1,0 +1,84 @@
+.stories {
+  background-color: var(--zju-gray);
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.stories-card {
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 0;
+  text-align: center;
+  transition: transform 0.3s;
+  overflow: hidden;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stories-card:hover {
+  transform: translateY(-5px);
+}
+
+.stories-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.stories-card:nth-child(1) .stories-image {
+  background-image: url('/image/资料夹/精彩活动2.jpg');
+}
+
+.stories-card:nth-child(2) .stories-image {
+  background-image: url('/image/资料夹/精彩活动1.jpg');
+}
+
+.stories-card:nth-child(3) .stories-image {
+  background-image: url('/image/资料夹/精彩活动3.jpg');
+}
+
+.stories-content {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 0 0 8px 8px;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--text-dark);
+}
+
+.stories-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: var(--text-dark);
+}
+
+.stories-quote {
+  font-size: 14px;
+  color: var(--text-light);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .stories-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .stories-card {
+    min-height: 350px;
+  }
+
+  .stories-image {
+    height: 150px;
+  }
+}

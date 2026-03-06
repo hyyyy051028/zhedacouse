@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动预告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .activity-section {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .section-title h2 {
+            font-size: 20px;
+            color: #333;
+            margin-right: 10px;
+        }
+        
+        .section-title .en-title {
+            font-size: 16px;
+            color: #999;
+            font-weight: normal;
+        }
+        
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px 20px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .activity-item:hover {
+            background-color: #f8f9fa;
+            border-left-color: #0056b3;
+        }
+        
+        .date-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #0056b3;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0,86,179,0.3);
+        }
+        
+        .date-circle .date {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        .date-circle .weekday {
+            font-size: 12px;
+            margin-top: 3px;
+        }
+        
+        .activity-info {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .activity-details {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .activity-details p {
+            margin-bottom: 3px;
+        }
+        
+        .more-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 30px;
+            background-color: #ffffff;
+            border: 1px solid #0056b3;
+            color: #0056b3;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .more-btn:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+        
+        /* 月份滑动布局 */
+        .month-slider {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+        
+        .month-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .month-container {
+            display: flex;
+            gap: 20px;
+            padding-bottom: 10px;
+            min-width: max-content;
+        }
+        
+        .month-section {
+            flex: 0 0 95%;
+            max-width: 500px;
+        }
+        
+        /* 触摸滑动优化 */
+        .month-slider {
+            touch-action: pan-x;
+        }
+        
+        .month-title {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+        }
+        
+        .month-title h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .month-section .activity-list {
+            border-radius: 0 0 8px 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .header p {
+                font-size: 14px;
+            }
+            
+            .activity-section {
+                padding: 15px;
+            }
+            
+            .section-title h2 {
+                font-size: 18px;
+            }
+            
+            .section-title .en-title {
+                font-size: 14px;
+            }
+            
+            .activity-item {
+                padding: 12px 15px;
+            }
+            
+            .date-circle {
+                width: 60px;
+                height: 60px;
+                margin-right: 12px;
+            }
+            
+            .date-circle .date {
+                font-size: 16px;
+            }
+            
+            .date-circle .weekday {
+                font-size: 11px;
+            }
+            
+            .activity-title {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+            
+            .activity-details {
+                font-size: 12px;
+                line-height: 1.3;
+            }
+            
+            .activity-details p {
+                margin-bottom: 2px;
+            }
+            
+            .more-btn {
+                margin-top: 20px;
+                padding: 8px 20px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>浙江大学MBA教育中心</h1>
+            <p>mba.zju.edu.cn</p>
+        </div>
+        
+        <div class="activity-section">
+            <div class="section-title">
+                <h2>活动预告</h2>
+                <span class="en-title">Activity Preview</span>
+            </div>
+            
+            <div class="month-slider">
+                <div class="month-container">
+                    <!-- 三月活动 -->
+                    <div class="month-section">
+                        <div class="month-title">
+                            <h3>三月活动</h3>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="date-circle">
+                                    <div class="date">03-07</div>
+                                    <div class="weekday">周三</div>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-title">《全球化新周期下的战略突围—科技企业的增长路径与资本布局》</div>
+                                    <div class="activity-details">
+                                        <p></p>
+                                        <p>主讲人:程立新</p>
+                                        <p>浙江大学传媒与国际文化学院专业学位研究生业界导师</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="date-circle">
+                                    <div class="date">03-08</div>
+                                    <div class="weekday">周四</div>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-title">《产业互联网的金融新基建》</div>
+                                    <div class="activity-details">
+                                        <p></p>
+                                        <p>主讲人:李明顺</p>
+                                        <p>数字经济与智能商业专家</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="date-circle">
+                                    <div class="date">03-14</div>
+                                    <div class="weekday">周四</div>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-title">《人力资源创新与组织效能提升》</div>
+                                    <div class="activity-details">
+                                        <p></p>
+                                        <p>主讲人:陈 慧</p>
+                                        <p>北京邮电大学经济管理学院教授</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="date-circle">
+                                    <div class="date">03-21</div>
+                                    <div class="weekday">周四</div>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-title">《曾国藩为人识人用人之道》</div>
+                                    <div class="activity-details">
+                                        <p></p>
+                                        <p>主讲人:张宏杰</p>
+                                        <p>清华大学历史系博士后</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="date-circle">
+                                    <div class="date">03-22</div>
+                                    <div class="weekday">周五</div>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-title">《经典中的情感世界》</div>
+                                    <div class="activity-details">
+                                        <p></p>
+                                        <p></p>
+                                        <p>主讲人:金利安</p>
+                                        <p>浙江大学传媒国际企业家校友联谊会会长</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 四月活动 -->
+                    <div class="month-section">
+                        <div class="month-title">
+                            <h3>四月活动</h3>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="date-circle">
+                                    <div class="date">04-10</div>
+                                    <div class="weekday">周四</div>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-title">浙江大学数智时代·金融投资运营实战高级研修班</div>
+                                    <div class="activity-details">
+                                        <p>香港游学考察</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="date-circle">
+                                    <div class="date">04-11</div>
+                                    <div class="weekday">周五</div>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-title">企业AI转型实战课</div>
+                                    <div class="activity-details">
+                                        <p>浙江大学人工智能与商业应用传播研修班</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="date-circle">
+                                    <div class="date">04-18</div>
+                                    <div class="weekday">周五</div>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-title">《冲突管理与领导力提升》</div>
+                                    <div class="activity-details">
+                                        <p></p>
+                                        <p>主讲人:吴隆增</p>
+                                        <p>厦门大学管理学教授、博士生导师</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="date-circle">
+                                    <div class="date">04-25</div>
+                                    <div class="weekday">周五</div>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-title">《胡雪岩传记：政商关系与商业伦理反思》</div>
+                                    <div class="activity-details">
+                                        <p></p>
+                                        <p>主讲人:屠 博</p>
+                                        <p>中国人民大学历史学博士</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="more-btn">更多 →</a>
+        </div>
+    </div>
+</body>
+</html>
