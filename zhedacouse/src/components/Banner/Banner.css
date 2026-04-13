@@ -1,0 +1,199 @@
+.banner {
+  margin-top: 80px;
+  position: relative;
+  overflow: hidden;
+  height: 600px;
+  background-color: #f5f7fa;
+}
+
+.banner .ant-carousel,
+.banner .slick-slider,
+.banner .slick-list,
+.banner .slick-track {
+  height: 100%;
+}
+
+.banner .slick-slide > div {
+  height: 100%;
+}
+
+.carousel-slide {
+  height: 100%;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel-content {
+  text-align: center;
+  color: #fff;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.carousel-content h2 {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0 0 20px;
+  line-height: 1.2;
+}
+
+.carousel-content h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 20px;
+  line-height: 1.2;
+}
+
+.carousel-content p {
+  font-size: 18px;
+  margin: 0 0 30px;
+  opacity: 0.9;
+}
+
+.carousel-content .highlight-text {
+  color: #ffd700;
+}
+
+.banner-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.banner .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+  background-color: #e6a100;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.banner .btn:hover {
+  background-color: #d19100;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(230, 161, 0, 0.3);
+  color: #fff;
+}
+
+.banner .btn-secondary {
+  background-color: transparent;
+  border: 2px solid #fff;
+}
+
+.banner .btn-secondary:hover {
+  background-color: #fff;
+  color: #0055a2;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 3;
+}
+
+.carousel-indicators .slick-dots li {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.carousel-indicators .slick-dots li button {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-indicators .slick-dots li button::before {
+  content: none;
+}
+
+.carousel-indicators .slick-dots li.slick-active {
+  width: 30px;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.banner-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.3s ease;
+}
+
+.banner-arrow:hover {
+  background: rgba(0, 0, 0, 0.55);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.banner-arrow-prev {
+  left: 20px;
+}
+
+.banner-arrow-next {
+  right: 20px;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 520px;
+  }
+
+  .carousel-content h2 {
+    font-size: 32px;
+  }
+
+  .carousel-content h3 {
+    font-size: 18px;
+  }
+
+  .carousel-content p {
+    font-size: 16px;
+  }
+
+  .banner-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .banner-arrow-prev {
+    left: 12px;
+  }
+
+  .banner-arrow-next {
+    right: 12px;
+  }
+}
