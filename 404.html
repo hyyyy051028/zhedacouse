@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      const segmentCount = 1;
+      const { pathname, search, hash } = window.location;
+      const redirectPath =
+        pathname
+          .split('/')
+          .slice(0, 1 + segmentCount)
+          .join('/') +
+        '/?/' +
+        pathname
+          .slice(1)
+          .split('/')
+          .slice(segmentCount)
+          .join('/')
+          .replace(/&/g, '~and~') +
+        (search ? '&' + search.slice(1).replace(/&/g, '~and~') : '') +
+        hash;
+
+      window.location.replace(redirectPath);
+    </script>
+  </head>
+  <body></body>
+</html>
