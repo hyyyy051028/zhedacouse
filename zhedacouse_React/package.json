@@ -2,15 +2,14 @@
   "name": "zhedacouse",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://hyyyy051028.github.io/zhedacouse/",
+  "homepage": "https://zju.yolodeep.fun/",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:github-pages": "tsc -b && vite build --mode github-pages",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build:github-pages",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
