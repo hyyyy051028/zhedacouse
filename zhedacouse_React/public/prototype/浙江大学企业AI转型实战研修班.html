@@ -1,0 +1,185 @@
+<!--  如果要修改海报图片 在122行切换图片路径即可 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浙江大学AI实战研修班</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+        .img-container {
+            width: 100%;
+        }
+        .img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* 悬浮报名按钮样式 */
+        .floating-btn {
+            position: fixed;
+            top: 50%;
+            right: 0; /* 紧贴右侧边缘 */
+            transform: translateY(-50%) scale(calc(1 / var(--zoom-level, 1)));
+            transform-origin: right center; /* 缩放基准点靠右 */
+            background: rgba(255, 255, 255, 0.95); /* 黑白简约：白色背景 */
+            color: #000; /* 纯黑文字 */
+            border: 2px solid #000; /* 黑色边框 */
+            font-weight: bold;
+            font-size: 24px; /* 调大字体 */
+            padding: 20px 25px; /* 调整内边距 */
+            border-radius: 30px 0 0 30px; /* 左侧圆角，右侧直角 */
+            border-right: none; /* 靠屏幕右侧，去掉右边框 */
+            text-decoration: none;
+            box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.15); /* 柔和的黑色阴影 */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px; /* 增加图标和文字间距 */
+            overflow: hidden;
+            writing-mode: vertical-lr; /* 文字竖排 */
+            letter-spacing: 6px; /* 增加字间距 */
+        }
+        
+        .floating-btn svg {
+            transform: rotate(-90deg); /* 因为是竖排文字，图标需要旋转回来 */
+            margin-bottom: 8px; /* 增加图标底部间距 */
+            width: 32px; /* 调大图标 */
+            height: 32px;
+            stroke: #000; /* 图标纯黑 */
+        }
+
+        /* 按钮滑光特效 - 动画模式 */
+        .floating-btn::after {
+            content: '';
+            position: absolute;
+            top: var(--light-top, -100%);
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0) 100%); /* 黑色微光扫过 */
+            transform: skewY(-25deg);
+            transition: top 0.1s ease-out; /* 为滚动流光添加平滑过渡 */
+        }
+
+        /* 自动动画的类，默认开启，滚动时移除 */
+        .floating-btn.auto-light::after {
+            animation: slideLight 3s infinite;
+        }
+
+        /* 悬浮时的放大和阴影加深效果 */
+        .floating-btn:hover {
+            transform: translateY(-50%) translateX(calc(-10px / var(--zoom-level, 1))) scale(calc(1.05 / var(--zoom-level, 1)));
+            box-shadow: -10px 15px 25px rgba(0, 0, 0, 0.2); /* 悬停阴影 */
+            background: #000; /* 悬停时反转为黑底白字 */
+            color: #fff;
+        }
+
+        .floating-btn:hover svg {
+            stroke: #fff; /* 悬停时图标反转为白色 */
+        }
+
+        /* 点击时的缩放效果 */
+        .floating-btn:active {
+            transform: translateY(-50%) translateX(0) scale(calc(0.95 / var(--zoom-level, 1)));
+        }
+
+        @keyframes slideLight {
+            0% { top: -100%; }
+            20% { top: 200%; }
+            100% { top: 200%; }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .floating-btn {
+                right: 0;
+                border-radius: 30px 0 0 30px;
+                padding: 15px 20px;
+                font-size: 18px;
+            }
+            .floating-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+            .floating-btn:hover {
+                transform: translateY(-50%) translateX(0) scale(calc(1.05 / var(--zoom-level, 1)));
+            }
+            .floating-btn:active {
+                transform: translateY(-50%) translateX(0) scale(calc(0.95 / var(--zoom-level, 1)));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="img-container">
+        <img src="./AI转型实战研修海报图/20260401-170735.jpg" alt="浙江大学AI实战研修班长图">
+        <!-- <img src="20260401-181813.jpg" alt="浙江大学AI实战研修班长图"> -->
+    </div>
+
+    <!-- 悬浮报名按钮 -->
+    <a href="https://alidocs.dingtalk.com/notable/share/form/v01vBPlN5jXXakNBOdG_byic6Nx_IGcQZke" target="_blank" class="floating-btn auto-light" id="floatingBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+        立即报名
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('floatingBtn');
+            let scrollTimeout;
+
+            // --- 监听屏幕缩放，保持按钮视觉大小一致 ---
+            const updateZoomLevel = () => {
+                // window.devicePixelRatio 可以获取到当前浏览器的缩放比例
+                const zoom = window.devicePixelRatio || 1;
+                // 将缩放比例传递给 CSS 变量
+                document.documentElement.style.setProperty('--zoom-level', zoom);
+            };
+            
+            // 初始化计算
+            updateZoomLevel();
+            // 监听窗口大小变化（包括缩放）
+            window.addEventListener('resize', updateZoomLevel);
+            
+            // 监听滚动事件
+            window.addEventListener('scroll', () => {
+                // 如果正在滚动，移除自动动画类，使其可以通过 JS 控制 top
+                if (btn.classList.contains('auto-light')) {
+                    btn.classList.remove('auto-light');
+                }
+
+                // 获取滚动的百分比 (0 到 1)
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercentage = window.scrollY / scrollHeight;
+
+                // 将百分比映射到光块的 top 位置 (从 -100% 到 200%)
+                // 根据百分比计算当前应该所在的位置
+                // 增加变化频率，让滚动时能看到多次闪过
+                const cycle = (scrollPercentage * 10) % 1; // 滚动到底部闪过10次
+                const topValue = -100 + (cycle * 300); // 映射到 -100 到 200
+                
+                // 为了让它只修改 after 伪元素的样式，我们需要通过 CSS 变量来实现
+                btn.style.setProperty('--light-top', `${topValue}%`);
+                
+                // 清除之前的定时器
+                clearTimeout(scrollTimeout);
+                
+                // 停止滚动后 1秒，恢复自动动画
+                scrollTimeout = setTimeout(() => {
+                    btn.classList.add('auto-light');
+                    btn.style.removeProperty('--light-top');
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
