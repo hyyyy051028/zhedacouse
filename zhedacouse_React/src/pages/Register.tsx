@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/common/layout/Header/Header';
 import { defaultTeacher, teachers } from '../data';
 import './Register.css';
@@ -20,12 +20,13 @@ interface FormErrors {
 }
 
 export default function Register() {
-  const { teacherKey = '' } = useParams();
-  const normalizedTeacherKey = teacherKey.trim().toLowerCase();
+  const [searchParams] = useSearchParams();
+  const normalizedTeacherKey = (searchParams.get('teacher') || '').trim().toLowerCase();
   const teacher = normalizedTeacherKey && teachers[normalizedTeacherKey]
     ? teachers[normalizedTeacherKey]
     : defaultTeacher;
-  const homePath = normalizedTeacherKey ? `/${normalizedTeacherKey}` : '/';
+  const teacherSuffix = normalizedTeacherKey ? `?teacher=${encodeURIComponent(normalizedTeacherKey)}` : '';
+  const homePath = `/${teacherSuffix}`;
   const [formData, setFormData] = useState<FormData>({
     name: '',
     gender: '男',

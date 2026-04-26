@@ -5,13 +5,13 @@ import CoursesSection from '../components/modules/course/CoursesSection/CoursesS
 import ZJUIntroSection from '../components/common/ui/IntroSection/ZJUIntroSection';
 import StoriesSection from '../components/modules/story/StoriesSection/StoriesSection';
 import Footer from '../components/common/layout/Footer/Footer';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const EventsSection = lazy(() => import('../components/modules/event/EventsSection/EventsSection'));
 
 export default function Home() {
-  const { teacherKey = '' } = useParams();
   const [searchParams] = useSearchParams();
+  const teacherKey = (searchParams.get('teacher') || '').trim().toLowerCase();
   const calendarParam = (searchParams.get('calendar') || '').toLowerCase();
   const showCalendar =
     calendarParam === '1' ||
