@@ -3,7 +3,11 @@ import { CalendarOutlined, UserOutlined, ArrowRightOutlined } from '@ant-design/
 import { events, teachers, defaultTeacher } from '../../../../data';
 import './EventsSection.css';
 
-export default function EventsSection() {
+interface EventsSectionProps {
+  teacherKey?: string;
+}
+
+export default function EventsSection({ teacherKey }: EventsSectionProps) {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [activeDot, setActiveDot] = useState(0);
   const [scrolledStart, setScrolledStart] = useState(false);
@@ -44,8 +48,8 @@ export default function EventsSection() {
     }
   };
 
-  const teacherKey = 'zhanglu';
-  const teacher = teachers[teacherKey] || defaultTeacher;
+  const key = (teacherKey || '').trim().toLowerCase();
+  const teacher = (key && teachers[key]) ? teachers[key] : defaultTeacher;
 
   return (
     <section id="events" className="section events">

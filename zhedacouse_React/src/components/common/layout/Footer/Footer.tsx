@@ -11,6 +11,8 @@ interface FooterProps {
 export default function Footer({ teacherKey }: FooterProps) {
   const key = (teacherKey || '').trim().toLowerCase();
   const teacher = (key && teachers[key]) ? teachers[key] : defaultTeacher;
+  const homePath = key ? `/${key}` : '/';
+  const registerPath = key ? `/${key}/register` : '/register';
   const formatTeacherTitle = (t: Teacher) => {
     const phone = (t.phoneNumber || '').trim();
     return phone ? `${t.name} 老师 ${phone}` : `${t.name} 老师`;
@@ -44,10 +46,10 @@ export default function Footer({ teacherKey }: FooterProps) {
               <div className="link-group">
                 <h4>快速链接</h4>
                 <ul>
-                  <li><Link to="/#courses">精品课程</Link></li>
-                  <li><Link to="/#zju-intro">关于浙大</Link></li>
-                  <li><Link to="/#stories">精彩故事</Link></li>
-                  <li><Link to="/register">立即报名</Link></li>
+                  <li><Link to={`${homePath}#courses`}>精品课程</Link></li>
+                  <li><Link to={`${homePath}#zju-intro`}>关于浙大</Link></li>
+                  <li><Link to={`${homePath}#stories`}>精彩故事</Link></li>
+                  <li><Link to={registerPath}>立即报名</Link></li>
                 </ul>
               </div>
               

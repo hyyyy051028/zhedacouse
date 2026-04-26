@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Layout, Menu, Button, Drawer } from 'antd';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
@@ -8,18 +8,21 @@ import './Header.css';
 const { Header: AntHeader } = Layout;
 
 const navLinks = [
-  { path: '/', label: '首页', hash: 'banner' },
-  { path: '/', label: '课程', hash: 'courses' },
-  { path: '/', label: '关于浙大', hash: 'zju-intro' },
-  { path: '/', label: '精彩故事', hash: 'stories' },
-  { path: '/', label: '联系我们', hash: 'contact' },
+  { label: '首页', hash: 'banner' },
+  { label: '课程', hash: 'courses' },
+  { label: '关于浙大', hash: 'zju-intro' },
+  { label: '精彩故事', hash: 'stories' },
+  { label: '联系我们', hash: 'contact' },
 ];
 
 export default function Header() {
   const location = useLocation();
+  const { teacherKey = '' } = useParams();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const isHomeTop = location.pathname === '/' && !scrolled;
+  const homePath = teacherKey ? `/${teacherKey}` : '/';
+  const registerPath = teacherKey ? `/${teacherKey}/register` : '/register';
+  const isHomeTop = location.pathname === homePath && !scrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +33,7 @@ export default function Header() {
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
-    if (location.pathname !== '/') {
+    if (location.pathname !== homePath) {
       return;
     }
     e.preventDefault();
@@ -45,7 +48,7 @@ export default function Header() {
     <AntHeader className={`header ${scrolled ? 'scrolled' : ''} ${isHomeTop ? 'home-top' : ''}`}>
       <div className="header-container">
         <div className="header-content">
-          <Link to="/" className="logo">
+          <Link to={homePath} className="logo">
             <div className="logo-icon">
               <img src={withBasePath('/image/资料夹/1.jpg')} alt="浙江大学" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
             </div>
@@ -65,7 +68,7 @@ export default function Header() {
                 key: link.hash,
                 label: (
                   <Link 
-                    to={link.path}
+                    to={homePath}
                     onClick={(e) => handleNavClick(e, link.hash)}
                   >
                     {link.label}
@@ -73,7 +76,7 @@ export default function Header() {
                 ),
               }))}
             />
-            <Link to="/register" className="btn-cta">
+            <Link to={registerPath} className="btn-cta">
               立即报名
             </Link>
           </div>
@@ -99,7 +102,7 @@ export default function Header() {
                 key: link.hash,
                 label: (
                   <Link 
-                    to={link.path}
+                    to={homePath}
                     onClick={(e) => handleNavClick(e, link.hash)}
                   >
                     {link.label}
@@ -108,7 +111,7 @@ export default function Header() {
               }))}
             />
             <div className="mobile-drawer-footer">
-              <Link to="/register" className="drawer-cta" onClick={() => setDrawerOpen(false)}>
+              <Link to={registerPath} className="drawer-cta" onClick={() => setDrawerOpen(false)}>
                 立即报名
               </Link>
             </div>

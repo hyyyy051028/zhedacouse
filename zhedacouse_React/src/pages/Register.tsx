@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import Header from '../components/common/layout/Header/Header';
+import { defaultTeacher, teachers } from '../data';
 import './Register.css';
 
 interface FormData {
@@ -19,6 +20,12 @@ interface FormErrors {
 }
 
 export default function Register() {
+  const { teacherKey = '' } = useParams();
+  const normalizedTeacherKey = teacherKey.trim().toLowerCase();
+  const teacher = normalizedTeacherKey && teachers[normalizedTeacherKey]
+    ? teachers[normalizedTeacherKey]
+    : defaultTeacher;
+  const homePath = normalizedTeacherKey ? `/${normalizedTeacherKey}` : '/';
   const [formData, setFormData] = useState<FormData>({
     name: '',
     gender: '男',
@@ -57,7 +64,7 @@ export default function Register() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     
@@ -70,7 +77,7 @@ export default function Register() {
     setFormData((prev) => ({ ...prev, gender }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -86,7 +93,7 @@ export default function Register() {
       setSubmitStatus('success');
       
       setTimeout(() => {
-        window.location.href = 'https://my.feishu.cn/share/base/form/shrcntb2PbwNBaCn3oQ6CIhlX1e';
+        window.location.href = teacher.signupUrl;
       }, 1500);
     } catch {
       setSubmitStatus('error');
@@ -186,7 +193,7 @@ export default function Register() {
             
             {submitStatus === 'success' && (
               <div className="feedback success">
-                报名成功！正在跳转到飞书表单...
+                报名成功！正在跳转到报名表单...
               </div>
             )}
             
@@ -199,7 +206,7 @@ export default function Register() {
           
           <div className="register-footer">
             <p>&copy; 2026 浙江大学企业家培训 | 保留所有权利</p>
-            <Link to="/" className="back-home">返回首页</Link>
+            <Link to={homePath} className="back-home">返回首页</Link>
           </div>
         </div>
       </main>
