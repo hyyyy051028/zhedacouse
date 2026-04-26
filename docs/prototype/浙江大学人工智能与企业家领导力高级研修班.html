@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浙江大学 Global AI 创新领导力高级研修班</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 浙大背景印花 */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Zhejiang%20University%20logo%20and%20campus%20elements%2C%20elegant%20pattern%2C%20navy%20blue%20and%20gold%20color%20scheme%2C%20academic%20atmosphere%2C%20suitable%20for%20background%20pattern&image_size=square');
+            background-repeat: repeat;
+            background-size: 200px;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* 确保内容在背景之上 */
+        .header, .main-content, .footer {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 主色调定义 - 参考AI主题 */
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #00aaff;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --card-bg: #fff;
+            --border-color: #e0e0e0;
+        }
+        
+        /* 头部样式 */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            background-image: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=futuristic%20AI%20technology%20background%2C%20digital%20transformation%2C%20blue%20and%20purple%20holographic%20elements%2C%20artificial%20intelligence%20concept%2C%20professional%20business%20style%2C%20suitable%20for%20education%20website%20header&image_size=landscape_16_9');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 53, 102, 0.7);
+            z-index: 1;
+        }
+        
+        .header > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* 热门课程标签 */
+        .hot-course {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        /* 统计数据样式 */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 80px;
+            padding: 10px 0;
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: block;
+            margin: auto 0;
+            line-height: 1.2;
+            vertical-align: middle;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: white;
+            margin-top: 8px;
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+        
+        /* 主要内容样式 */
+        .main-content {
+            padding: 40px;
+        }
+        
+        /* 内容布局 */
+        .content-layout {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .main-left {
+            flex: 1;
+            min-width: 70%;
+        }
+        
+        .main-right {
+            width: 30%;
+            min-width: 300px;
+        }
+        
+        /* 模块样式 */
+        .section {
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: bold;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        /* 项目背景样式 */
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        /* 项目收益样式 */
+        .icon-text-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .icon-text-item {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-text-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .item-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .item-icon-img {
+            padding: 5px;
+        }
+        
+        .icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .item-description {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        /* 行程亮点样式 */
+        .highlight-section {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            margin: 30px 0;
+        }
+        
+        .highlight-section .section {
+            margin-bottom: 0;
+        }
+        
+        .feature-list {
+            margin-top: 20px;
+        }
+        
+        .feature-item {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-item h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .feature-item p {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        /* 行程安排样式 */
+        .module-section {
+            background-color: #f5f5f5;
+            padding: 40px 0;
+            margin: 30px 0 0;
+        }
+        
+        .module-section .section {
+            margin-bottom: 0;
+        }
+        
+        .module {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .module-title {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .module-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        
+        .module-image {
+            margin: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .module-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .module-content {
+            padding: 0 20px 20px;
+        }
+        
+        .module-item {
+            margin-bottom: 15px;
+        }
+        
+        .module-item-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .module-item-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .module-item-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .module-item-list li::before {
+            content: '•';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+        }
+        
+        /* 项目信息样式 */
+        .info-section {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            margin: 30px 0 0;
+        }
+        
+        .info-section .section {
+            margin-bottom: 0;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .info-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .info-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: bold;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .info-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+        
+        .info-card strong {
+            color: var(--primary-color);
+            min-width: 80px;
+            display: inline-block;
+        }
+        
+        .payment-info {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        /* 底部样式 */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 30px;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        /* 课程信息样式 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        /* 学习产出样式 */
+        .learning-outputs {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .output-columns {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .output-column {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .output-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .output-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .output-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .output-content {
+            flex: 1;
+        }
+        
+        .output-content h3 {
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .output-content p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .content-layout {
+                flex-direction: column;
+            }
+            
+            .main-right {
+                width: 100%;
+                min-width: 100%;
+            }
+            
+            .main-left {
+                min-width: 100%;
+            }
+            
+            .header {
+                padding: 40px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .stats {
+                gap: 40px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            .icon-text-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .info-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* 头部模块优化 */
+            .header {
+                padding: 30px 15px;
+                text-align: center;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+                line-height: 1.2;
+            }
+            
+            .header .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+            
+            /* 统计数据优化 */
+            .stats {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                min-height: 60px;
+                padding: 5px 0;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            
+            .hot-course {
+                top: 10px;
+                right: 15px;
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .course-intro {
+                padding: 20px;
+            }
+            
+            .module-content {
+                grid-template-columns: 1fr;
+            }
+            
+            /* 学习产出响应式 */
+            .output-columns {
+                flex-direction: column;
+            }
+            
+            .output-column {
+                min-width: 100%;
+            }
+            
+            .output-item {
+                min-width: 100%;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .item-title {
+                font-size: 1rem;
+            }
+            
+            .item-description {
+                font-size: 0.85rem;
+            }
+            
+            .feature-item {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .feature-item h3 {
+                font-size: 1rem;
+            }
+            
+            .module-title {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+            
+            .module-image {
+                margin: 15px;
+            }
+            
+            .module-image img {
+                height: 200px;
+            }
+            
+            .module-content {
+                padding: 0 15px 15px;
+            }
+            
+            .info-card {
+                padding: 20px;
+            }
+            
+            .info-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+            }
+            
+            /* 确保文本内容换行 */
+            .section p,
+            .item-description,
+            .feature-item p,
+            .module-item-list li,
+            .info-card p {
+                word-wrap: break-word;
+                line-height: 1.6;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            /* 小屏幕特殊优化 */
+            .container {
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                overflow-x: hidden;
+            }
+            
+            .header {
+                padding: 20px 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.2rem;
+                line-height: 1.3;
+            }
+            
+            .header .subtitle {
+                font-size: 0.8rem;
+                margin-bottom: 15px;
+            }
+            
+            .stats {
+                gap: 10px;
+            }
+            
+            .stat-item {
+                min-height: 50px;
+                padding: 5px;
+            }
+            
+            .stat-number {
+                font-size: 1.2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.7rem;
+            }
+            
+            .hot-course {
+                top: 8px;
+                right: 10px;
+                padding: 4px 10px;
+                font-size: 0.7rem;
+            }
+            
+            .main-content {
+                padding: 10px;
+            }
+            
+            .section {
+                padding: 15px;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+                padding-bottom: 8px;
+            }
+            
+            .content-layout {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .main-left {
+                min-width: 100%;
+                flex: 1;
+            }
+            
+            .main-right {
+                width: 100%;
+                min-width: 100%;
+            }
+            
+            /* 图标文本网格 */
+            .icon-text-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .icon-text-item {
+                padding: 15px;
+            }
+            
+            .item-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .item-title {
+                font-size: 0.95rem;
+                margin-bottom: 8px;
+            }
+            
+            .item-description {
+                font-size: 0.8rem;
+                line-height: 1.5;
+            }
+            
+            /* 课程特色 */
+            .feature-item {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+            
+            .feature-item h3 {
+                font-size: 0.95rem;
+                margin-bottom: 8px;
+            }
+            
+            /* 模块样式 */
+            .module-title {
+                padding: 10px 12px;
+                font-size: 0.95rem;
+            }
+            
+            .module-icon {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
+            }
+            
+            .module-image {
+                margin: 10px;
+            }
+            
+            .module-image img {
+                height: 150px;
+                width: 100%;
+                object-fit: cover;
+            }
+            
+            .module-content {
+                padding: 0 12px 12px;
+            }
+            
+            .module-item-title {
+                font-size: 0.95rem;
+                margin-bottom: 8px;
+            }
+            
+            .module-item-list li {
+                margin-bottom: 6px;
+                padding-left: 15px;
+                font-size: 0.8rem;
+            }
+            
+            /* 项目信息 */
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .info-card {
+                padding: 15px;
+            }
+            
+            .info-card h3 {
+                font-size: 1rem;
+                margin-bottom: 12px;
+            }
+            
+            .info-card p {
+                font-size: 0.8rem;
+                margin-bottom: 10px;
+            }
+            
+            .payment-info {
+                padding: 15px;
+                margin-top: 15px;
+            }
+            
+            /* 学习产出 */
+            .output-item {
+                padding: 15px;
+                gap: 10px;
+            }
+            
+            .output-number {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }
+            
+            .output-content h3 {
+                font-size: 0.9rem;
+                margin-bottom: 6px;
+            }
+            
+            .output-content p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+            
+            /* 确保所有文本内容强制换行 */
+            * {
+                word-wrap: break-word;
+                box-sizing: border-box;
+            }
+            
+            .section p,
+            .item-description,
+            .feature-item p,
+            .module-item-list li,
+            .info-card p,
+            .output-content p {
+                word-wrap: break-word;
+                line-height: 1.5;
+            }
+            
+            /* 确保图片自适应 */
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="hot-course">热门项目</div>
+            <h1>浙江大学全球人工智能与企业家领导力高级研修班</h1>
+            <p class="subtitle" style="text-align: center; color: white;">融合学术底蕴与实战生态，打造AI时代企业家领导力升级体系</p>
+            
+            <!-- 统计数据 -->
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">9</span>
+                    <span class="stat-label">大模块</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1.5</span>
+                    <span class="stat-label">年学制</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">全球</span>
+                    <span class="stat-label">多中心</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2026</span>
+                    <span class="stat-label">年开课</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            
+            <!-- 主要内容区域 - 左右布局 -->
+            <div class="content-layout">
+                <!-- 左侧主内容 -->
+                <div class="main-left">
+                    <!-- 课程理念 -->
+                    <div class="section">
+                        <h2 class="section-title">课程理念</h2>
+                        <p>融合浙江大学学术底蕴与Global AI创新加速器平台实战生态，打造面向AI时代的企业家领导力升级体系，培养"认知-战略-执行"三位一体的AI驱动型企业家。</p>
+                    </div>
+                    
+
+                    
+                    <!-- 学习产出 -->
+                    <div class="section">
+                        <h2 class="section-title">学习产出</h2>
+                        <div class="learning-outputs">
+                            <div class="output-columns">
+                                <div class="output-column">
+                                    <div class="output-item">
+                                        <div class="output-number">1</div>
+                                        <div class="output-content">
+                                            <h3>个人AI认知升级路线图</h3>
+                                            <p>制定企业家个人AI认知升级路线图</p>
+                                        </div>
+                                    </div>
+                                    <div class="output-item">
+                                        <div class="output-number">2</div>
+                                        <div class="output-content">
+                                            <h3>企业6MAI升级方案</h3>
+                                            <p>结合企业痛点设计6MAI升级方案</p>
+                                        </div>
+                                    </div>
+                                    <div class="output-item">
+                                        <div class="output-number">3</div>
+                                        <div class="output-content">
+                                            <h3>AI营销实施方案</h3>
+                                            <p>AI营销实施方案与效果预测</p>
+                                        </div>
+                                    </div>
+                                    <div class="output-item">
+                                        <div class="output-number">4</div>
+                                        <div class="output-content">
+                                            <h3>组织架构AI重构方案</h3>
+                                            <p>组织架构AI化重构方案</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="output-column">
+                                    <div class="output-item">
+                                        <div class="output-number">5</div>
+                                        <div class="output-content">
+                                            <h3>企业数据飞轮建设方案</h3>
+                                            <p>企业数据飞轮建设方案</p>
+                                        </div>
+                                    </div>
+                                    <div class="output-item">
+                                        <div class="output-number">6</div>
+                                        <div class="output-content">
+                                            <h3>AI人才培养计划</h3>
+                                            <p>企业AI人才培养计划</p>
+                                        </div>
+                                    </div>
+                                    <div class="output-item">
+                                        <div class="output-number">7</div>
+                                        <div class="output-content">
+                                            <h3>AI资本战略规划</h3>
+                                            <p>企业AI资本战略规划</p>
+                                        </div>
+                                    </div>
+                                    <div class="output-item">
+                                        <div class="output-number">8</div>
+                                        <div class="output-content">
+                                            <h3>个性化合规传承方案</h3>
+                                            <p>企业家个性化合规传承方案</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 课程安排 -->
+                    <div class="module-section">
+                        <div class="section">
+                            <h2 class="section-title">详细课程模块</h2>
+                            
+                            <!-- 模块一 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">1</div>
+                                    模块一：企业家AI认知构建
+                                </h3>
+                                <div class="module-image">
+                                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20cognition%20workshop%2C%20business%20executives%20learning%20about%20artificial%20intelligence%2C%20modern%20classroom%20setting%2C%20professional%20atmosphere%2C%20suitable%20for%20education%20website&image_size=landscape_16_9" alt="企业家AI认知构建" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <h4 class="module-item-title">核心内容：</h4>
+                                        <ul class="module-item-list">
+                                            <li>AI技术发展现状与趋势研判</li>
+                                            <li>从数字化到智能化的认知升级路径</li>
+                                            <li>AI思维与传统思维的差异与融合</li>
+                                            <li>实战案例：结合Global AI投资项目案例，以及6MAI领导力的认知框架做统筹分析</li>
+                                        </ul>
+                                        <h4 class="module-item-title">学习产出：</h4>
+                                        <p>制定企业家个人AI认知升级路线图</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块二 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">2</div>
+                                    模块二：企业6M业务AI升级战略
+                                </h3>
+                                <div class="module-image">
+                                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=business%20AI%20upgrade%20strategy%2C%20executives%20discussing%20digital%20transformation%2C%20modern%20office%20setting%2C%20professional%20atmosphere%2C%20suitable%20for%20education%20website&image_size=landscape_16_9" alt="企业6M业务AI升级战略" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <h4 class="module-item-title">核心内容：</h4>
+                                        <ul class="module-item-list">
+                                            <li>基于岗位谈6M产品AI化的层次模型与实施路径</li>
+                                            <li>传统业务与AI业务的协同发展策略</li>
+                                            <li>AI产品矩阵规划与迭代机制</li>
+                                            <li>实战工具：Global AI推荐的6MAI技术架构和产品支持体系做应用讲解</li>
+                                        </ul>
+                                        <h4 class="module-item-title">学习产出：</h4>
+                                        <p>结合各类企业痛点来谈企业6MAI升级方案设计</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块三 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">3</div>
+                                    模块三：AI全球化增长战略
+                                </h3>
+                                <div class="module-image">
+                                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=global%20AI%20growth%20strategy%2C%20business%20leaders%20discussing%20international%20expansion%2C%20modern%20conference%20room%2C%20professional%20atmosphere%2C%20suitable%20for%20education%20website&image_size=landscape_16_9" alt="AI全球化增长战略" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <h4 class="module-item-title">核心内容：</h4>
+                                        <ul class="module-item-list">
+                                            <li>全球市场格局与区域机会分析</li>
+                                            <li>跨境业务拓展的合规与本地化</li>
+                                            <li>多中心布局下的资源协同策略</li>
+                                            <li>实战案例：Global AI基于硅谷-新加坡-悉尼-巴萨罗那-香港-东京-北京-上海-深圳-杭州全球多中心项目经验</li>
+                                        </ul>
+                                        <h4 class="module-item-title">学习产出：</h4>
+                                        <p>企业AI全球化增长路线图</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块四 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">4</div>
+                                    模块四：企业营销AI实战指南
+                                </h3>
+                                <div class="module-image">
+                                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20marketing%20workshop%2C%20marketing%20professionals%20using%20AI%20tools%2C%20modern%20office%20setting%2C%20professional%20atmosphere%2C%20suitable%20for%20education%20website&image_size=landscape_16_9" alt="企业营销AI实战指南" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <h4 class="module-item-title">核心内容：</h4>
+                                        <ul class="module-item-list">
+                                            <li>AI驱动的客户洞察与精准营销</li>
+                                            <li>智能内容生成与个性化营销体系</li>
+                                            <li>营销效果的数据监测与优化闭环</li>
+                                            <li>实战工具：Global AI推荐的AI营销工具百宝箱拆解和应用分析</li>
+                                        </ul>
+                                        <h4 class="module-item-title">学习产出：</h4>
+                                        <p>AI营销实施方案与效果预测</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块五 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">5</div>
+                                    模块五：企业组织架构AI重构
+                                </h3>
+                                <div class="module-image">
+                                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20organizational%20restructuring%2C%20business%20leaders%20discussing%20team%20structure%2C%20modern%20office%20setting%2C%20professional%20atmosphere%2C%20suitable%20for%20education%20website&image_size=landscape_16_9" alt="企业组织架构AI重构" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <h4 class="module-item-title">核心内容：</h4>
+                                        <ul class="module-item-list">
+                                            <li>AI时代的组织变革逻辑</li>
+                                            <li>敏捷型组织与AI团队建设</li>
+                                            <li>人机协同的工作模式设计</li>
+                                            <li>实战案例：Global AI从一人独角兽项目案例来拆解AI时代Agent机制的内部利用与组织贡献</li>
+                                        </ul>
+                                        <h4 class="module-item-title">学习产出：</h4>
+                                        <p>组织架构AI化重构方案</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块六 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">6</div>
+                                    模块六：业务模型化与数据飞轮闭环
+                                </h3>
+                                <div class="module-image">
+                                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=data%20flywheel%20business%20model%2C%20data%20scientists%20and%20business%20executives%20working%20together%2C%20modern%20office%20setting%2C%20professional%20atmosphere%2C%20suitable%20for%20education%20website&image_size=landscape_16_9" alt="业务模型化与数据飞轮闭环" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <h4 class="module-item-title">核心内容：</h4>
+                                        <ul class="module-item-list">
+                                            <li>业务模型化的方法论与实践</li>
+                                            <li>数据采集、治理与价值挖掘</li>
+                                            <li>数据飞轮的构建与迭代优化</li>
+                                            <li>实战工具：Global AI团队从Tesla万亿美金薪酬对赌案例来解读数据飞轮的企业价值</li>
+                                        </ul>
+                                        <h4 class="module-item-title">学习产出：</h4>
+                                        <p>企业数据飞轮建设方案</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块七 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">7</div>
+                                    模块七：企业AI人才培养与创新
+                                </h3>
+                                <div class="module-image">
+                                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20talent%20development%2C%20HR%20professionals%20and%20business%20leaders%20discussing%20talent%20strategy%2C%20modern%20office%20setting%2C%20professional%20atmosphere%2C%20suitable%20for%20education%20website&image_size=landscape_16_9" alt="企业AI人才培养与创新" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <h4 class="module-item-title">核心内容：</h4>
+                                        <ul class="module-item-list">
+                                            <li>AI人才梯队建设与能力模型</li>
+                                            <li>创新激励机制与文化建设</li>
+                                            <li>持续学习体系与知识管理</li>
+                                            <li>实战案例：Global AI行业导师机制与人才培养体系</li>
+                                        </ul>
+                                        <h4 class="module-item-title">学习产出：</h4>
+                                        <p>企业AI人才培养计划</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块八 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">8</div>
+                                    模块八：AI优先与企业资本战略
+                                </h3>
+                                <div class="module-image">
+                                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20capital%20strategy%2C%20investors%20and%20business%20leaders%20discussing%20funding%20opportunities%2C%20modern%20office%20setting%2C%20professional%20atmosphere%2C%20suitable%20for%20education%20website&image_size=landscape_16_9" alt="AI优先与企业资本战略" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <h4 class="module-item-title">核心内容：</h4>
+                                        <ul class="module-item-list">
+                                            <li>AI企业的估值逻辑与融资策略</li>
+                                            <li>投资机构视角下的AI项目评估</li>
+                                            <li>资本运作与退出路径规划</li>
+                                            <li>实战案例：通过几个Global AI项目融资案例来分析企业AI战略优先的重要性</li>
+                                        </ul>
+                                        <h4 class="module-item-title">学习产出：</h4>
+                                        <p>企业AI资本战略规划</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 模块九 -->
+                            <div class="module">
+                                <h3 class="module-title">
+                                    <div class="module-icon">9</div>
+                                    模块九：合规持续经营与传承
+                                </h3>
+                                <div class="module-image">
+                                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=business%20compliance%20and%20succession%2C%20business%20leaders%20discussing%20legal%20strategies%2C%20modern%20office%20setting%2C%20professional%20atmosphere%2C%20suitable%20for%20education%20website&image_size=landscape_16_9" alt="合规持续经营与传承" class="city-img">
+                                </div>
+                                <div class="module-content">
+                                    <div class="module-item">
+                                        <h4 class="module-item-title">核心内容：</h4>
+                                        <ul class="module-item-list">
+                                            <li>企业治理框架与合规体系建设</li>
+                                            <li>企业风险管理与可持续发展</li>
+                                            <li>AI时代的企业安全与传承规划</li>
+                                            <li>实战工具：Global AI打造的企业合规监测系统与风险预警机制产品解读和应用分析</li>
+                                        </ul>
+                                        <h4 class="module-item-title">学习产出：</h4>
+                                        <p>企业家打造个性化合规传承方案</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 课程特色 -->
+                    <div class="highlight-section">
+                        <div class="section">
+                            <h2 class="section-title">课程特色</h2>
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <h3>1. 生态化学习平台</h3>
+                                    <ul class="module-item-list">
+                                        <li>对接Global AI全球项目和应用资源库</li>
+                                        <li>融入浙江大学产学研生态体系</li>
+                                        <li>实时参与AI产业最新实践</li>
+                                    </ul>
+                                </div>
+                                <div class="feature-item">
+                                    <h3>2. 实战导向的教学设计</h3>
+                                    <ul class="module-item-list">
+                                        <li>每个模块配套真实案例研讨</li>
+                                        <li>学员企业个性化诊断与咨询</li>
+                                        <li>实战工作坊与工具演练</li>
+                                    </ul>
+                                </div>
+                                <div class="feature-item">
+                                    <h3>3. 持续赋能机制</h3>
+                                    <ul class="module-item-list">
+                                        <li>结业后持续的项目跟踪指导</li>
+                                        <li>校友网络资源对接</li>
+                                        <li>定期更新课程内容与工具</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目信息 -->
+                    <div class="info-section">
+                        <div class="section">
+                            <div class="info-grid">
+                                <!-- 课程信息 -->
+                                <div class="info-card">
+                                    <h3>课程信息</h3>
+                                    <p><strong>学制：</strong>1.5年，每月集中授课2天（周末）</p>
+                                    <p><strong>地点：</strong>浙江大学紫金港校区</p>
+                                    <p><strong>学费：</strong>138000元/人（含课程、资料、证书）</p>
+                                    <p><strong>授课模式：</strong>理论授课+案例研讨+实战工作坊+企业参访</p>
+                                    <p><strong>证书：</strong>完成所有课程并通过考核的学员，颁发 "Global AI企业领导力" 结业证书</p>
+                                </div>
+                                
+                                <!-- 师资团队 -->
+                                <div class="info-card">
+                                    <h3>师资团队</h3>
+                                    <p><strong>学术导师：</strong></p>
+                                    <ul>
+                                        <li>浙江大学教授</li>
+                                        <li>浙江大学AI领域资深研究员</li>
+                                    </ul>
+                                    <p><strong>产业导师：</strong></p>
+                                    <ul>
+                                        <li>Global AI平台核心团队</li>
+                                        <li>成功AI企业创始人</li>
+                                        <li>投资机构合伙人</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- 入学要求 -->
+                                <div class="info-card">
+                                    <h3>入学要求</h3>
+                                    <ul>
+                                        <li>企业创始人、CEO、核心管理层</li>
+                                        <li>具备5年以上企业管理经验</li>
+                                        <li>企业处于数字化转型或AI升级关键期</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- 申请流程 -->
+                                <div class="info-card">
+                                    <h3>申请流程</h3>
+                                    <ul>
+                                        <li>填写报名申请表</li>
+                                        <li>提交相关证明材料</li>
+                                        <li>浙江大学审核申请</li>
+                                        <li>发放录取通知书</li>
+                                        <li>缴纳学费，办理入学</li>
+                                        <li>参加开学典礼，开始学习</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部 -->
+        <div class="footer">
+            <p>© 2026 浙江大学 版权所有</p>
+            <p>地址：浙江省杭州市西湖区浙江大学紫金港校区</p>
+            <p>本课程通过系统化的模块设计，结合Global AI平台的实战经验，为企业提供从认知到落地、从战略到执行的完整AI领导力解决方案。</p>
+        </div>
+    </div>
+</body>
+</html>
