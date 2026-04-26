@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Layout, Menu, Button, Drawer } from 'antd';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
@@ -17,12 +17,14 @@ const navLinks = [
 
 export default function Header() {
   const location = useLocation();
-  const { teacherKey = '' } = useParams();
+  const [searchParams] = useSearchParams();
+  const teacherKey = (searchParams.get('teacher') || '').trim().toLowerCase();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const homePath = teacherKey ? `/${teacherKey}` : '/';
-  const registerPath = teacherKey ? `/${teacherKey}/register` : '/register';
-  const isHomeTop = location.pathname === homePath && !scrolled;
+  const teacherSuffix = teacherKey ? `?teacher=${encodeURIComponent(teacherKey)}` : '';
+  const homePath = `/${teacherSuffix}`;
+  const registerPath = `/register${teacherSuffix}`;
+  const isHomeTop = location.pathname === '/' && !scrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +35,7 @@ export default function Header() {
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
-    if (location.pathname !== homePath) {
+    if (location.pathname !== '/') {
       return;
     }
     e.preventDefault();
@@ -68,7 +70,7 @@ export default function Header() {
                 key: link.hash,
                 label: (
                   <Link 
-                    to={homePath}
+                    to={`${homePath}#${link.hash}`}
                     onClick={(e) => handleNavClick(e, link.hash)}
                   >
                     {link.label}
@@ -102,7 +104,7 @@ export default function Header() {
                 key: link.hash,
                 label: (
                   <Link 
-                    to={homePath}
+                    to={`${homePath}#${link.hash}`}
                     onClick={(e) => handleNavClick(e, link.hash)}
                   >
                     {link.label}

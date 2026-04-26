@@ -5,12 +5,11 @@ import { teachers, defaultTeacher, type Teacher } from "../../../../data";
 import { withBasePath } from "../../../../utils/basePath";
 import "./Footer.css";
 
-export default function Footer() {
-  const { teacherKey = "" } = useParams();
-  const key = teacherKey.trim().toLowerCase();
-  const teacher = key && teachers[key] ? teachers[key] : defaultTeacher;
-  const homePath = key ? `/${key}` : "/";
-  const registerPath = key ? `/${key}/register` : "/register";
+export default function Footer({ teacherKey }: FooterProps) {
+  const key = (teacherKey || '').trim().toLowerCase();
+  const teacher = (key && teachers[key]) ? teachers[key] : defaultTeacher;
+  const homePath = key ? `/${key}` : '/';
+  const registerPath = key ? `/${key}/register` : '/register';
   const formatTeacherTitle = (t: Teacher) => {
     const phone = (t.phoneNumber || "").trim();
     return phone ? `${t.name} 老师 ${phone}` : `${t.name} 老师`;

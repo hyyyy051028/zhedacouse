@@ -13,12 +13,4 @@ export const routes: RouteObject[] = [
     path: '/register',
     element: <Register />,
   },
-  {
-    path: '/:teacherKey',
-    element: <Home />,
-  },
-  {
-    path: '/:teacherKey/register',
-    element: <Register />,
-  },
 ];
