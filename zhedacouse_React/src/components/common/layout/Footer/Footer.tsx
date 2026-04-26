@@ -1,15 +1,17 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { EnvironmentOutlined, PhoneOutlined } from "@ant-design/icons";
 import { Image } from "antd";
 import { teachers, defaultTeacher, type Teacher } from "../../../../data";
 import { withBasePath } from "../../../../utils/basePath";
 import "./Footer.css";
 
-export default function Footer({ teacherKey }: FooterProps) {
-  const key = (teacherKey || '').trim().toLowerCase();
-  const teacher = (key && teachers[key]) ? teachers[key] : defaultTeacher;
-  const homePath = key ? `/${key}` : '/';
-  const registerPath = key ? `/${key}/register` : '/register';
+export default function Footer() {
+  const [searchParams] = useSearchParams();
+  const key = (searchParams.get("teacher") || "").trim().toLowerCase();
+  const teacher = key && teachers[key] ? teachers[key] : defaultTeacher;
+  const teacherSuffix = key ? `?teacher=${encodeURIComponent(key)}` : "";
+  const homePath = `/${teacherSuffix}`;
+  const registerPath = `/register${teacherSuffix}`;
   const formatTeacherTitle = (t: Teacher) => {
     const phone = (t.phoneNumber || "").trim();
     return phone ? `${t.name} 老师 ${phone}` : `${t.name} 老师`;
