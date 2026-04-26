@@ -1,0 +1,152 @@
+/* 悬浮报名按钮样式 */
+.floating-teacher-btn {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  transform-origin: right center;
+  background: rgba(255, 255, 255, 0.95);
+  color: #000;
+  border: 2px solid #000;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 20px 25px;
+  border-radius: 30px 0 0 30px;
+  border-right: none;
+  text-decoration: none;
+  box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  writing-mode: vertical-lr;
+  letter-spacing: 6px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* 按钮滑光特效 - 动画模式 */
+.floating-teacher-btn::after {
+  content: '';
+  position: absolute;
+  top: var(--light-top, -100%);
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0) 100%);
+  transform: skewY(-25deg);
+  transition: top 0.1s ease-out;
+}
+
+.floating-teacher-btn.auto-light::after {
+  animation: slideLight 3s infinite;
+}
+
+@keyframes slideLight {
+  0% { top: -100%; }
+  100% { top: 200%; }
+}
+
+.floating-teacher-btn:hover {
+  transform: translateY(-50%) translateX(-10px) scale(1.05);
+  box-shadow: -10px 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* 模态框样式 */
+.teacher-info-modal .ant-modal-content {
+  border-radius: 16px;
+  padding: 24px 12px;
+}
+
+.teacher-modal-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.teacher-nav-btn {
+  font-size: 20px;
+  color: #999;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.teacher-nav-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #E6A100;
+}
+
+.teacher-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.teacher-qr-wrapper {
+  margin-bottom: 16px;
+  border: 1px solid #eee;
+  padding: 8px;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.teacher-qr-wrapper .ant-image {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.teacher-qr-wrapper .ant-image-img {
+  object-fit: contain;
+}
+
+.teacher-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+.teacher-phone {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.teacher-signup-btn {
+  width: 80%;
+  max-width: 200px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 20px;
+  background-color: #E6A100;
+  border-color: #E6A100;
+}
+
+.teacher-signup-btn:hover {
+  background-color: #f5b014 !important;
+  border-color: #f5b014 !important;
+}
+
+@media (max-width: 768px) {
+  .floating-teacher-btn {
+    font-size: 18px;
+    padding: 15px 20px;
+    letter-spacing: 4px;
+  }
+}
