@@ -1,8 +1,14 @@
 import { lazy } from 'react';
-import { type RouteObject } from 'react-router-dom';
+import { Navigate, type RouteObject, useLocation } from 'react-router-dom';
 
 const Home = lazy(() => import('../pages/Home'));
 const Register = lazy(() => import('../pages/Register'));
+
+function NotFoundRedirect() {
+  const location = useLocation();
+  const suffix = `${location.search || ''}${location.hash || ''}`;
+  return <Navigate to={`/${suffix}`} replace />;
+}
 
 export const routes: RouteObject[] = [
   {
@@ -12,5 +18,9 @@ export const routes: RouteObject[] = [
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '*',
+    element: <NotFoundRedirect />,
   },
 ];
