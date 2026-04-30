@@ -57,7 +57,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/金逸雯.jpg"),
     phoneNumber: "19967471563",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_rFETvoX_ebAuave",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E9%87%91%E9%80%B8%E9%9B%AF%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=2",
   },
   fanyihuan: {
     key: "fanyihuan",
@@ -65,7 +65,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/樊奕欢.jpeg"),
     phoneNumber: "13757129152",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_3hrjlEx_qgkpa92",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%A8%8A%E5%A5%95%E6%AC%A2%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=3",
   },
   xuguoping: {
     key: "xuguoping",
@@ -73,7 +73,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/徐国平.png"),
     phoneNumber: "13757108269",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_MgllXoa_45roXnm",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%BE%90%E5%9B%BD%E5%B9%B3%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=4",
   },
   liyazhen: {
     key: "liyazhen",
@@ -81,7 +81,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/李雅珍.png"),
     phoneNumber: "13805780645",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_4xp7aS0_HqXTpxz",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%9D%8E%E9%9B%85%E7%8F%8D%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=5",
   },
   fengliangyong: {
     key: "fengliangyong",
@@ -89,7 +89,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/封良勇.jpg"),
     phoneNumber: "13757108510",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_z0ZDJUQ_ERpfheG",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%B0%81%E8%89%AF%E5%8B%87%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=6",
   },
   wangxiaojuan: {
     key: "wangxiaojuan",
@@ -97,7 +97,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/汪小娟.jpg"),
     phoneNumber: "13675878883",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_PJngsvx_NJg8u0h",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%B1%AA%E5%B0%8F%E5%A8%9F%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=7",
   },
   madaxiong: {
     key: "madaxiong",
@@ -105,7 +105,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/马达雄.png"),
     phoneNumber: "13588429725",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_1y4Iben_9Ulmn8q",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E9%A9%AC%E8%BE%BE%E9%9B%84%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=8",
   },
   wuliangzhou: {
     key: "wuliangzhou",
@@ -113,7 +113,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/武俍州.jpg"),
     phoneNumber: "13283887052",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_oUHFMUW_iQPO5Fh",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%AD%A6%E4%BF%8D%E5%B7%9E%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=9",
   },
   pengsongsong: {
     key: "pengsongsong",
@@ -121,7 +121,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/彭松松.png"),
     phoneNumber: "19858148227",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_zzzXDYm_AWBRwwI",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%BD%AD%E6%9D%BE%E6%9D%BE%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=10",
   },
   fengliangfu: {
     key: "fengliangfu",
@@ -129,7 +129,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/福.jpg"),
     phoneNumber: "13957148407",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_eSsbyP1_bMp0ym2",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E7%A6%8F%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=11",
   },
   shenfei: {
     key: "shenfei",
@@ -137,7 +137,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/沈菲.png"),
     phoneNumber: "18868846237",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_J4MGw83_rqBYji2",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%B2%88%E8%8F%B2%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=12",
   },
   hehaiyan: {
     key: "hehaiyan",
@@ -145,7 +145,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/贺海燕.png"),
     phoneNumber: "19967332809",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_dAZvcwU_5EsAV4a",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E8%B4%BA%E6%B5%B7%E7%87%95%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=13",
   },
   changxiajie: {
     key: "changxiajie",
@@ -153,7 +153,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/常夏洁.jpg"),
     phoneNumber: "16605810651",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_nsjbIZ8_8PHTVAL",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%B8%B8%E5%A4%8F%E6%B4%81%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=14",
   },
   zhanglu: {
     key: "zhanglu",
@@ -169,7 +169,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/胡.jpg"),
     phoneNumber: "0571-86971296",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_qDVibIq_xfa8fK0",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E8%83%A1%E7%91%9F%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=16",
   },
   fengcaifeng: {
     key: "fengcaifeng",
@@ -177,7 +177,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/冯彩凤.jpg"),
     phoneNumber: "13777351943",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_9Ax7Jjf_31C6ur4",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%86%AF%E5%BD%A9%E5%87%A4%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=17",
   },
   xudongying: {
     key: "xudongying",
@@ -185,7 +185,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/徐冬英.jpg"),
     phoneNumber: "18957111371",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_5lVgtzU_al7NkDP",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%BE%90%E5%86%AC%E8%8B%B1%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=18",
   },
 };
 
