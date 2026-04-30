@@ -49,7 +49,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/刘婷.jpg"),
     phoneNumber: "18072752995",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_rfJ5zZQ_rnTssEd",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%88%98%E5%A9%B7%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=1",
   },
   jinyiwen: {
     key: "jinyiwen",
@@ -161,7 +161,7 @@ export const teachers: Record<string, Teacher> = {
     file: withBasePath("/assets/张露.jpg"),
     phoneNumber: "15906618726",
     signupUrl:
-      "https://alidocs.dingtalk.com/notable/share/form/v01meonarb5pLmjpqXx_hERWDMS_Szs7A1h",
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%BC%A0%E9%9C%B2%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=15",
   },
   huse: {
     key: "huse",
