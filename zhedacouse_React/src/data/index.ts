@@ -187,6 +187,14 @@ export const teachers: Record<string, Teacher> = {
     signupUrl:
       "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%BE%90%E5%86%AC%E8%8B%B1%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=18",
   },
+  tongjunhua: {
+    key: "tongjunhua",
+    name: "童俊花",
+    file: withBasePath("/assets/童俊花.jpg"),
+    phoneNumber: "13575470180",
+    signupUrl:
+      "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E7%AB%A5%E4%BF%8A%E8%8A%B1%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=19",
+  },
 };
 
 export const defaultTeacher = teachers.zhanglu;
