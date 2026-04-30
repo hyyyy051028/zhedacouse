@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { Layout, Menu, Button, Drawer } from "antd";
 import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
 import { withBasePath } from "../../../../utils/basePath";
-import { teachers } from "../../../../data";
+import { teachers, defaultTeacher } from "../../../../data";
 import "./Header.css";
 
 const { Header: AntHeader } = Layout;
@@ -28,11 +28,11 @@ export default function Header() {
   const teacherKey = (searchParams.get("teacher") || "").trim().toLowerCase();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const teacher = teacherKey && teachers[teacherKey] ? teachers[teacherKey] : defaultTeacher;
   const teacherSuffix = teacherKey
     ? `?teacher=${encodeURIComponent(teacherKey)}`
     : "";
   const homePath = `/${teacherSuffix}`;
-  const registerPath = `/register${teacherSuffix}`;
   const isHomeTop = location.pathname === "/" && !scrolled;
 
   useEffect(() => {
@@ -107,9 +107,9 @@ export default function Header() {
                 ),
               }))}
             />
-            <Link to={registerPath} className="btn-cta">
+            <a href={teacher.signupUrl} target="_blank" className="btn-cta">
               立即报名
-            </Link>
+            </a>
           </div>
 
           <Button
@@ -142,13 +142,14 @@ export default function Header() {
               }))}
             />
             <div className="mobile-drawer-footer">
-              <Link
-                to={registerPath}
+              <a
+                href={teacher.signupUrl}
+                target="_blank"
                 className="drawer-cta"
                 onClick={() => setDrawerOpen(false)}
               >
                 立即报名
-              </Link>
+              </a>
             </div>
           </Drawer>
         </div>
