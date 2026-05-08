@@ -33,8 +33,8 @@ export default function FloatingTeacherBtn() {
           <div className="teacher-card">
             <div className="teacher-qr-wrapper">
               <Image
-                src={teacher.file}
-                alt={`${teacher.name} 老师二维码`}
+                src={teacher.qrCodeUrl || teacher.file}
+                alt={`${teacher.name} 老师微信二维码`}
                 width={200}
                 height={200}
                 className="teacher-qr"
