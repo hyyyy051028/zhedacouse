@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>浙江大学AI实战研修班</title>
+    <link rel="stylesheet" href="./shared/floating-teacher-btn.css">
     <style>
         body {
             margin: 0;
@@ -122,64 +123,6 @@
         <img src="./文化与商业高级研修/文化与商业高级研修.jpg" alt="文化与商业高级研修">
         <!-- <img src="20260401-181813.jpg" alt="浙江大学AI实战研修班长图"> -->
     </div>
-
-    <!-- 悬浮报名按钮 -->
-    <a href="https://alidocs.dingtalk.com/notable/share/form/v01vBPlN5jXXakNBOdG_byic6Nx_IGcQZke" target="_blank" class="floating-btn auto-light" id="floatingBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-        </svg>
-        立即报名
-    </a>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const btn = document.getElementById('floatingBtn');
-            let scrollTimeout;
-
-            // --- 监听屏幕缩放，保持按钮视觉大小一致 ---
-            const updateZoomLevel = () => {
-                // window.devicePixelRatio 可以获取到当前浏览器的缩放比例
-                const zoom = window.devicePixelRatio || 1;
-                // 将缩放比例传递给 CSS 变量
-                document.documentElement.style.setProperty('--zoom-level', zoom);
-            };
-            
-            // 初始化计算
-            updateZoomLevel();
-            // 监听窗口大小变化（包括缩放）
-            window.addEventListener('resize', updateZoomLevel);
-            
-            // 监听滚动事件
-            window.addEventListener('scroll', () => {
-                // 如果正在滚动，移除自动动画类，使其可以通过 JS 控制 top
-                if (btn.classList.contains('auto-light')) {
-                    btn.classList.remove('auto-light');
-                }
-
-                // 获取滚动的百分比 (0 到 1)
-                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const scrollPercentage = window.scrollY / scrollHeight;
-
-                // 将百分比映射到光块的 top 位置 (从 -100% 到 200%)
-                // 根据百分比计算当前应该所在的位置
-                // 增加变化频率，让滚动时能看到多次闪过
-                const cycle = (scrollPercentage * 10) % 1; // 滚动到底部闪过10次
-                const topValue = -100 + (cycle * 300); // 映射到 -100 到 200
-                
-                // 为了让它只修改 after 伪元素的样式，我们需要通过 CSS 变量来实现
-                btn.style.setProperty('--light-top', `${topValue}%`);
-                
-                // 清除之前的定时器
-                clearTimeout(scrollTimeout);
-                
-                // 停止滚动后 1秒，恢复自动动画
-                scrollTimeout = setTimeout(() => {
-                    btn.classList.add('auto-light');
-                    btn.style.removeProperty('--light-top');
-                }, 1000);
-            });
-        });
-    </script>
+    <script src="./shared/floating-teacher-btn.js" defer></script>
 </body>
 </html>

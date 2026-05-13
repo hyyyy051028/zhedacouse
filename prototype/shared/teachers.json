@@ -1,0 +1,132 @@
+{
+  "defaultTeacherKey": "zhanglu",
+  "teachers": {
+    "liuting": {
+      "key": "liuting",
+      "name": "刘婷",
+      "file": "./assets/刘婷.jpg",
+      "phoneNumber": "18072752995",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%88%98%E5%A9%B7%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=1"
+    },
+    "jinyiwen": {
+      "key": "jinyiwen",
+      "name": "金逸雯",
+      "file": "./assets/金逸雯.jpg",
+      "phoneNumber": "19967471563",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E9%87%91%E9%80%B8%E9%9B%AF%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=2"
+    },
+    "fanyihuan": {
+      "key": "fanyihuan",
+      "name": "樊奕欢",
+      "file": "./assets/樊奕欢.jpeg",
+      "phoneNumber": "13757129152",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%A8%8A%E5%A5%95%E6%AC%A2%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=3"
+    },
+    "xuguoping": {
+      "key": "xuguoping",
+      "name": "徐国平",
+      "file": "./assets/徐国平.png",
+      "phoneNumber": "13757108269",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%BE%90%E5%9B%BD%E5%B9%B3%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=4"
+    },
+    "liyazhen": {
+      "key": "liyazhen",
+      "name": "李雅珍",
+      "file": "./assets/李雅珍.png",
+      "phoneNumber": "13805780645",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%9D%8E%E9%9B%85%E7%8F%8D%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=5"
+    },
+    "fengliangyong": {
+      "key": "fengliangyong",
+      "name": "封良勇",
+      "file": "./assets/封良勇.jpg",
+      "phoneNumber": "13757108510",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%B0%81%E8%89%AF%E5%8B%87%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=6"
+    },
+    "wangxiaojuan": {
+      "key": "wangxiaojuan",
+      "name": "汪小娟",
+      "file": "./assets/汪小娟.jpg",
+      "phoneNumber": "13675878883",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%B1%AA%E5%B0%8F%E5%A8%9F%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=7"
+    },
+    "madaxiong": {
+      "key": "madaxiong",
+      "name": "马达雄",
+      "file": "./assets/马达雄.png",
+      "phoneNumber": "13588429725",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E9%A9%AC%E8%BE%BE%E9%9B%84%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=8"
+    },
+    "wuliangzhou": {
+      "key": "wuliangzhou",
+      "name": "武俍州",
+      "file": "./assets/武俍州.jpg",
+      "phoneNumber": "13283887052",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%AD%A6%E4%BF%8D%E5%B7%9E%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=9"
+    },
+    "pengsongsong": {
+      "key": "pengsongsong",
+      "name": "彭松松",
+      "file": "./assets/彭松松.png",
+      "phoneNumber": "19858148227",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%BD%AD%E6%9D%BE%E6%9D%BE%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=10"
+    },
+    "fengliangfu": {
+      "key": "fengliangfu",
+      "name": "封良福",
+      "file": "./assets/福.jpg",
+      "phoneNumber": "13957148407",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E7%A6%8F%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=11"
+    },
+    "shenfei": {
+      "key": "shenfei",
+      "name": "沈菲",
+      "file": "./assets/沈菲.png",
+      "phoneNumber": "18868846237",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E6%B2%88%E8%8F%B2%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=12"
+    },
+    "hehaiyan": {
+      "key": "hehaiyan",
+      "name": "贺海燕",
+      "file": "./assets/贺海燕.png",
+      "phoneNumber": "19967332809",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E8%B4%BA%E6%B5%B7%E7%87%95%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=13"
+    },
+    "changxiajie": {
+      "key": "changxiajie",
+      "name": "常夏洁",
+      "file": "./assets/常夏洁.jpg",
+      "phoneNumber": "16605810651",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%B8%B8%E5%A4%8F%E6%B4%81%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=14"
+    },
+    "zhanglu": {
+      "key": "zhanglu",
+      "name": "张露",
+      "file": "./assets/张露.jpg",
+      "phoneNumber": "15906618726",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%BC%A0%E9%9C%B2%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=15"
+    },
+    "huse": {
+      "key": "huse",
+      "name": "胡瑟",
+      "file": "./assets/胡瑟.jpg",
+      "phoneNumber": "0571-86971296",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E8%83%A1%E7%91%9F%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=16"
+    },
+    "fengcaifeng": {
+      "key": "fengcaifeng",
+      "name": "冯彩凤",
+      "file": "./assets/冯彩凤.jpg",
+      "phoneNumber": "13777351943",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%86%AF%E5%BD%A9%E5%87%A4%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=17"
+    },
+    "xudongying": {
+      "key": "xudongying",
+      "name": "徐冬英",
+      "file": "./assets/徐冬英.jpg",
+      "phoneNumber": "18957111371",
+      "signupUrl": "https://my.feishu.cn/share/base/form/shrcnNeVkUrdtm2Cvxy5IMk56Jf?prefill_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=%E5%BE%90%E5%86%AC%E8%8B%B1%E8%80%81%E5%B8%88&hide_%E5%AF%B9%E6%8E%A5%E8%80%81%E5%B8%88=1&v=18"
+    }
+  }
+}
+
