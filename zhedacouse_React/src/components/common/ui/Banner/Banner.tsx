@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Carousel } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import type { CarouselRef } from 'antd/es/carousel';
@@ -9,6 +9,10 @@ import './Banner.css';
 export default function Banner() {
   const carouselRef = useRef<CarouselRef>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [searchParams] = useSearchParams();
+  const teacherKey = (searchParams.get('teacher') || '').trim().toLowerCase();
+  const teacherSuffix = teacherKey ? `?teacher=${encodeURIComponent(teacherKey)}` : '';
+  const homePath = `/${teacherSuffix}`;
 
   const scrollToSection = (hash: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -57,28 +61,28 @@ export default function Banner() {
                   <div className="banner-actions">
                     {index === 0 ? (
                       <>
-                        <Link to="/#courses" className="btn" onClick={scrollToSection('courses')}>
+                        <Link to={`${homePath}#courses`} className="btn" onClick={scrollToSection('courses')}>
                           了解课程
                         </Link>
-                        <Link to="/#contact" className="btn btn-secondary" onClick={scrollToSection('contact')}>
+                        <Link to={`${homePath}#contact`} className="btn btn-secondary" onClick={scrollToSection('contact')}>
                           立即咨询
                         </Link>
                       </>
                     ) : index === 1 ? (
                       <>
-                        <Link to="/#courses" className="btn" onClick={scrollToSection('courses')}>
+                        <Link to={`${homePath}#courses`} className="btn" onClick={scrollToSection('courses')}>
                           精品课程
                         </Link>
-                        <Link to="/#stories" className="btn btn-secondary" onClick={scrollToSection('stories')}>
+                        <Link to={`${homePath}#stories`} className="btn btn-secondary" onClick={scrollToSection('stories')}>
                           精彩故事
                         </Link>
                       </>
                     ) : (
                       <>
-                        <Link to="/register" className="btn">
+                        <Link to={`/register${teacherSuffix}`} className="btn">
                           申请加入
                         </Link>
-                        <Link to="/#zju-intro" className="btn btn-secondary" onClick={scrollToSection('zju-intro')}>
+                        <Link to={`${homePath}#zju-intro`} className="btn btn-secondary" onClick={scrollToSection('zju-intro')}>
                           关于我们
                         </Link>
                       </>
