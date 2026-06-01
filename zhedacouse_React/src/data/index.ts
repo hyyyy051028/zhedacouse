@@ -338,7 +338,7 @@ export const courses: Course[] = [
       "系统学习AI技术应用，助力企业实现智能化转型升级，抢占AI时代发展先机。",
     features: ["AI技术应用", "智能化转型", "实战案例分析"],
     duration: "三天",
-    fee: "9800元",
+    fee: "6800元",
     category: "AI创新",
     icon: "ai",
     image: withBasePath("/image/资料夹/精彩活动5.jpg"),
