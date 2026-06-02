@@ -1,14 +1,25 @@
-.header {
+.header,
+.header.ant-layout-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 0;
-  height: auto;
-  line-height: inherit;
+  padding: 0 !important;
+  height: auto !important;
+  min-height: unset !important;
+  line-height: 1.5 !important;
+  overflow: visible !important;
   background: transparent;
   transition: all 0.3s ease;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  min-height: 56px;
 }
 
 .header.home-top {
@@ -25,13 +36,6 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
-}
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
 }
 
 .logo {
@@ -182,36 +186,69 @@
 
   .mobile-menu-btn {
     display: flex;
+    flex-shrink: 0;
+  }
+
+  .logo {
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  .logo-text {
+    overflow: hidden;
+  }
+
+  .logo-text h1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .logo-text span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .mobile-drawer .ant-drawer-body {
     padding: 0;
+    overflow: visible;
   }
 
   .mobile-drawer .ant-menu {
     border: none;
+    overflow: visible;
   }
 
   .mobile-drawer .ant-menu-item {
     padding: 16px 24px;
+    height: auto !important;
+    line-height: 1.5 !important;
+    overflow: visible !important;
+    white-space: normal !important;
   }
 }
 
 @media (max-width: 768px) {
   .header-container {
-    padding: 0 16px;
+    padding: 0 12px;
   }
 
   .header-content {
-    padding: 12px 0;
+    padding: 10px 0;
   }
 
   .logo-icon {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
   }
 
   .logo-text h1 {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  .logo-text span {
+    font-size: 10px;
   }
 }

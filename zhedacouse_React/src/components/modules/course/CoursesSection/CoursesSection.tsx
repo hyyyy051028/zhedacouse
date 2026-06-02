@@ -224,9 +224,9 @@ export default function CoursesSection() {
                   </div>
                 </div>
                 
-                {course.detailUrl ? (
-                  <a
-                    href={withTeacherSuffix(course.detailUrl)}
+                {course.detailImages?.length ? (
+                  <Link
+                    to={withTeacherSuffix(`/course/${course.id}`)}
                     className="btn btn-course"
                     style={{ background: categoryColors[course.category]?.gradient }}
                   >
@@ -234,7 +234,7 @@ export default function CoursesSection() {
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                       <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                  </a>
+                  </Link>
                 ) : (
                   <Link to={registerPath} className="btn btn-course" style={{ background: categoryColors[course.category]?.gradient }}>
                     立即咨询

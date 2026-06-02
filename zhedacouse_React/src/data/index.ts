@@ -33,7 +33,7 @@ export interface Course {
   category: "企业管理" | "人文智慧" | "AI创新" | "企业家校友游学";
   icon: string;
   image?: string;
-  detailUrl?: string;
+  detailImages?: string[];
 }
 
 export interface Story {
@@ -289,7 +289,7 @@ export const courses: Course[] = [
     category: "企业管理",
     icon: "business",
     image: withBasePath("/image/资料夹/精彩活动1.jpg"),
-    detailUrl: withBasePath("/prototype/浙商企业家创新提升高级研修班.html"),
+    detailImages: [withBasePath("/prototype/创新提升高级研修/创新提升高级研修.jpg")],
   },
   {
     id: "business-2",
@@ -302,7 +302,7 @@ export const courses: Course[] = [
     category: "企业管理",
     icon: "finance",
     image: withBasePath("/image/资料夹/精彩活动2.jpg"),
-    detailUrl: withBasePath("/prototype/金融投资实战运营高级研修班.html"),
+    detailImages: [withBasePath("/prototype/金融投资实战运营/金融投资实战运营.jpg")],
   },
   {
     id: "culture-1",
@@ -314,9 +314,7 @@ export const courses: Course[] = [
     category: "人文智慧",
     icon: "book",
     image: withBasePath("/image/资料夹/精彩活动3.jpg"),
-    detailUrl: withBasePath(
-      "/prototype/浙江大学国学智慧与管理应用高级研修班.html",
-    ),
+    detailImages: [withBasePath("/image/资料夹/精彩活动3.jpg")],
   },
   {
     id: "culture-2",
@@ -329,7 +327,7 @@ export const courses: Course[] = [
     category: "人文智慧",
     icon: "star",
     image: withBasePath("/image/资料夹/精彩活动4.jpg"),
-    detailUrl: withBasePath("/prototype/浙江大学文化智慧与商业高级研修班.html"),
+    detailImages: [withBasePath("/prototype/文化与商业高级研修/文化与商业高级研修.jpg")],
   },
   {
     id: "ai-1",
@@ -342,7 +340,7 @@ export const courses: Course[] = [
     category: "AI创新",
     icon: "ai",
     image: withBasePath("/image/资料夹/精彩活动5.jpg"),
-    detailUrl: withBasePath("/prototype/浙江大学企业AI转型实战研修班.html"),
+    detailImages: [withBasePath("/prototype/AI转型实战研修海报图/1780292420268.jpg")],
   },
   {
     id: "ai-2",
@@ -354,9 +352,7 @@ export const courses: Course[] = [
     category: "AI创新",
     icon: "tech",
     image: withBasePath("/image/资料夹/精彩活动6.jpg"),
-    detailUrl: withBasePath(
-      "/prototype/浙江大学人工智能与企业家领导力高级研修班.html",
-    ),
+    detailImages: [withBasePath("/prototype/globle AI/头图.png")],
   },
   {
     id: "travel-1",
@@ -368,7 +364,10 @@ export const courses: Course[] = [
     category: "企业家校友游学",
     icon: "travel",
     image: withBasePath("/image/埃及图片/头图.jpg"),
-    detailUrl: withBasePath("/prototype/人文行走 - 埃及游学.html"),
+    detailImages: [
+      withBasePath("/prototype/埃及图片/头图.jpg"),
+      withBasePath("/prototype/埃及图片/游学行程.jpg"),
+    ],
   },
   {
     id: "travel-2",

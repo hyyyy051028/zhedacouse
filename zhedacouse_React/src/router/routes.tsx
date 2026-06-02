@@ -3,6 +3,7 @@ import { Navigate, type RouteObject, useLocation } from 'react-router-dom';
 
 const Home = lazy(() => import('../pages/Home'));
 const Register = lazy(() => import('../pages/Register'));
+const CourseDetail = lazy(() => import('../pages/CourseDetail'));
 
 function NotFoundRedirect() {
   const location = useLocation();
@@ -18,6 +19,10 @@ export const routes: RouteObject[] = [
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/course/:id',
+    element: <CourseDetail />,
   },
   {
     path: '*',
