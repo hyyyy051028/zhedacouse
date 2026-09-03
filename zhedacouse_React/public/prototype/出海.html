@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浙江大学企业全球化战略与增长研修项目 | Global Executive Business School</title>
+    <style>
+        /* ========== DESIGN TOKENS ========== */
+        :root{
+            /* Brand / Backgrounds */
+            --navy:#061e3c;
+            --navy2:#0d3059;
+            --navy-deep:#041225;
+            --gold:#c8a35b;
+            --gold-light:#d4b36a;
+            --paper:#f7f5ef;
+            --paper-2:#ece7dc;
+            --ink:#17212f;
+            --ink-light:#3d4a5c;
+            --muted:#667085;
+            --white:#ffffff;
+            --line:rgba(6,30,60,.12);
+
+            /* Typography families */
+            --serif:Georgia,"Noto Serif SC","Source Han Serif SC",serif;
+            --sans:"Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+
+            /* Type scale (desktop) */
+            --fs-eyebrow:11px;
+            --fs-label:12px;
+            --fs-small:13px;
+            --fs-body:14px;
+            --fs-lead:15px;
+            --fs-h4:17px;
+            --fs-h3:20px;
+            --fs-h3-lg:24px;
+            --fs-h2-sm:28px;
+            --fs-h2:36px;
+            --fs-h2-lg:40px;
+            --fs-h1:56px;
+            --fs-mega:48px;
+            --fs-num-sm:24px;
+            --fs-num-md:32px;
+            --fs-num-lg:48px;
+
+            /* Dark section text colors (3-tier opacity) */
+            --txt-1:rgba(255,255,255,.85);
+            --txt-2:rgba(255,255,255,.60);
+            --txt-3:rgba(255,255,255,.40);
+            --txt-gold:var(--gold-light);
+
+            /* Light section text colors */
+            --l-txt-1:var(--ink);
+            --l-txt-2:var(--muted);
+            --l-txt-3:#98a2b3;
+
+            /* Borders (gold grades) */
+            --bd-gold:rgba(200,163,91,.20);
+            --bd-gold-strong:rgba(200,163,91,.40);
+            --bd-gold-soft:rgba(200,163,91,.15);
+            --bd-gold-hair:rgba(200,163,91,.25);
+
+            /* Surfaces */
+            --surface-1:rgba(255,255,255,.04);
+            --surface-2:rgba(255,255,255,.06);
+            --surface-3:rgba(255,255,255,.02);
+            --surface-hi:rgba(13,48,89,.35);
+            --card-bg:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+
+            /* Radii / shadows */
+            --shadow-soft:0 20px 60px rgba(6,30,60,.12);
+            --shadow-hover:0 28px 80px rgba(6,30,60,.18);
+            --shadow-dark:0 20px 50px rgba(0,0,0,.4);
+        }
+
+        *{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{
+            font-family:var(--sans);
+            font-size:var(--fs-body);
+            color:var(--l-txt-1);
+            background:var(--paper);
+            line-height:1.7;
+            letter-spacing:.1px;
+            -webkit-font-smoothing:antialiased;
+        }
+        .container{max-width:1200px;margin:0 auto;padding:0 40px}
+
+        /* ---------- NAV ---------- */
+        .nav{
+            position:fixed;top:0;left:0;right:0;z-index:100;
+            background:rgba(4,18,37,.94);
+            backdrop-filter:blur(12px);
+            border-bottom:1px solid var(--bd-gold);
+            padding:18px 0;
+        }
+        .nav-inner{display:flex;justify-content:space-between;align-items:center}
+        .brand{
+            font-family:var(--sans);
+            letter-spacing:4px;color:var(--txt-gold);
+            font-size:var(--fs-label);text-transform:uppercase;font-weight:600;
+        }
+        .brand b{color:var(--white);font-weight:700;letter-spacing:2px}
+        .nav-links{display:flex;list-style:none;gap:36px}
+        .nav-links a{
+            color:var(--txt-1);
+            text-decoration:none;
+            font-size:var(--fs-label);
+            letter-spacing:1.2px;
+            transition:color .3s;
+            text-transform:uppercase;
+            font-weight:500;
+        }
+        .nav-links a:hover{color:var(--txt-gold)}
+
+        /* ---------- HERO ---------- */
+        .hero{
+            min-height:90vh;
+            background:
+                linear-gradient(120deg,rgba(4,18,37,.85) 0%,rgba(6,30,60,.75) 40%,rgba(13,48,89,.65) 100%),
+                url("../image/资料夹/1.jpg") center/cover;
+            color:var(--white);
+            padding:160px 8% 100px;
+            display:flex;align-items:center;position:relative;overflow:hidden;
+        }
+        .hero::after{
+            content:"";position:absolute;bottom:0;left:0;right:0;height:1px;
+            background:linear-gradient(90deg,transparent,var(--gold),transparent);
+        }
+        .hero-inner{max-width:1100px;width:100%}
+        .hero-tag{
+            display:inline-block;
+            letter-spacing:5px;color:var(--gold-light);
+            font-size:var(--fs-label);text-transform:uppercase;font-weight:600;
+            padding-bottom:16px;border-bottom:1px solid var(--gold);
+            margin-bottom:32px;
+        }
+        .hero h1{
+            font-family:var(--serif);
+            font-size:var(--fs-h1);line-height:1.15;max-width:900px;
+            margin-bottom:36px;letter-spacing:.5px;
+            font-weight:400;
+        }
+        .hero h1 em{font-style:italic;color:var(--gold-light);font-weight:400}
+        .hero p.lead{
+            font-size:var(--fs-lead);max-width:720px;color:var(--txt-1);
+            margin-bottom:40px;font-weight:300;line-height:1.8;
+        }
+        .hero p.lead strong{color:var(--gold);font-weight:600}
+        .hero-stats{
+            display:flex;gap:0;margin:48px 0 40px;
+            border-top:1px solid rgba(255,255,255,.18);
+            border-bottom:1px solid rgba(255,255,255,.18);
+        }
+        .hero-stat{flex:1;padding:28px 24px;text-align:center;border-right:1px solid rgba(255,255,255,.1)}
+        .hero-stat:last-child{border-right:none}
+        .hero-stat b{
+            display:block;
+            font-family:var(--serif);font-size:var(--fs-mega);color:var(--gold);
+            font-weight:400;line-height:1;
+        }
+        .hero-stat span{
+            font-size:var(--fs-label);letter-spacing:2px;color:var(--txt-2);
+            margin-top:10px;display:block;text-transform:uppercase;font-weight:500;
+        }
+        .btn{
+            display:inline-block;background:var(--gold);color:var(--navy);
+            padding:16px 40px;text-decoration:none;font-weight:700;
+            letter-spacing:2px;font-size:var(--fs-label);text-transform:uppercase;
+            transition:all .3s;border:1px solid var(--gold);
+            font-family:var(--sans);
+        }
+        .btn:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 10px 30px rgba(13,48,89,.35)}
+        .btn-ghost{background:transparent;color:var(--white);margin-left:14px}
+        .btn-ghost:hover{background:transparent;color:var(--txt-gold);box-shadow:none;transform:none}
+
+        /* ---------- SECTION BASE ---------- */
+        section{padding:110px 0}
+        .title{text-align:center;margin-bottom:70px}
+        .title .eyebrow{
+            display:inline-block;letter-spacing:4px;color:var(--gold);
+            font-size:var(--fs-eyebrow);text-transform:uppercase;font-weight:700;
+            margin-bottom:20px;
+        }
+        .title h2{
+            font-family:var(--serif);
+            font-size:var(--fs-h2);color:var(--l-txt-1);
+            font-weight:400;line-height:1.25;
+            margin-bottom:20px;
+        }
+        .title .divider{
+            width:50px;height:2px;background:var(--gold);margin:0 auto 24px;
+        }
+        .title p{color:var(--l-txt-2);font-size:var(--fs-lead);max-width:760px;margin:0 auto;line-height:1.8}
+
+        .section-alt{background:#f4f1ea}
+        .section-dark{background:var(--navy);color:var(--white)}
+        .section-dark .title h2{color:var(--white)}
+        .section-dark .title p{color:var(--txt-2)}
+        .section-dark .title .divider{background:var(--gold)}
+        .section-dark .title .eyebrow{color:var(--gold)}
+        .section-dark .title p strong{color:var(--gold-light);font-weight:600}
+
+        /* ---------- PAIN ---------- */
+        .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+        .card{
+            background:var(--white);padding:48px 40px;
+            box-shadow:var(--shadow-soft);
+            border:1px solid var(--line);
+            transition:transform .35s, box-shadow .35s;
+            position:relative;
+        }
+        .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover)}
+        .card-no{
+            font-family:var(--serif);font-size:var(--fs-mega);color:var(--gold);
+            line-height:1;font-weight:400;margin-bottom:20px;
+        }
+        .card h3{
+            font-family:var(--serif);
+            font-size:var(--fs-h3);color:var(--l-txt-1);
+            margin-bottom:18px;font-weight:400;
+        }
+        .card p{color:var(--l-txt-2);font-size:var(--fs-body);line-height:1.8}
+        .card-cta{
+            display:block;margin-top:32px;padding-top:24px;
+            border-top:1px solid var(--line);
+            font-size:var(--fs-small);letter-spacing:2px;text-transform:uppercase;
+            color:var(--l-txt-1);font-weight:600;
+        }
+        .card-cta::before{content:"→ ";color:var(--gold);margin-right:6px}
+        .stat-band{
+            text-align:center;margin-top:60px;padding-top:40px;
+            border-top:1px solid var(--line);color:var(--l-txt-2);
+            font-size:var(--fs-lead);line-height:1.8;
+        }
+        .stat-band b{color:var(--l-txt-1);font-weight:600}
+
+        /* ---------- CHAIN ---------- */
+        .chain-wrap{max-width:1100px;margin:0 auto}
+        .chain{
+            display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:20px;
+        }
+        .chain-item{
+            background:var(--white);padding:28px 20px;text-align:center;
+            border:1px solid var(--line);
+            transition:all .3s;position:relative;
+        }
+        .chain-item:hover{border-color:var(--gold);transform:translateY(-4px)}
+        .chain-item.end{
+            background:var(--navy);color:var(--white);border-color:var(--navy);
+        }
+        .chain-item.end .chain-txt{color:var(--white)}
+        .chain-idx{
+            font-family:var(--serif);font-size:var(--fs-num-sm);color:var(--gold);
+            font-weight:400;margin-bottom:12px;line-height:1;
+        }
+        .chain-item.end .chain-idx{color:var(--txt-gold)}
+        .chain-txt{font-size:var(--fs-small);font-weight:600;color:var(--l-txt-1);letter-spacing:1px}
+        .chain-phase{
+            grid-column:1/-1;margin-top:30px;padding:24px 32px;
+            background:var(--white);border-left:3px solid var(--gold);
+            display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;
+            font-size:var(--fs-body);color:var(--l-txt-1);
+        }
+        .chain-phase span b{color:var(--l-txt-1);font-weight:700}
+
+        /* ---------- CURRICULUM ---------- */
+        .cur-section{
+            background:
+                linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 50%,var(--navy2) 100%);
+            color:var(--white);
+            position:relative;overflow:hidden;
+        }
+        .cur-section::before{
+            content:"";position:absolute;inset:0;
+            background:
+                radial-gradient(circle at 20% 10%,rgba(13,48,89,.5) 0%,transparent 45%),
+                radial-gradient(circle at 80% 80%,rgba(13,48,89,.35) 0%,transparent 45%);
+            pointer-events:none;
+        }
+        .cur-section .container{position:relative;z-index:2}
+        .cur-section .title h2{color:var(--white)}
+        .cur-section .title p{color:var(--txt-2)}
+        .cur-section .title .eyebrow{color:var(--gold)}
+
+        .cur-wrap{display:flex;flex-direction:column;margin-top:40px}
+        .cur-nav{
+            position:relative;top:0;
+            background:var(--surface-1);
+            border:1px solid var(--bd-gold);
+            border-bottom:none;
+            backdrop-filter:blur(8px);
+            padding:20px 16px 0;
+            overflow:hidden;
+        }
+        .cur-nav::after{
+            content:"";position:absolute;left:0;right:0;bottom:0;
+            height:1px;background:var(--bd-gold);
+        }
+        .cur-nav-label{
+            padding:0 8px 14px;
+            font-size:var(--fs-eyebrow);letter-spacing:3px;color:var(--txt-gold);
+            text-transform:uppercase;font-weight:700;
+            border-bottom:1px solid var(--bd-gold-hair);
+            margin-bottom:12px;
+            display:flex;justify-content:space-between;align-items:center;
+        }
+        .cur-nav-total{font-size:var(--fs-eyebrow);letter-spacing:1px;color:var(--txt-3);font-weight:400}
+        .cur-nav-list{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+        .cur-nav-item{
+            padding:14px 16px;cursor:pointer;
+            display:flex;align-items:center;gap:12px;
+            transition:all .35s;position:relative;
+            border-bottom:2px solid var(--bd-gold-soft);
+            color:var(--txt-2);
+            justify-content:flex-start;
+            font-family:var(--sans);
+        }
+        .cur-nav-item:hover{color:var(--white);background:var(--surface-hi)}
+        .cur-nav-item.active{
+            color:var(--white);
+            border-bottom-color:var(--gold);
+            background:var(--surface-hi);
+        }
+        .cur-nav-num{
+            font-family:var(--serif);font-size:var(--fs-h3);color:var(--gold);
+            font-weight:400;line-height:1;flex-shrink:0;min-width:28px;
+        }
+        .cur-nav-item.active .cur-nav-num{color:var(--txt-gold)}
+        .cur-nav-label-sm{font-size:var(--fs-body);font-weight:500;letter-spacing:.5px}
+        .cur-nav-item.active .cur-nav-label-sm{font-weight:700}
+
+        .cur-panels{position:relative;margin-top:-1px}
+        .cur-panel{
+            display:none;
+            background:var(--card-bg);
+            border:1px solid var(--bd-gold);
+            border-top:none;
+            padding:48px 40px;
+            backdrop-filter:blur(10px);
+            position:relative;overflow:hidden;
+            animation:panelFade .5s ease;
+        }
+        .cur-panel.active{display:block}
+        @keyframes panelFade{
+            from{opacity:0;transform:translateX(20px)}
+            to{opacity:1;transform:translateX(0)}
+        }
+        .panel-watermark{
+            position:absolute;right:-20px;top:-60px;
+            font-family:var(--serif);font-size:280px;
+            color:rgba(255,255,255,.06);
+            font-weight:400;line-height:1;pointer-events:none;
+            letter-spacing:-10px;
+        }
+        .mod-head{
+            display:flex;justify-content:space-between;
+            align-items:flex-start;gap:30px;margin-bottom:50px;
+            padding-bottom:32px;border-bottom:1px solid var(--bd-gold-hair);
+            position:relative;z-index:2;
+        }
+        .mod-head h3{
+            font-family:var(--serif);
+            font-size:var(--fs-h2-sm);color:var(--white);
+            font-weight:400;line-height:1.3;
+            margin-bottom:18px;
+        }
+        .cur-section .mod-subs{
+            display:flex !important;flex-wrap:wrap !important;
+            gap:28px;margin-bottom:36px;position:relative;z-index:2;
+            width:100% !important;
+        }
+        .cur-section .mod-subs > .mod-sub{
+            flex:0 0 calc((100% - 56px) / 3) !important;
+            max-width:calc((100% - 56px) / 3) !important;
+            min-width:0;
+            padding:20px 20px 20px 22px;border-left:2px solid var(--gold);
+            background:var(--surface-3);
+        }
+        .mod-sub h4{
+            font-family:var(--serif);
+            font-size:var(--fs-h4);color:var(--white);
+            margin-bottom:16px;padding-bottom:12px;
+            border-bottom:1px solid var(--bd-gold-soft);
+            font-weight:400;line-height:1.3;
+        }
+        .mod-sub ul{list-style:none}
+        .mod-sub ul li{
+            padding:7px 0 7px 20px;position:relative;font-size:var(--fs-body);
+            color:var(--txt-1);line-height:1.6;
+        }
+        .mod-sub ul li::before{
+            content:"";position:absolute;left:0;top:14px;
+            width:12px;height:1px;background:var(--gold);
+        }
+        .mod-foot{
+            background:linear-gradient(135deg,rgba(13,48,89,.5),rgba(13,48,89,.25));
+            padding:32px 36px;border-left:3px solid var(--gold);
+            position:relative;z-index:2;
+        }
+        .mod-foot p{font-size:var(--fs-body);margin-bottom:10px;color:var(--txt-1)}
+        .mod-foot b{color:var(--gold-light);font-weight:600}
+        .mod-foot .deliverable{
+            display:inline-block;margin-top:8px;
+            background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);
+            padding:8px 18px;font-size:var(--fs-small);font-weight:600;
+            letter-spacing:2px;font-family:var(--serif);
+        }
+
+        /* Roadmap */
+        .roadmap{
+            margin-top:80px;padding-top:60px;
+            border-top:1px solid var(--bd-gold);
+            position:relative;z-index:2;
+        }
+        .roadmap-title{text-align:center;margin-bottom:50px}
+        .roadmap-title h3{
+            font-family:var(--serif);font-size:var(--fs-h3-lg);color:var(--white);
+            font-weight:400;margin-bottom:10px;
+        }
+        .roadmap-title p{color:var(--txt-2);font-size:var(--fs-body)}
+        .road-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+        .road-item{
+            text-align:center;position:relative;padding:36px 24px;
+            background:var(--surface-1);
+            border:1px solid var(--bd-gold);
+            transition:all .35s;
+        }
+        .road-item:hover{
+            background:var(--surface-2);
+            border-color:var(--gold);transform:translateY(-4px);
+        }
+        .road-item::before{
+            content:"";width:44px;height:44px;border:1px solid var(--gold);border-radius:50%;
+            margin:0 auto 20px;display:block;position:relative;z-index:1;
+            background:radial-gradient(circle,rgba(13,48,89,.4),transparent);
+        }
+        .road-item::after{
+            content:"";width:2px;height:44px;background:var(--gold);
+            position:absolute;top:56px;left:-12px;
+        }
+        .road-item:first-child::after{display:none}
+        .road-phase{font-size:var(--fs-eyebrow);letter-spacing:2px;color:var(--txt-gold);font-weight:700;text-transform:uppercase;margin-bottom:14px}
+        .road-item h4{font-family:var(--serif);font-size:var(--fs-h4);color:var(--white);font-weight:400;margin-bottom:12px}
+        .road-item p{font-size:var(--fs-small);color:var(--txt-2);line-height:1.7}
+
+        /* Teach */
+        .teach{
+            margin-top:80px;
+            background:var(--surface-1);
+            padding:60px;
+            border:1px solid var(--bd-gold);
+            position:relative;z-index:2;
+        }
+        .teach-title{
+            font-family:var(--serif);font-size:var(--fs-h3-lg);color:var(--white);
+            font-weight:400;text-align:center;margin-bottom:44px;
+        }
+        .teach-list{
+            display:grid;grid-template-columns:repeat(2,1fr);gap:30px;
+            list-style:none;margin-bottom:50px;
+        }
+        .teach-list>li{
+            display:flex;align-items:flex-start;padding:28px 32px;
+            background:var(--surface-1);
+            border-left:3px solid var(--gold);
+            transition:background .35s;
+        }
+        .teach-list>li:hover{background:var(--surface-2)}
+        .t-num{
+            font-family:var(--serif);font-size:var(--fs-num-md);color:var(--gold);
+            font-weight:400;margin-right:24px;flex-shrink:0;line-height:1;
+        }
+        .teach-list h4{font-family:var(--serif);font-size:var(--fs-h4);color:var(--white);font-weight:400;margin-bottom:10px}
+        .teach-list p{font-size:var(--fs-body);color:var(--txt-2)}
+        .teach-bars{display:grid;gap:18px}
+        .tbar-top{display:flex;justify-content:space-between;margin-bottom:8px;font-size:var(--fs-small);color:var(--txt-1)}
+        .tbar-top span:last-child{color:var(--txt-gold);font-weight:700;letter-spacing:1px}
+        .bar{height:3px;background:rgba(255,255,255,.08);overflow:hidden}
+        .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:0;transition:width 1.4s ease;box-shadow:0 0 8px rgba(200,163,91,.4)}
+
+        /* ---------- FACULTY ---------- */
+        .fac-panel{
+            background:var(--card-bg);
+            border:1px solid var(--bd-gold);
+            padding:48px 56px;
+            backdrop-filter:blur(8px);
+            position:relative;overflow:hidden;
+        }
+        .fac-panel::before{
+            content:"";position:absolute;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,var(--gold),var(--gold-light));
+        }
+        .fac-list{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;list-style:none}
+        .fac-list > li{padding-right:32px;border-right:1px solid var(--bd-gold-soft)}
+        .fac-list > li:last-child{border-right:none;padding-right:0}
+        .fac-ratio{font-family:var(--serif);font-size:var(--fs-num-lg);color:var(--gold);line-height:1;font-weight:400;margin-bottom:16px}
+        .fac-ratio em{font-size:var(--fs-h3);font-style:normal;color:var(--txt-2);letter-spacing:1px}
+        .fac-list h4{font-family:var(--serif);font-size:var(--fs-h3);color:var(--white);font-weight:400;margin-bottom:12px}
+        .fac-list p{font-size:var(--fs-small);color:var(--txt-2);line-height:1.9}
+
+        /* ---------- INVITED FACULTY ---------- */
+        .invited-fac{margin-top:56px;padding-top:48px;border-top:1px solid var(--bd-gold-soft)}
+        .invited-fac-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+        .invited-fac-hd h3{font-family:var(--serif);font-size:var(--fs-h3-lg);color:var(--white);font-weight:400;line-height:1.3}
+        .invited-fac-hd h3 em{font-style:normal;color:var(--gold);margin-left:12px;font-size:var(--fs-h3);letter-spacing:2px}
+        .invited-fac-hd .track-tags{display:flex;gap:10px;flex-wrap:wrap}
+        .invited-fac-hd .track-tag{
+            font-size:var(--fs-label);padding:6px 14px;border:1px solid var(--bd-gold);
+            color:var(--gold-light);letter-spacing:1px;
+        }
+        .fac-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+        .fac-card{
+            background:var(--card-bg);
+            border:1px solid var(--bd-gold);
+            padding:32px 32px 28px;
+            position:relative;
+            transition:transform .3s,border-color .3s,background .3s;
+        }
+        .fac-card:hover{transform:translateY(-4px);border-color:var(--bd-gold-strong);background:var(--surface-2)}
+        .fac-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+        .fac-name{
+            font-family:var(--serif);font-size:var(--fs-h3-lg);color:var(--white);font-weight:400;line-height:1.2;
+        }
+        .fac-track{
+            flex-shrink:0;font-size:var(--fs-label);padding:5px 12px;
+            border:1px solid var(--bd-gold);color:var(--gold);letter-spacing:1px;white-space:nowrap;
+        }
+        .fac-track.track-academic{color:var(--gold-light)}
+        .fac-track.track-practice{color:#82cfff}
+        .fac-track.track-eco{color:#a5d6a7}
+        .fac-title{
+            font-size:var(--fs-small);color:var(--gold-light);line-height:1.8;margin-bottom:16px;
+            padding-bottom:16px;border-bottom:1px dashed var(--bd-gold-soft);
+        }
+        .fac-title b{font-weight:600;color:var(--gold)}
+        .fac-bio{font-size:var(--fs-small);color:var(--txt-2);line-height:1.9;margin-bottom:14px}
+        .fac-course{
+            padding:14px 16px;background:var(--surface-3);border-left:2px solid var(--gold);
+        }
+        .fac-course b{display:block;font-size:var(--fs-label);color:var(--gold);letter-spacing:1px;margin-bottom:6px;font-weight:600}
+        .fac-course p{font-size:var(--fs-small);color:var(--txt-2);line-height:1.85}
+        .fac-course p em{font-style:normal;color:var(--txt-1);font-weight:500}
+
+        @media (max-width:860px){
+            .fac-grid{grid-template-columns:1fr}
+        }
+
+        /* ---------- STUDY ---------- */
+        .study-panel{
+            background:var(--card-bg);
+            border:1px solid var(--bd-gold);
+            padding:48px 56px;
+            backdrop-filter:blur(8px);
+            position:relative;overflow:hidden;
+        }
+        .study-panel::before{
+            content:"";position:absolute;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,var(--gold),var(--gold-light));
+        }
+        .study-dest{
+            display:grid;grid-template-columns:repeat(4,1fr);gap:32px;
+            padding-bottom:36px;margin-bottom:36px;
+            border-bottom:1px solid var(--bd-gold-soft);
+        }
+        .study-dest .dest-ico{
+            font-family:var(--serif);font-size:var(--fs-num-md);color:var(--gold);
+            line-height:1;font-weight:400;margin-bottom:12px;
+        }
+        .study-dest h4{
+            font-family:var(--serif);font-size:var(--fs-h4);color:var(--white);
+            font-weight:400;margin-bottom:8px;line-height:1.4;
+        }
+        .study-dest p{font-size:var(--fs-small);color:var(--txt-2);line-height:1.7}
+        .study-info{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+        .study-info li{list-style:none;padding-left:24px;position:relative}
+        .study-info li::before{
+            content:"";position:absolute;left:0;top:8px;
+            width:12px;height:1px;background:var(--gold);
+        }
+        .study-info b{color:var(--gold-light);font-weight:600;font-size:var(--fs-small);letter-spacing:1px}
+        .study-info p{font-size:var(--fs-small);color:var(--txt-2);line-height:1.7;margin-top:6px}
+
+        /* ---------- LOCAL BENCHMARK (study add-on) ---------- */
+        .study-local{
+            margin-top:36px;padding-top:36px;
+            border-top:1px solid var(--bd-gold-soft);
+        }
+        .study-local-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+        .study-local-hd h4{font-family:var(--serif);font-size:var(--fs-h3);color:var(--white);font-weight:400}
+        .study-local-hd h4 em{font-style:normal;color:var(--gold);margin-left:10px;font-size:var(--fs-body);letter-spacing:2px}
+        .study-local-hd .sub{font-size:var(--fs-small);color:var(--txt-2)}
+        .company-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+        .company-card{
+            background:var(--card-bg);
+            border:1px solid var(--bd-gold);
+            padding:22px 18px 20px;
+            text-align:center;
+            transition:transform .3s,border-color .3s,background .3s;
+        }
+        .company-card:hover{transform:translateY(-4px);border-color:var(--bd-gold-strong);background:var(--surface-2)}
+        .company-seal{
+            width:56px;height:56px;margin:0 auto 14px;
+            background:linear-gradient(135deg,var(--gold),var(--gold-light));
+            color:var(--navy);font-family:var(--serif);font-weight:700;
+            display:flex;align-items:center;justify-content:center;
+            font-size:18px;letter-spacing:1px;line-height:1.1;
+        }
+        .company-name{font-family:var(--serif);font-size:var(--fs-h4);color:var(--white);font-weight:400;margin-bottom:8px;line-height:1.35}
+        .company-tag{
+            display:inline-block;font-size:var(--fs-label);
+            padding:3px 10px;border:1px solid var(--bd-gold);
+            color:var(--gold-light);letter-spacing:1px;margin-bottom:10px;
+        }
+        .company-desc{font-size:var(--fs-small);color:var(--txt-2);line-height:1.7}
+
+        @media (max-width:1100px){
+            .company-grid{grid-template-columns:repeat(3,1fr)}
+        }
+        @media (max-width:700px){
+            .company-grid{grid-template-columns:repeat(2,1fr)}
+        }
+
+        /* ---------- DOCS ---------- */
+        .docs-panel{
+            background:var(--card-bg);
+            border:1px solid var(--bd-gold);
+            padding:48px 56px;
+            backdrop-filter:blur(8px);
+            position:relative;overflow:hidden;
+        }
+        .docs-panel::before{
+            content:"";position:absolute;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,var(--gold),var(--gold-light));
+        }
+        .docs-list{
+            display:grid;grid-template-columns:repeat(2,1fr);gap:0;
+            list-style:none;
+        }
+        .docs-list > li{
+            display:flex;gap:20px;align-items:flex-start;
+            padding:22px 0;border-bottom:1px solid var(--bd-gold-soft);
+        }
+        .docs-list > li:nth-last-child(-n+2){border-bottom:none}
+        .docs-num{
+            font-family:var(--serif);font-size:var(--fs-num-sm);color:var(--gold-light);
+            line-height:1;font-weight:400;flex-shrink:0;
+        }
+        .docs-info h4{
+            font-family:var(--serif);font-size:var(--fs-h4);color:var(--white);
+            font-weight:400;margin-bottom:6px;line-height:1.4;
+        }
+        .docs-info p{font-size:var(--fs-small);color:var(--txt-2);line-height:1.6}
+
+        .cert{
+            background:linear-gradient(135deg,var(--navy-deep),var(--navy2));
+            padding:60px;display:flex;align-items:center;gap:50px;color:var(--white);
+            border:1px solid var(--bd-gold);
+            position:relative;overflow:hidden;
+        }
+        .cert::after{
+            content:"";position:absolute;top:-100px;right:-100px;width:300px;height:300px;
+            background:radial-gradient(circle,rgba(13,48,89,.5) 0%,transparent 70%);pointer-events:none;
+        }
+        .cert-seal{
+            width:140px;height:140px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);
+            display:flex;align-items:center;justify-content:center;
+            text-align:center;font-size:var(--fs-body);font-weight:700;line-height:1.4;flex-shrink:0;
+            letter-spacing:1px;font-family:var(--serif);
+        }
+        .cert h4{font-family:var(--serif);font-size:var(--fs-h3-lg);margin-bottom:14px;font-weight:400}
+        .cert p{font-size:var(--fs-lead);line-height:1.9;color:var(--txt-1)}
+        .cert b{color:var(--gold-light);font-weight:600}
+
+        /* ---------- APPLY ---------- */
+        .apply-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start}
+        .steps{
+            list-style:none;counter-reset:step;
+            background:var(--card-bg);
+            border:1px solid var(--bd-gold);
+            padding:36px 40px;
+            backdrop-filter:blur(8px);
+            position:relative;overflow:hidden;
+        }
+        .steps::before{
+            content:"";position:absolute;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,var(--gold),var(--gold-light));
+        }
+        .steps li{
+            padding:16px 0 16px 60px;position:relative;
+            border-bottom:1px solid var(--bd-gold-soft);
+        }
+        .steps li:last-child{border-bottom:none}
+        .steps li::before{
+            counter-increment:step;content:"0" counter(step);
+            font-family:var(--serif);font-size:var(--fs-num-sm);color:var(--gold-light);font-weight:400;
+            position:absolute;left:0;top:18px;line-height:1;
+        }
+        .steps h4{font-family:var(--serif);font-size:var(--fs-h4);color:var(--white);font-weight:400;margin-bottom:4px}
+        .steps p{font-size:var(--fs-small);color:var(--txt-2)}
+        .apply-form{
+            padding:50px;
+            background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+            border:1px solid var(--bd-gold);
+            backdrop-filter:blur(10px);
+            position:relative;overflow:hidden;
+        }
+        .apply-form::before{
+            content:"";position:absolute;top:0;left:0;right:0;height:3px;
+            background:linear-gradient(90deg,var(--gold),var(--gold-light));
+        }
+        .form-tag{
+            display:inline-block;background:var(--gold);color:var(--navy);
+            padding:6px 18px;font-size:var(--fs-label);font-weight:700;
+            letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;
+            font-family:var(--sans);
+        }
+        .apply-form h3{font-family:var(--serif);font-size:var(--fs-h3-lg);color:var(--white);font-weight:400;margin-bottom:8px}
+        .apply-form .f-sub{font-size:var(--fs-body);color:var(--txt-2);margin-bottom:32px}
+        .apply-form .f-sub strong{color:var(--gold-light);font-weight:600}
+        .f-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+        .f-field{margin-bottom:20px}
+        .f-field label{display:block;font-size:var(--fs-small);color:var(--txt-1);margin-bottom:10px;font-weight:600;letter-spacing:1px}
+        .f-field input,.f-field select{
+            width:100%;padding:14px 18px;border:1px solid var(--bd-gold);
+            background:var(--surface-3);font-size:var(--fs-body);font-family:inherit;
+            transition:border-color .3s, background .3s;color:var(--white);
+        }
+        .f-field input::placeholder{color:var(--txt-3)}
+        .f-field select option{color:var(--navy)}
+        .f-field input:focus,.f-field select:focus{
+            outline:none;border-color:var(--gold);background:var(--surface-1);
+        }
+        .f-check{display:grid;grid-template-columns:repeat(4,max-content);gap:16px 24px}
+        .f-check label{display:flex;align-items:center;gap:6px;font-size:var(--fs-small);cursor:pointer;font-weight:400;color:var(--txt-1);white-space:nowrap}
+        .f-check label input{margin:0}
+        .form-submit{width:100%;padding:18px;margin-top:24px;font-size:var(--fs-label);letter-spacing:3px}
+        .form-ok{display:none;text-align:center;padding:40px 0}
+        .ok-ico{
+            width:70px;height:70px;background:var(--gold);color:var(--navy);
+            display:flex;align-items:center;justify-content:center;
+            font-size:32px;margin:0 auto 24px;font-weight:700;
+        }
+        .form-ok h3{font-family:var(--serif);color:var(--white);font-size:var(--fs-h3-lg);margin-bottom:14px;font-weight:400}
+
+        /* ---------- FAQ ---------- */
+        .faq-list{max-width:860px;margin:0 auto}
+        .faq-item{
+            background:var(--card-bg);
+            border:1px solid var(--bd-gold);
+            margin-bottom:12px;overflow:hidden;transition:all .4s;
+            backdrop-filter:blur(8px);
+        }
+        .faq-item.open{border-color:var(--bd-gold);background:linear-gradient(145deg,rgba(13,48,89,.4),rgba(13,48,89,.2))}
+        .faq-q{
+            padding:24px 32px;cursor:pointer;display:flex;
+            justify-content:space-between;align-items:center;
+            font-size:var(--fs-h4);font-weight:500;color:var(--white);
+            transition:background .3s;font-family:var(--serif);
+            line-height:1.5;
+        }
+        .faq-q:hover{background:var(--surface-hi)}
+        .faq-arrow{color:var(--gold);font-size:22px;font-weight:400;transition:transform .3s;font-family:var(--serif);line-height:1}
+        .faq-item.open .faq-arrow{transform:rotate(45deg)}
+        .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+        .faq-a-inner{padding:24px 32px;font-size:var(--fs-body);color:var(--txt-2);line-height:1.9;border-top:1px solid var(--bd-gold-soft)}
+
+        /* ---------- FINAL CTA ---------- */
+        .final-cta{
+            background:
+                radial-gradient(ellipse at 50% 0%,rgba(13,48,89,.6) 0%,transparent 70%),
+                linear-gradient(180deg,var(--navy-deep),var(--navy));
+            color:var(--white);padding:120px 8%;text-align:center;
+            position:relative;overflow:hidden;
+        }
+        .final-cta::before{
+            content:"";position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+            width:800px;height:500px;background:radial-gradient(ellipse,rgba(13,48,89,.5) 0%,transparent 70%);pointer-events:none;
+        }
+        .final-cta h2{font-family:var(--serif);font-size:var(--fs-h2-lg);font-weight:400;margin-bottom:20px;position:relative;z-index:2}
+        .final-cta p{font-size:var(--fs-lead);color:var(--txt-1);margin-bottom:40px;font-weight:300;position:relative;z-index:2}
+        .final-cta .btn{position:relative;z-index:2}
+        .final-cta .contact{margin-top:50px;font-size:var(--fs-body);color:var(--txt-2);letter-spacing:2px;position:relative;z-index:2}
+
+        /* ---------- FOOTER ---------- */
+        footer{background:var(--navy-deep);color:var(--txt-2);padding:70px 8% 30px;border-top:1px solid var(--bd-gold-soft)}
+        .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:50px;margin-bottom:50px}
+        footer h4{font-size:var(--fs-label);font-weight:700;margin-bottom:22px;color:var(--txt-gold);letter-spacing:2px;text-transform:uppercase}
+        .foot-brand{font-family:var(--serif);font-size:var(--fs-h3);color:var(--white);margin-bottom:18px;letter-spacing:1px}
+        footer p{font-size:var(--fs-body);line-height:1.9}
+        footer a{display:block;color:var(--txt-2);text-decoration:none;font-size:var(--fs-body);margin-bottom:12px;transition:color .3s}
+        footer a:hover{color:var(--txt-gold)}
+        .foot-bottom{
+            text-align:center;padding-top:30px;border-top:1px solid rgba(255,255,255,.08);
+            font-size:var(--fs-small);color:var(--txt-3);letter-spacing:1px;
+        }
+        .foot-bottom span{display:block;margin-bottom:4px}
+
+        /* ---------- RESPONSIVE ---------- */
+        @media(max-width:992px){
+            :root{
+                --fs-h1:44px;
+                --fs-h2:32px;
+                --fs-h2-lg:32px;
+                --fs-h2-sm:26px;
+                --fs-h3-lg:22px;
+                --fs-h3:18px;
+                --fs-h4:16px;
+                --fs-lead:14px;
+                --fs-body:13px;
+                --fs-small:12px;
+                --fs-label:12px;
+                --fs-eyebrow:11px;
+                --fs-mega:38px;
+                --fs-num-sm:20px;
+                --fs-num-md:26px;
+                --fs-num-lg:36px;
+            }
+            .container{padding:0 24px}
+            .hero{padding:100px 6% 60px}
+            .hero-stats{flex-wrap:nowrap}
+            .hero-stat{flex:0 0 33.33%;border-right:none;border-bottom:none;padding:14px 8px}
+            .grid-3,.fac-panel{padding:28px 22px}
+            .fac-list{grid-template-columns:repeat(2,1fr);gap:24px}
+            .fac-list > li:nth-child(2){border-right:none}
+            .fac-list > li:nth-child(3){grid-column:span 2;border-right:none;padding-right:0;border-top:1px solid var(--bd-gold-soft);padding-top:24px}
+            .study-dest{grid-template-columns:repeat(2,1fr)}
+            .study-info{grid-template-columns:1fr}
+            .f-check{grid-template-columns:repeat(2,max-content);gap:10px 20px}
+            .road-grid{grid-template-columns:repeat(2,1fr)}
+            .apply-grid,.cert,.teach-list{grid-template-columns:1fr;flex-direction:column}
+            .cert{text-align:center}
+            .foot-grid{grid-template-columns:repeat(2,1fr)}
+            .nav-links{display:none}
+            section{padding:50px 0}
+            .cur-wrap{gap:0}
+            .cur-nav{padding:12px 0;overflow-x:visible}
+            .cur-nav-label{display:none}
+            .cur-nav-list{display:grid;grid-template-columns:repeat(5,1fr);gap:0;padding:0 8px}
+            .cur-nav-item{padding:10px 14px;border-bottom:2px solid transparent;white-space:nowrap}
+            .cur-nav-item.active{border-bottom-color:var(--gold)}
+        }
+        @media(max-width:768px){
+            .cur-nav-list{grid-template-columns:repeat(2,1fr)}
+        }
+        @media(max-width:640px){
+            :root{
+                --fs-h1:28px;
+                --fs-h2:24px;
+                --fs-h2-lg:24px;
+                --fs-h2-sm:18px;
+                --fs-h3-lg:17px;
+                --fs-h3:15px;
+                --fs-h4:13px;
+                --fs-lead:12px;
+                --fs-body:12px;
+                --fs-small:11px;
+                --fs-mega:24px;
+                --fs-num-sm:14px;
+                --fs-num-md:18px;
+                --fs-num-lg:22px;
+            }
+            section{padding:24px 0}
+            .hero{min-height:50vh;padding:70px 6% 30px}
+            .hero h1{margin-bottom:12px}
+            .hero p.lead{margin-bottom:14px}
+            .hero-stats{margin:12px 0 10px}
+            .hero-stat{flex:0 0 33.33%;padding:10px 4px}
+            .hero-stat b{font-size:22px}
+            .title{margin-bottom:20px}
+            .title h2{margin-bottom:8px}
+            .title .divider{margin-bottom:8px}
+            .grid-3,.road-grid{grid-template-columns:1fr}
+            .fac-list{grid-template-columns:1fr}
+            .fac-list > li{border-right:none;padding-right:0;border-bottom:1px solid var(--bd-gold-soft);padding-bottom:14px}
+            .fac-list > li:last-child{border-bottom:none}
+            .fac-list > li:nth-child(3){grid-column:auto;border-top:none;padding-top:0}
+            .study-dest{grid-template-columns:1fr}
+            .study-panel{padding:14px 16px}
+            .docs-list{grid-template-columns:1fr}
+            .docs-panel{padding:14px 16px}
+            .f-check{grid-template-columns:1fr;gap:6px}
+            .cur-panel{padding:14px 16px}
+            .mod-head{flex-direction:column;margin-bottom:16px;padding-bottom:14px}
+            .panel-watermark{font-size:70px;right:-5px;top:-20px}
+            .cur-section .mod-subs > .mod-sub{flex:0 0 100% !important;max-width:100% !important}
+            .cur-nav-item{padding:8px 10px}
+            .f-row{grid-template-columns:1fr}
+            .foot-grid{grid-template-columns:1fr;gap:16px}
+            .cert{padding:18px 16px}
+            .cert-seal{width:70px;height:70px}
+            .apply-form{padding:16px}
+            .mod-foot,.teach{padding:16px}
+            .final-cta{padding:30px 6%}
+            .final-cta .contact{margin-top:16px}
+            .roadmap{margin-top:20px;padding-top:16px}
+            .teach{margin-top:20px;padding:20px 16px}
+            .steps{padding:16px}
+            .steps li{padding:8px 0 8px 40px}
+            .study-dest{padding-bottom:16px;margin-bottom:16px}
+            .mod-sub{padding:10px 10px 10px 12px}
+            .mod-sub h4{margin-bottom:6px;padding-bottom:5px}
+            .docs-list > li{padding:10px 0}
+        }
+
+
+        /* ---------- GLOW / SECTION VARIANTS ---------- */
+        .glow-top-left,.glow-top-right,.glow-bottom-right,.glow-bottom-left{position:relative;overflow:hidden}
+        .glow-top-left::before,.glow-top-right::before,.glow-bottom-right::before,.glow-bottom-left::before{
+            content:"";position:absolute;pointer-events:none;
+        }
+        .glow-top-left::before{
+            top:-200px;left:-200px;width:500px;height:500px;
+            background:radial-gradient(circle,rgba(13,48,89,.5) 0%,transparent 70%);
+        }
+        .glow-top-right::before{
+            top:-200px;right:-200px;width:500px;height:500px;
+            background:radial-gradient(circle,rgba(13,48,89,.4) 0%,transparent 70%);
+        }
+        .glow-bottom-right::before{
+            bottom:-200px;right:-200px;width:500px;height:500px;
+            background:radial-gradient(circle,rgba(13,48,89,.45) 0%,transparent 70%);
+        }
+        .glow-bottom-left::before{
+            bottom:-200px;left:-200px;width:400px;height:400px;
+            background:radial-gradient(circle,rgba(13,48,89,.35) 0%,transparent 70%);
+        }
+        .bg-navy{background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%)}
+        .bg-navy2{background:linear-gradient(180deg,var(--navy2) 0%,var(--navy) 100%)}
+        .bg-navy-deep{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%)}
+        .bg-navy-mix{background:linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 50%,var(--navy2) 100%)}
+        .glow-top-left .container,.glow-top-right .container,.glow-bottom-right .container,.glow-bottom-left .container{position:relative;z-index:2}
+
+        /* ---------- UTILITIES ---------- */
+        .text-gold{color:var(--txt-gold)}
+        .text-gold-strong{color:var(--gold-light);font-weight:600}
+        .fs-h3-lg{font-size:var(--fs-h3-lg)}
+        .fs-h2-sm{font-size:var(--fs-h2-sm)}
+        .fs-h2-lg{font-size:var(--fs-h2-lg)}
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+    <div class="container nav-inner">
+        <div class="brand"><b>ZJU · 传媒国际</b> | Executive Education</div>
+        <ul class="nav-links">
+            <li><a href="#hero">首页</a></li>
+            <li><a href="#curriculum">课程体系</a></li>
+            <li><a href="#faculty">师资</a></li>
+            <li><a href="#docs">毕业成果</a></li>
+            <li><a href="#apply">立即报名</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+    <div class="hero-inner">
+        <span class="hero-tag">Global Executive Business School · Zhejiang University</span>
+        <h1>浙江大学<br>企业全球化战略与增长<em>研修项目</em></h1>
+        <p class="lead">让制造业老板用 <strong>12 个月</strong>，沿 <strong>10 条逻辑链</strong> 完成出海闭环——从战略认知、市场选择、产品重构，到渠道、品牌、运营、合规、组织、数字化。</p>
+
+        <div class="hero-stats">
+            <div class="hero-stat"><b>12</b><span>个月</span></div>
+            <div class="hero-stat"><b>10</b><span>模块</span></div>
+            <div class="hero-stat"><b>1</b><span>年陪伴</span></div>
+        </div>
+
+        <div style="display:flex;gap:16px;flex-wrap:nowrap">
+            <a href="#apply" class="btn">申请加入领袖计划</a>
+            <a href="#curriculum" class="btn btn-ghost">查看课程体系 →</a>
+        </div>
+    </div>
+</header>
+
+<!-- CURRICULUM -->
+<section id="curriculum" class="cur-section">
+    <div class="container">
+        <div class="title">
+            <span class="eyebrow">Curriculum</span>
+            <h2>十个模块，一年走通出海全流程</h2>
+            <div class="divider"></div>
+        </div>
+
+        <div class="cur-wrap">
+            <nav class="cur-nav">
+                <div class="cur-nav-label"><span>CURRICULUM · 10 MODULES</span><span class="cur-nav-total">共 10 个模块</span></div>
+                <ul class="cur-nav-list">
+                    <li class="cur-nav-item active" data-m="m1"><span class="cur-nav-num">01</span><span class="cur-nav-label-sm">出海战略</span></li>
+                    <li class="cur-nav-item" data-m="m2"><span class="cur-nav-num">02</span><span class="cur-nav-label-sm">市场选择</span></li>
+                    <li class="cur-nav-item" data-m="m3"><span class="cur-nav-num">03</span><span class="cur-nav-label-sm">产品出海</span></li>
+                    <li class="cur-nav-item" data-m="m4"><span class="cur-nav-num">04</span><span class="cur-nav-label-sm">渠道建设</span></li>
+                    <li class="cur-nav-item" data-m="m5"><span class="cur-nav-num">05</span><span class="cur-nav-label-sm">品牌建设</span></li>
+                    <li class="cur-nav-item" data-m="m6"><span class="cur-nav-num">06</span><span class="cur-nav-label-sm">海外运营</span></li>
+                    <li class="cur-nav-item" data-m="m7"><span class="cur-nav-num">07</span><span class="cur-nav-label-sm">财税规划</span></li>
+                    <li class="cur-nav-item" data-m="m8"><span class="cur-nav-num">08</span><span class="cur-nav-label-sm">海外合规</span></li>
+                    <li class="cur-nav-item" data-m="m9"><span class="cur-nav-num">09</span><span class="cur-nav-label-sm">组织建设</span></li>
+                    <li class="cur-nav-item" data-m="m10"><span class="cur-nav-num">10</span><span class="cur-nav-label-sm">数字化与 AI</span></li>
+                </ul>
+            </nav>
+
+            <div class="cur-panels">
+
+        <!-- M1 -->
+        <div class="cur-panel active" id="m1">
+            <div class="panel-watermark">01</div>
+            <div class="mod-head">
+                <div>
+                    <h3>出海战略：为什么中国制造必须走向全球</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>全球经济格局变化与中国制造新机会</h4>
+                    <ul>
+                        <li>全球产业链重构趋势</li>
+                        <li>中国制造企业面临的新挑战</li>
+                        <li>国内市场增长瓶颈分析</li>
+                        <li>海外市场新增量机会</li>
+                        <li>"产品出海、品牌出海、产能出海"的演进路径</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>制造企业出海战略定位</h4>
+                    <ul>
+                        <li>企业为什么出海</li>
+                        <li>出海目标设计：增长型 / 利润型 / 品牌型 / 全球化型</li>
+                        <li>企业出海成熟度诊断</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>企业出海商业模式设计</h4>
+                    <ul>
+                        <li>OEM 出口模式 / ODM 模式</li>
+                        <li>海外渠道模式 / DTC 品牌模式</li>
+                        <li>海外本地化经营模式</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>判断企业是否适合出海 ｜ 明确 3–5 年全球化方向 ｜ 找到适合自身的发展路径 ｜ 避免盲目出海</p>
+                <p><b>模块产出：</b>《企业出海战略地图》</p>
+                <span class="deliverable">《企业出海战略地图》</span>
+            </div>
+        </div>
+
+        <!-- M2 -->
+        <div class="cur-panel" id="m2">
+            <div class="panel-watermark">02</div>
+            <div class="mod-head">
+                <div>
+                    <h3>市场选择：找到适合企业增长的海外市场</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>全球市场机会分析</h4>
+                    <ul>
+                        <li>北美 / 欧洲市场特点</li>
+                        <li>东南亚 / 中东 / 拉美市场机会</li>
+                        <li>分析维度：市场规模、增长速度、竞争环境、政策环境</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>海外市场选择模型</h4>
+                    <ul>
+                        <li>建立"国家市场评分模型"</li>
+                        <li>评估：容量、匹配度、渠道成熟度、进入成本、风险</li>
+                        <li>目标国排序与优先突破国家确定</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>海外客户需求洞察</h4>
+                    <ul>
+                        <li>用户画像分析</li>
+                        <li>购买决策因素</li>
+                        <li>竞争品牌分析</li>
+                        <li>产品需求差异</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>建立海外市场选择方法 ｜ 找到优先突破国家 ｜ 制定市场进入路线图</p>
+                <p><b>模块产出：</b>《目标市场分析报告》</p>
+                <span class="deliverable">《目标市场分析报告》</span>
+            </div>
+        </div>
+
+        <!-- M3 -->
+        <div class="cur-panel" id="m3">
+            <div class="panel-watermark">03</div>
+            <div class="mod-head">
+                <div>
+                    <h3>产品出海：打造海外市场竞争产品</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>产品出海竞争力诊断</h4>
+                    <ul>
+                        <li>技术优势 / 成本优势</li>
+                        <li>供应链优势 / 服务优势</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>产品本地化改造</h4>
+                    <ul>
+                        <li>功能调整 / 外观设计 / 包装设计</li>
+                        <li>使用习惯适配</li>
+                        <li>认证要求</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>全球市场定价策略</h4>
+                    <ul>
+                        <li>从成本定价升级为市场价值定价</li>
+                        <li>考虑：FOB、物流、税费、渠道利润、服务成本</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>找到企业产品海外卖点 ｜ 完成产品国际化改造 ｜ 建立海外价格体系</p>
+                <p><b>模块产出：</b>《海外产品策略》</p>
+                <span class="deliverable">《海外产品策略》</span>
+            </div>
+        </div>
+
+        <!-- M4 -->
+        <div class="cur-panel" id="m4">
+            <div class="panel-watermark">04</div>
+            <div class="mod-head">
+                <div>
+                    <h3>渠道建设：建立海外销售增长体系</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>海外渠道模式设计</h4>
+                    <ul>
+                        <li>经销商、代理商、大客户销售、跨境电商、独立站、海外直营</li>
+                        <li>渠道组合与分阶段演进设计</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>B2B 渠道开发</h4>
+                    <ul>
+                        <li>海外客户开发方法</li>
+                        <li>展会营销 / LinkedIn 开发</li>
+                        <li>海外代理体系建设</li>
+                        <li>大客户管理</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>B2C 渠道运营</h4>
+                    <ul>
+                        <li>Amazon 运营</li>
+                        <li>TikTok Shop</li>
+                        <li>独立站</li>
+                        <li>社媒营销</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>设计适合自身产品的渠道模式 ｜ 建立海外客户开发体系 ｜ 从订单贸易走向渠道经营</p>
+                <p><b>模块产出：</b>《渠道建设方案》</p>
+                <span class="deliverable">《渠道建设方案》</span>
+            </div>
+        </div>
+
+        <!-- M5 -->
+        <div class="cur-panel" id="m5">
+            <div class="panel-watermark">05</div>
+            <div class="mod-head">
+                <div>
+                    <h3>品牌建设：从中国供应商到全球品牌</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>海外品牌定位</h4>
+                    <ul>
+                        <li>品牌价值提炼</li>
+                        <li>品牌故事打造</li>
+                        <li>品牌差异化</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>海外营销体系</h4>
+                    <ul>
+                        <li>数字营销：Google、SEO、社交媒体、内容营销</li>
+                        <li>营销预算与 ROI 框架</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>海外用户运营</h4>
+                    <ul>
+                        <li>用户反馈</li>
+                        <li>社群运营</li>
+                        <li>复购体系</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>建立海外品牌认知 ｜ 降低价格竞争依赖 ｜ 提升客户长期价值</p>
+                <p><b>模块产出：</b>《海外品牌规划》</p>
+                <span class="deliverable">《海外品牌规划》</span>
+            </div>
+        </div>
+
+        <!-- M6 -->
+        <div class="cur-panel" id="m6">
+            <div class="panel-watermark">06</div>
+            <div class="mod-head">
+                <div>
+                    <h3>全球供应链与海外运营</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>海外仓建设</h4>
+                    <ul>
+                        <li>自建仓 / 第三方海外仓</li>
+                        <li>库存策略</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>国际物流体系</h4>
+                    <ul>
+                        <li>海运 / 空运</li>
+                        <li>清关</li>
+                        <li>贸易风险</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>海外本地服务体系</h4>
+                    <ul>
+                        <li>售后服务 / 技术支持 / 配件供应</li>
+                        <li>客户体验管理</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>建立稳定交付体系 ｜ 提升海外客户满意度 ｜ 降低运营成本</p>
+                <p><b>模块产出：</b>《海外运营体系》（仓储 / 物流 / 服务）</p>
+                <span class="deliverable">《海外运营体系》</span>
+            </div>
+        </div>
+
+        <!-- M7 -->
+        <div class="cur-panel" id="m7">
+            <div class="panel-watermark">07</div>
+            <div class="mod-head">
+                <div>
+                    <h3>财税规划：保障海外利润安全</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>海外公司架构设计</h4>
+                    <ul>
+                        <li>子公司 / 分公司 / 办事处</li>
+                        <li>海外投资架构</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>跨境资金管理</h4>
+                    <ul>
+                        <li>收付款体系</li>
+                        <li>外汇管理</li>
+                        <li>资金安全</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>国际税务规划</h4>
+                    <ul>
+                        <li>海外税务</li>
+                        <li>转移定价</li>
+                        <li>关税优化</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>降低税务风险 ｜ 提升海外利润水平 ｜ 建立安全资金体系</p>
+                <p><b>模块产出：</b>《财税架构与资金方案》</p>
+                <span class="deliverable">《财税架构与资金方案》</span>
+            </div>
+        </div>
+
+        <!-- M8 -->
+        <div class="cur-panel" id="m8">
+            <div class="panel-watermark">08</div>
+            <div class="mod-head">
+                <div>
+                    <h3>海外合规：让企业安全长期经营</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>产品合规</h4>
+                    <ul>
+                        <li>国际认证</li>
+                        <li>产品标准</li>
+                        <li>知识产权</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>商业合规</h4>
+                    <ul>
+                        <li>合同风险</li>
+                        <li>数据保护</li>
+                        <li>商业规则</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>国家风险管理</h4>
+                    <ul>
+                        <li>政策变化</li>
+                        <li>地缘风险</li>
+                        <li>汇率风险</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>避免海外经营重大风险 ｜ 建立合规体系 ｜ 提升企业国际信誉</p>
+                <p><b>模块产出：</b>《风险合规清单》</p>
+                <span class="deliverable">《风险合规清单》</span>
+            </div>
+        </div>
+
+        <!-- M9 -->
+        <div class="cur-panel" id="m9">
+            <div class="panel-watermark">09</div>
+            <div class="mod-head">
+                <div>
+                    <h3>组织建设：打造全球化团队</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>出海组织设计</h4>
+                    <ul>
+                        <li>总部 + 海外团队模式</li>
+                        <li>海外事业部建设</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>海外人才体系</h4>
+                    <ul>
+                        <li>招聘</li>
+                        <li>激励</li>
+                        <li>管理</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>跨文化管理</h4>
+                    <ul>
+                        <li>沟通方式</li>
+                        <li>管理差异</li>
+                        <li>本地融合</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>建立海外团队 ｜ 提升跨国管理能力 ｜ 实现组织复制</p>
+                <p><b>模块产出：</b>《组织与人才方案》</p>
+                <span class="deliverable">《组织与人才方案》</span>
+            </div>
+        </div>
+
+        <!-- M10 -->
+        <div class="cur-panel" id="m10">
+            <div class="panel-watermark">10</div>
+            <div class="mod-head">
+                <div>
+                    <h3>数字化与 AI：提升全球经营效率</h3>
+</div>
+</div>
+            <div class="mod-subs">
+                <div class="mod-sub">
+                    <h4>出海数字化基础</h4>
+                    <ul>
+                        <li>工具：ERP、CRM、SCM、BI</li>
+                        <li>数字化底座选型与实施路径</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>海外营销数字化</h4>
+                    <ul>
+                        <li>自动化营销</li>
+                        <li>客户管理</li>
+                        <li>数据分析</li>
+                    </ul>
+                </div>
+                <div class="mod-sub">
+                    <h4>AI 赋能企业出海</h4>
+                    <ul>
+                        <li>AI 市场调研 / 客户开发</li>
+                        <li>AI 内容生成 / 客服 / 翻译</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mod-foot">
+                <p><b>课程收益：</b>建立数字化运营体系 ｜ 降低海外运营成本 ｜ 用 AI 提升国际业务效率</p>
+                <p><b>模块产出：</b>《数字化工具地图》</p>
+                <span class="deliverable">《数字化工具地图》</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- FACULTY -->
+<section id="faculty" class="section-dark bg-navy glow-top-left">
+    
+    <div class="container">
+        <div class="title">
+            <span class="eyebrow">Faculty</span>
+            <h2>三轨师资 · 学术 × 实战 × 生态</h2>
+            <div class="divider"></div>
+            <p>由<strong class="text-gold-strong">浙大教授、一线出海企业家、跨境生态合作伙伴</strong>三类导师联合授课——既有理论高度，又有实战深度，还有资源广度。</p>
+        </div>
+
+        <div class="fac-panel">
+            <ul class="fac-list">
+                <li>
+                    <div class="fac-ratio">3<em>位</em></div>
+                    <h4>浙大教授 · 学术轨</h4>
+                    <p>由浙江大学传媒与国际文化学院、管理学院等相关院系教授领衔，提供全球化战略、跨文化管理、国际营销等系统化学术支撑。</p>
+                </li>
+                <li>
+                    <div class="fac-ratio">6<em>位</em></div>
+                    <h4>实战企业家 · 案例轨</h4>
+                    <p>邀请在东南亚、中东、欧美等市场成功布局的制造业出海创始人现身说法，带来真实的踩坑经验与增长方法，可直接复制到本企业。</p>
+                </li>
+                <li>
+                    <div class="fac-ratio">4<em>家</em></div>
+                    <h4>生态伙伴 · 资源轨</h4>
+                    <p>联合 Amazon、TikTok Shop、跨境物流、海外财税合规等一线合作伙伴，提供最新的平台政策、工具与资源链接，帮助学员规避风险。</p>
+                </li>
+            </ul>
+
+            <!-- 拟邀师资 -->
+            <div class="invited-fac">
+                <div class="invited-fac-hd">
+                    <h3>拟邀师资 <em>· 部分核心导师</em></h3>
+                    <div class="track-tags">
+                        <span class="track-tag">学术轨</span>
+                        <span class="track-tag">实战轨</span>
+                        <span class="track-tag">生态轨</span>
+                    </div>
+                </div>
+
+                <div class="fac-grid">
+
+                    <!-- 贲圣林 -->
+                    <div class="fac-card">
+                        <div class="fac-card-top">
+                            <div class="fac-name">贲圣林</div>
+                            <span class="fac-track track-academic">学术轨</span>
+                        </div>
+                        <div class="fac-title">
+                            <b>浙江大学教授、博导</b>｜浙江大学金融科技研究院院长，ZIBS 首任院长<br>
+                            浙江省金融科技与大数据分析国际科技合作基地主任
+                        </div>
+                        <div class="fac-bio">清华工学学士、人大企管硕士、普渡经济学博士，曾任荷兰银行、汇丰、摩根大通中国高管。长期深耕金融科技与国际金融领域，兼具深厚学术底蕴与顶级金融机构实战经验。</div>
+                        <div class="fac-course">
+                            <b>课题方向</b>
+                            <p>聚焦 <em>金融科技、创业金融、国际金融与商务、跨国经营与中国企业走出去、人民币国际化</em>，以全球银行国际化与中资机构出海研究为底色，讲清 <em>金融赋能出海、跨境资本与数字金融</em> 实战路径。</p>
+                        </div>
+                    </div>
+
+                    <!-- 郑健壮 -->
+                    <div class="fac-card">
+                        <div class="fac-card-top">
+                            <div class="fac-name">郑健壮</div>
+                            <span class="fac-track track-academic">学术轨</span>
+                        </div>
+                        <div class="fac-title">
+                            <b>管理学博士、教授、博导</b>｜浙大城市学院商学院原院长<br>
+                            法国克莱蒙商学院博导，浙江大学管理学院硕导
+                        </div>
+                        <div class="fac-bio">浙江省"151 人才"、杭州市委市政府咨询委员。长期从事产业集群与区域经济发展研究，是国内最早系统研究浙江产业集群的学者之一，理论与浙江本土产业案例深度结合。</div>
+                        <div class="fac-course">
+                            <b>课题方向</b>
+                            <p>聚焦 <em>产业集群、循环经济与可持续发展、资源观集群政策、制造业集群竞争力及区域产业战略</em>；以"资源—结构"观和浙江集群案例，讲清 <em>产业链协同、绿色转型、集群升级与区域高质量发展</em> 路径。</p>
+                        </div>
+                    </div>
+
+                    <!-- 张刚峰 -->
+                    <div class="fac-card">
+                        <div class="fac-card-top">
+                            <div class="fac-name">张刚峰</div>
+                            <span class="fac-track track-academic">学术轨</span>
+                        </div>
+                        <div class="fac-title">
+                            <b>浙江大学管理学院副教授、博士</b>｜日本九州大学、新加坡科技设计大学、意大利特伦托大学、德国纽伦堡应用技术大学客座教授
+                        </div>
+                        <div class="fac-bio">曾任 ISR、Towers Perrin、Towers Watson 客座咨询师，三十年深耕跨文化管理与国际商务。足迹覆盖欧、亚、美多所顶尖院校与咨询机构，跨国案例积累极为丰富。</div>
+                        <div class="fac-course">
+                            <b>课题方向</b>
+                            <p>聚焦 <em>中国企业出海的跨文化整合、沟通与海外营销、分销渠道、文化对商业决策的影响及企业文化诊断</em>；以 <em>意德并购整合、家得宝败走中国</em> 等案例，讲清海外经营如何避坑、落地与建组织能力。</p>
+                        </div>
+                    </div>
+
+                    <!-- 王丰收 -->
+                    <div class="fac-card">
+                        <div class="fac-card-top">
+                            <div class="fac-name">王丰收</div>
+                            <span class="fac-track track-practice">实战轨</span>
+                        </div>
+                        <div class="fac-title">
+                            <b>厦门大学法学博士</b>｜厦门卫视时事评论员、China Daily 专栏作家、凤凰卫视特邀嘉宾<br>
+                            丝路社会科学研究院全球政经研究中心主任
+                        </div>
+                        <div class="fac-bio">长期研究中美博弈、"一带一路"与地缘政经。兼具学术深度与媒体一线观察视角，对东南亚、中东、东非等新兴出海市场的宏观政经格局有系统研判与实地调研积累。</div>
+                        <div class="fac-course">
+                            <b>课题方向</b>
+                            <p>主讲 <em>《出海 2.0：从"产品出海"到"能力出海"》</em>，聚焦 <em>东南亚、中东、东非</em> 市场机会，拆解 <em>数据监管、劳工政策与 ESG 合规</em>；以宏观研判加实地案例，讲清本土化生存、避"虚假繁荣"、建可持续出海能力。</p>
+                        </div>
+                    </div>
+
+                    <!-- 陈攀峰 -->
+                    <div class="fac-card">
+                        <div class="fac-card-top">
+                            <div class="fac-name">陈攀峰</div>
+                            <span class="fac-track track-practice">实战轨</span>
+                        </div>
+                        <div class="fac-title">
+                            <b>出海远民咨询创始人</b>｜《华为全球化》作者，企业全球化管理咨询师
+                        </div>
+                        <div class="fac-bio">华为海外 13 年，曾任欧洲行政管理部部长、智利销售副代表，深度参与欧洲总部平台搭建与拉美电信、云业务突破，熟稔欧、美、拉美市场进入与本地化经营，是华为全球化体系的亲历者与构建者之一。</div>
+                        <div class="fac-course">
+                            <b>课题方向</b>
+                            <p>聚焦 <em>出海战略顶层设计、海外市场准入、代表处运营、大客户突破、跨文化组织与合规风控</em>，以 <em>华为及新能源、汽车行业</em> 实战案例，讲清从"走出去"到"走进去"的落地路径。</p>
+                        </div>
+                    </div>
+
+                    <!-- 韩华明 -->
+                    <div class="fac-card">
+                        <div class="fac-card-top">
+                            <div class="fac-name">韩华明</div>
+                            <span class="fac-track track-practice">实战轨</span>
+                        </div>
+                        <div class="fac-title">
+                            <b>香港大学工商管理硕士</b>｜企业全球化、全球贸易与跨国运营实战专家
+                        </div>
+                        <div class="fac-bio">30 年全球头部企业供应链操盘经验，曾任美国艾默生电气亚太区精益供应链负责人、瑞典宜家亚太区供应链与制造专家，横跨欧美北欧顶级制造与零售体系，对亚太供应链布局有端到端实战经验。</div>
+                        <div class="fac-course">
+                            <b>课题方向</b>
+                            <p>聚焦 <em>全球供应链布局、战略寻源与供应商治理、跨国交付与库存韧性、精益降本及 AI 赋能供应链</em>，以 <em>欧美北欧大厂亚太实战</em>，讲清出海企业如何建稳定、可控、低风险的全球供应网络。</p>
+                        </div>
+                    </div>
+
+                    <!-- 孙莉莉 -->
+                    <div class="fac-card">
+                        <div class="fac-card-top">
+                            <div class="fac-name">孙莉莉</div>
+                            <span class="fac-track track-eco">生态轨</span>
+                        </div>
+                        <div class="fac-title">
+                            <b>哈佛肯尼迪学院博士后发展项目结业</b>｜CIMA / ICPA 导师，中国采购与招标网专家库专家<br>
+                            ESG 注册可持续发展专业人士协会中国首席执行官、世界女性 ESG 基金会首席顾问
+                        </div>
+                        <div class="fac-bio">曾任德勤内审高级顾问 / 经理、简一集团内审负责人，17 年财税与风控实战。兼具四大审计方法论与大型民企内审实战经验，长期服务央企海外子公司合规整改项目。</div>
+                        <div class="fac-course">
+                            <b>课题方向</b>
+                            <p>主讲 <em>《企业海外合规经营与全面风险管理实战》</em>，聚焦 <em>跨境税务、内控审计、数据合规、制裁应对与 ESG 风险</em>，以 <em>四大审计及央企海外子公司整改</em> 案例，讲清出海企业从风险识别到体系落地的闭环路径。</p>
+                        </div>
+                    </div>
+
+                    <!-- 贾大宇 -->
+                    <div class="fac-card">
+                        <div class="fac-card-top">
+                            <div class="fac-name">贾大宇</div>
+                            <span class="fac-track track-eco">生态轨</span>
+                        </div>
+                        <div class="fac-title">
+                            <b>正阳新势公关顾问（北京）有限公司创始人兼 CEO</b>｜正阳品牌营销机构创始人<br>
+                            艾菲奖终审评委、金旗奖百大营销人物
+                        </div>
+                        <div class="fac-bio">深耕品牌传播与事件营销 20 余年，曾任伟达公关高级顾问、百度事件营销负责人，服务百度、腾讯、字节、顺丰、蕉下、珀莱雅等 600+ 企业，在国内品牌营销与公关事件领域拥有大量经典案例与方法论沉淀。</div>
+                        <div class="fac-course">
+                            <b>课题方向</b>
+                            <p>聚焦 <em>品牌定位落地、事件营销破圈、出海传播与本地化声量建设</em>，以 <em>"资源 + 场景 + 情绪"</em> 方法论，讲清中国品牌如何在海外建认知、防风险、稳增长。</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /拟邀师资 -->
+
+        </div>
+    </div>
+</section>
+
+<!-- STUDY TOUR -->
+<section id="study" class="section-dark bg-navy2 glow-top-left">
+    
+    <div class="container">
+        <div class="title">
+            <span class="eyebrow">Global Study Tour</span>
+            <h2>海外游学 · 走出课堂，看见世界</h2>
+            <div class="divider"></div>
+            <p>第十二个月组织学员前往海外重点市场游学，深入当地标杆企业、产业园区与中国出海龙头企业，完成从"认知"到"见世面"的关键一跳。</p>
+        </div>
+
+        <div class="study-panel">
+            <div class="study-dest">
+                <div><div class="dest-ico">01</div><h4>新加坡 · 企业总部</h4><p>探访中国企业在新加坡企业的总部，学习本地化组织搭建与跨文化管理。</p></div>
+                <div><div class="dest-ico">02</div><h4>雅加达 · 制造业集群</h4><p>走进在印尼设厂的中国制造业代表企业，了解海外产能布局与供应链管理。</p></div>
+                <div><div class="dest-ico">03</div><h4>迪拜 · 中东贸易枢纽</h4><p>拜访中东地区的中国品牌与贸易平台，探索高端市场品牌建设与渠道运营。</p></div>
+                <div><div class="dest-ico">04</div><h4>洛杉矶 · 北美品牌</h4><p>参访北美 DTC 品牌总部，学习海外消费者品牌营销与用户增长的完整打法。</p></div>
+            </div>
+            <ul class="study-info">
+                <li><b>游学形式</b><p>每班 30 人以内，教授带队 + 当地企业高管闭门分享 + 现场参访 + 学员互访。</p></li>
+                <li><b>游学产出</b><p>《目标市场进入报告》《本地合作资源清单》《海外校友网络名录》。</p></li>
+                <li><b>附加价值</b><p>参与学员企业可优先获得浙大全球校友网络中的海外合作伙伴对接机会。</p></li>
+            </ul>
+
+            <!-- 国内标杆参访企业 -->
+            <div class="study-local">
+                <div class="study-local-hd">
+                    <h4>国内标杆参访 · 浙江出海代表企业 <em>· 课程期间穿插安排</em></h4>
+                    <span class="sub">5 家浙江本土全球化龙头，近距离看中国企业如何走向世界</span>
+                </div>
+                <div class="company-grid">
+
+                    <div class="company-card">
+                        <div class="company-seal">HK<br>WS</div>
+                        <div class="company-name">海康威视</div>
+                        <span class="company-tag">安防 · 全球市占率第一</span>
+                        <p class="company-desc">产品与解决方案覆盖 150+ 国家，实地学习其海外本地化组织、研发协同与渠道体系建设经验。</p>
+                    </div>
+
+                    <div class="company-card">
+                        <div class="company-seal">云<br>深</div>
+                        <div class="company-name">云深处科技</div>
+                        <span class="company-tag">四足机器人 · 硬核出海</span>
+                        <p class="company-desc">杭州独角兽，绝影系列机器狗率先进入欧美日高端工业市场，看硬科技如何定价、获客与品牌突围。</p>
+                    </div>
+
+                    <div class="company-card">
+                        <div class="company-seal">杭<br>叉</div>
+                        <div class="company-name">杭叉集团</div>
+                        <span class="company-tag">工业车辆 · 全球 Top 8</span>
+                        <p class="company-desc">杭州老牌国企市场化出海样本，海外营收占比超 40%，拆解工程机械类企业的全球经销与服务网络搭建。</p>
+                    </div>
+
+                    <div class="company-card">
+                        <div class="company-seal">老<br>板</div>
+                        <div class="company-name">老板电器</div>
+                        <span class="company-tag">高端厨电 · 品牌出海</span>
+                        <p class="company-desc">吸油烟机销量全球领先，参访其智能制造与海外品牌中心，看中国高端家电如何进入欧美主流厨房。</p>
+                    </div>
+
+                    <div class="company-card">
+                        <div class="company-seal">青<br>山</div>
+                        <div class="company-name">青山实业</div>
+                        <span class="company-tag">不锈钢 · 新能源 · 全球化产业链</span>
+                        <p class="company-desc">从温州小厂到世界 500 强，印尼镍铁-不锈钢一体化布局改变全球产业格局，学习资源型出海与跨国投资决策。</p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /国内标杆参访企业 -->
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- DOCUMENTS -->
+<section id="docs" class="section-dark bg-navy-deep glow-bottom-right">
+    
+    <div class="container">
+        <div class="title">
+            <span class="eyebrow">Deliverables</span>
+            <h2>8 份企业文档 · 带走您的出海工具箱</h2>
+            <div class="divider"></div>
+            <p>每一门课结束，不是"学到了"，而是"做出来了"。学员将在课堂上完成本企业的真实文档，结业时带走一整套可直接使用的出海作战手册。</p>
+        </div>
+
+        <div class="docs-panel">
+            <ul class="docs-list">
+                <li><div class="docs-num">01</div><div class="docs-info"><h4>《企业出海战略地图》</h4><p>3–5 年全球化方向与商业模式选择</p></div></li>
+                <li><div class="docs-num">02</div><div class="docs-info"><h4>《目标市场分析报告》</h4><p>国家评分模型与优先级排序</p></div></li>
+                <li><div class="docs-num">03</div><div class="docs-info"><h4>《海外产品策略》</h4><p>产品改造方案与定价体系</p></div></li>
+                <li><div class="docs-num">04</div><div class="docs-info"><h4>《渠道建设方案》</h4><p>B2B / B2C 海外渠道组合设计</p></div></li>
+                <li><div class="docs-num">05</div><div class="docs-info"><h4>《海外品牌规划》</h4><p>品牌定位与营销体系搭建</p></div></li>
+                <li><div class="docs-num">06</div><div class="docs-info"><h4>《海外运营体系》</h4><p>仓储、物流、售后服务全链路</p></div></li>
+                <li><div class="docs-num">07</div><div class="docs-info"><h4>《财税架构与资金方案》</h4><p>跨境资金管理与税务规划</p></div></li>
+                <li><div class="docs-num">08</div><div class="docs-info"><h4>《风险合规清单》</h4><p>产品 / 商业 / 国家三维合规体系</p></div></li>
+            </ul>
+        </div>
+
+        <div class="cert">
+            <div class="cert-seal">ZJU<br>Executive<br>Certificate</div>
+            <div>
+                <h4>浙江大学 · 企业全球化战略与增长研修项目</h4>
+                <p>完成全部 10 个模块学习 + 通过结业答辩，学员可申请获得由浙江大学颁发的 <b>官方结业证书</b>，并加入"<b>浙大全球化企业家联盟</b>"，享受长期校友资源、海外游学与合作对接机会。</p>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- APPLY -->
+<section id="apply" class="section-dark bg-navy-mix glow-top-right">
+    
+    
+    <div class="container">
+        <div class="title">
+            <span class="eyebrow">How to Apply</span>
+            <h2>申请加入 · 领袖计划</h2>
+            <div class="divider"></div>
+            <p>本课程采用<strong class="text-gold-strong">申请制</strong>，每期限额 50 人，确保学员质量与讨论深度。</p>
+        </div>
+
+        <div class="apply-grid">
+            <ol class="steps">
+                <li>
+                    <h4>提交申请表</h4>
+                    <p>在线填写企业与个人信息，提交学习目标与出海规划</p>
+                </li>
+                <li>
+                    <h4>项目组初审</h4>
+                    <p>3 个工作日内完成资料审核，评估匹配度</p>
+                </li>
+                <li>
+                    <h4>沟通面试</h4>
+                    <p>与项目负责人一对一沟通，确认预期与课程匹配</p>
+                </li>
+                <li>
+                    <h4>录取缴费</h4>
+                    <p>收到录取通知书后完成缴费，正式加入学员行列</p>
+                </li>
+            </ol>
+
+            <form class="apply-form" id="apply-form" onsubmit="return submitForm(event)">
+                <span class="form-tag">APPLY NOW</span>
+                <h3>申请加入研修班</h3>
+                <p class="f-sub">课程费用：<strong class="text-gold fs-h3">￥188,000 / 人</strong>（含 12 个月课程费、资料费）</p>
+
+                <div class="f-row">
+                    <div class="f-field">
+                        <label>您的姓名 *</label>
+                        <input type="text" name="name" required placeholder="Please enter your name">
+                    </div>
+                    <div class="f-field">
+                        <label>企业名称 *</label>
+                        <input type="text" name="company" required placeholder="Company name">
+                    </div>
+                </div>
+
+                <div class="f-row">
+                    <div class="f-field">
+                        <label>职务 *</label>
+                        <input type="text" name="title" required placeholder="Your position">
+                    </div>
+                    <div class="f-field">
+                        <label>联系手机 *</label>
+                        <input type="tel" name="phone" required placeholder="Phone number">
+                    </div>
+                </div>
+
+                <div class="f-field">
+                    <label>企业年营收规模</label>
+                    <select name="revenue">
+                        <option>请选择</option>
+                        <option>5000 万以下</option>
+                        <option>5000 万 – 2 亿</option>
+                        <option>2 亿 – 10 亿</option>
+                        <option>10 亿以上</option>
+                    </select>
+                </div>
+
+                <div class="f-field">
+                    <label>当前出海阶段</label>
+                    <div class="f-check">
+                        <label><input type="checkbox" name="stage" value="0"> 尚未出海，正在调研</label>
+                        <label><input type="checkbox" name="stage" value="1"> 已开始出口，尝试摸索</label>
+                        <label><input type="checkbox" name="stage" value="2"> 已有海外业务，需要系统化</label>
+                        <label><input type="checkbox" name="stage" value="3"> 已布局多国，需要升级</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn form-submit">提交申请</button>
+
+                <div class="form-ok" id="form-ok">
+                    <div class="ok-ico">✓</div>
+                    <h3>申请已提交</h3>
+                    <p>项目组将在 3 个工作日内与您联系，请保持手机畅通。</p>
+                </div>
+
+                <div class="form-ok" id="form-err" style="display:none">
+                    <div class="ok-ico" style="color:#e57373">!</div>
+                    <h3 style="color:#e57373">提交失败</h3>
+                    <p>网络异常，请稍后重试或拨打 0571-86971122 直接联系项目组。</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-dark bg-navy2 glow-top-right">
+    
+    <div class="container">
+        <div class="title">
+            <span class="eyebrow">FAQ</span>
+            <h2>常见问题</h2>
+            <div class="divider"></div>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item open">
+                <div class="faq-q">课程适合什么样的企业与老板参加？<span class="faq-arrow">+</span></div>
+                <div class="faq-a"><div class="faq-a-inner">本课程主要面向"年营收 5000 万 – 10 亿规模、以制造业或实体产业为主、有意向或正在出海"的中小企业创始人、董事长、CEO 等最终决策者。建议创始团队 2–3 人共同报名，以便在同一框架下达成战略共识。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">课程时间与地点如何安排？<span class="faq-arrow">+</span></div>
+                <div class="faq-a"><div class="faq-a-inner">课程为期 12 个月，每月集中 2 天（周末），地点为浙江大学华家池校区。最后一个月（第 12 月）安排海外游学（7–10 天，具体路线根据学员投票确定）。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">课程费用包含哪些内容？<span class="faq-arrow">+</span></div>
+                <div class="faq-a"><div class="faq-a-inner">费用包含：10 个模块全部课程费、案例与工作坊资料、8 份企业文档辅导、海外游学报名费（不含往返机票与当地住宿）、浙大结业证书、校友联盟会员资格。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">如果错过某一期报名，还能加入吗？<span class="faq-arrow">+</span></div>
+                <div class="faq-a"><div class="faq-a-inner">我们每期限额 50 人，招满即止。如当期已满，可申请加入下一期，或申请旁听单个模块。学员享有一次免费复读机会。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">课程与其他出海培训相比，核心差异是什么？<span class="faq-arrow">+</span></div>
+                <div class="faq-a"><div class="faq-a-inner">最大差异是"老板视角 + 决策顺序 + 文档产出"。课程不以学科划分，而以老板的出海决策顺序组织，每一步都有专家陪同产出本企业的真实文档，结业时带走一套完整的出海作战手册。</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+    <div class="container">
+        <h2>走向全球，从这里开始</h2>
+        <p>Join a cohort of forward-thinking entrepreneurs building the next generation of global Chinese brands.</p>
+        <a href="#apply" class="btn">立即申请 · 加入领袖计划</a>
+        <div class="contact">
+            项目咨询：0571-86971122　|　浙江大学传媒与国际文化学院
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="foot-grid">
+            <div>
+                <div class="foot-brand">ZJU · Executive Education</div>
+                <p>浙江大学企业全球化战略与增长研修项目<br>Global Executive Business School at Zhejiang University</p>
+            </div>
+            <div>
+                <h4>Program</h4>
+                <a href="#curriculum">课程体系</a>
+                <a href="#faculty">师资团队</a>
+                <a href="#study">海外游学</a>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <a href="#docs">毕业成果</a>
+                <a href="#apply">申请流程</a>
+                <a href="#faq">常见问题</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <a href="tel:0571-86971122">0571-86971122</a>
+                <a href="#">杭州 · 浙江大学华家池校区</a>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <span>© 2025 Zhejiang University · Executive Education</span>
+            <span>Leadership · Strategy · Global Vision</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Curriculum nav
+    document.querySelectorAll('.cur-nav-item').forEach(function(item){
+        item.addEventListener('click', function(){
+            var m=this.dataset.m;
+            document.querySelectorAll('.cur-nav-item').forEach(function(t){t.classList.remove('active')});
+            document.querySelectorAll('.cur-panel').forEach(function(p){p.classList.remove('active')});
+            this.classList.add('active');
+            document.getElementById(m).classList.add('active');
+        });
+    });
+
+    // FAQ
+    document.querySelectorAll('.faq-q').forEach(function(q){
+        q.addEventListener('click', function(){
+            var item=this.parentElement;
+            item.classList.toggle('open');
+        });
+    });
+
+    // Teach bars animation
+    var bars=document.querySelectorAll('.teach-bars i');
+    function animateBars(){
+        bars.forEach(function(b){b.style.width=b.dataset.w});
+    }
+    var teachSection=document.getElementById('teach-bars');
+    if(teachSection){
+        var io=new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if(e.isIntersecting){animateBars();io.disconnect();}
+            });
+        });
+        io.observe(teachSection);
+    }
+
+    function submitForm(e){
+        e.preventDefault();
+        var form=e.target;
+        var btn=form.querySelector('button[type=submit]');
+        var okBox=document.getElementById('form-ok');
+        var errBox=document.getElementById('form-err');
+
+        btn.disabled=true;
+        btn.textContent='提交中…';
+
+        var stage=[];
+        form.querySelectorAll('input[name=stage]:checked').forEach(function(cb){stage.push(cb.value)});
+
+        var msg=[
+            '【研修班新申请】',
+            '姓名：'+form.name.value,
+            '企业：'+form.company.value,
+            '职务：'+form.title.value,
+            '手机：'+form.phone.value,
+            '营收规模：'+form.revenue.value,
+            '出海阶段：'+(stage.join('、')||'未选择'),
+            '提交时间：'+new Date().toLocaleString('zh-CN')
+        ].join('\n');
+
+        var isDev=location.hostname==='localhost'||location.hostname==='127.0.0.1';
+        var url=isDev?'/feishu-webhook':'https://open.feishu.cn/open-apis/bot/v2/hook/04a4c816-d908-45b8-89ce-41dfdfcd2650';
+
+        fetch(url,{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({msg_type:'text',content:{text:msg}}),
+            mode:isDev?'cors':'no-cors'
+        })
+        .then(function(){
+            btn.style.display='none';
+            okBox.style.display='block';
+        })
+        .catch(function(){
+            btn.disabled=false;
+            btn.textContent='提交申请';
+            if(errBox){errBox.style.display='block'}
+        });
+
+        return false;
+    }
+</script>
+</body>
+</html>
