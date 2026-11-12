@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>企业家班 · 扫码签到 Demo</title>
+<style>
+:root{
+  --paper:#EFECE3;
+  --surface:#FFFFFF;
+  --bg-soft:#FBFAF6;
+  --ink:#1A1F1D;
+  --ink2:#333A37;
+  --muted:#6C7570;
+  --rule:#E1DCD1;
+  --rule-soft:#EFEBE1;
+  --accent:#0F5F4C;
+  --accent-2:#B86A37;
+  --accent-soft:#E7F0EB;
+  --accent-2-soft:#F7ECE3;
+  --bad:#A6432F;
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font);color:var(--ink);line-height:1.6;
+  background:
+    radial-gradient(1000px 500px at 10% -10%, #F8F5EC 0%, rgba(248,245,236,0) 60%),
+    radial-gradient(800px 460px at 100% 0%, #F3F0E5 0%, rgba(243,240,229,0) 55%),
+    var(--paper);
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit}
+input,textarea{font-family:inherit}
+
+/* ================= 桌面布局 ================= */
+.stage{max-width:1180px;margin:0 auto;padding:56px 32px 80px;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:72px;align-items:start}
+.panel{position:sticky;top:40px}
+.panel .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.panel h1{font-family:"Songti SC","Source Han Serif SC",Georgia,serif;font-size:34px;line-height:1.3;letter-spacing:.01em;font-weight:700}
+.panel .lede{font-size:13.5px;color:var(--muted);line-height:1.9;margin-top:14px}
+.panel h2{font-size:11px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px}
+.states{display:flex;gap:8px;flex-wrap:wrap}
+.state-btn{font-size:12px;padding:7px 14px;border-radius:999px;border:1px solid var(--rule);background:#fff;color:var(--ink2);transition:.18s}
+.state-btn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.ids{border-top:1px solid var(--rule)}
+.id-row{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--rule-soft);font-size:12.5px;width:100%;text-align:left;transition:.15s}
+.id-row:hover{background:rgba(15,95,76,.05)}
+.id-row .nm{color:var(--ink);font-weight:600;width:48px}
+.id-row .co{color:var(--muted);flex:1;font-size:11.5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.id-row .l4{font-family:var(--mono);font-size:11.5px;color:var(--ink2);background:#fff;border:1px solid var(--rule);border-radius:5px;padding:1px 6px}
+.id-row .dot{width:6px;height:6px;border-radius:50%;background:#D8D3C6;flex:none}
+.id-row .dot.ok{background:#2C7A57}
+.id-row .dot.no{background:var(--accent-2)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--rule-soft);border-radius:10px;overflow:hidden;background:var(--bg-soft)}
+.stats div{padding:11px 12px;border-right:1px solid var(--rule-soft)}
+.stats div:last-child{border-right:0}
+.stats b{font-family:var(--mono);font-size:19px;font-weight:600;display:block;letter-spacing:-.02em}
+.stats span{font-size:10.5px;color:var(--muted)}
+.panel-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.ghost-btn{font-size:12px;padding:7px 13px;border-radius:8px;border:1px solid var(--rule);background:#fff;color:var(--ink2)}
+.panel-note{margin-top:16px;font-size:11px;color:#9AA19C;line-height:1.8}
+.panel-note code{font-family:var(--mono);font-size:10.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:1px 5px}
+
+/* ================= 手机 ================= */
+.device-wrap{display:flex;justify-content:center}
+.device{
+  position:relative;width:390px;height:844px;background:var(--surface);border-radius:46px;
+  box-shadow:0 0 0 1px rgba(26,31,29,.08),0 2px 6px rgba(26,31,29,.05),0 40px 70px -30px rgba(26,31,29,.4);
+  overflow:hidden;display:flex;flex-direction:column;
+}
+.notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:118px;height:26px;background:#141816;border-radius:999px;z-index:20}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:15px 26px 0;font-family:var(--mono);font-size:12px;font-weight:600;flex:none;z-index:10}
+.sig{display:flex;align-items:flex-end;gap:2px;height:11px;margin-right:6px}
+.sig i{width:3px;background:var(--ink);border-radius:1px;display:block}
+.sig i:nth-child(1){height:4px}.sig i:nth-child(2){height:6px}.sig i:nth-child(3){height:8px}.sig i:nth-child(4){height:11px}
+.batt{width:22px;height:11px;border:1px solid var(--ink);border-radius:3px;position:relative;margin-left:8px}
+.batt::after{content:"";position:absolute;inset:2px 7px 2px 2px;background:var(--ink);border-radius:1px}
+.sb-right{display:flex;align-items:center;gap:4px}
+.home{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:132px;height:5px;border-radius:999px;background:rgba(26,31,29,.18);z-index:20}
+
+.app{position:relative;flex:1;min-height:0}
+.screen{
+  position:absolute;inset:0;display:flex;flex-direction:column;padding:6px 24px 26px;
+  opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .26s ease,transform .26s ease;
+  overflow-y:auto;scrollbar-width:none;
+}
+.screen::-webkit-scrollbar{display:none}
+.screen.active{opacity:1;pointer-events:auto;transform:none}
+
+.topbar{display:flex;align-items:center;gap:10px;padding:10px 0 6px;font-size:12.5px;color:var(--muted);flex:none}
+.topbar .back{font-size:20px;line-height:1;color:var(--ink2);width:22px;text-align:left;padding:0}
+.topbar .ttl{flex:1;text-align:center;letter-spacing:.02em}
+.topbar .switch{font-size:11px;color:#9AA19C;border-bottom:1px solid #D8D3C6;line-height:1.4}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-soft);border:1px solid #D3E3DA;
+  padding:4px 9px;border-radius:999px;margin:6px 0 16px;
+}
+.eyebrow.warm{color:var(--accent-2);background:var(--accent-2-soft);border-color:#EFDACB}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:currentColor;display:block}
+h2.title{font-size:25px;line-height:1.32;font-weight:800;letter-spacing:-.015em}
+h2.title.sm{font-size:19px;line-height:1.45}
+.sub{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.8}
+
+/* 识别 */
+.code-chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--muted);margin-top:16px}
+.code-chip b{color:var(--ink2);letter-spacing:.16em}
+.digits{display:flex;gap:12px;margin:28px 0 0}
+.digit{
+  width:60px;height:74px;border:1px solid var(--rule);border-radius:12px;background:var(--bg-soft);
+  display:grid;place-items:center;font-family:var(--mono);font-size:27px;font-weight:600;color:var(--ink);transition:.15s;
+}
+.digit.on{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(15,95,76,.1)}
+.caret{width:1.5px;height:26px;background:var(--accent);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+#otp{position:absolute;opacity:0;width:1px;height:1px;border:0;padding:0;font-size:16px}
+.err{font-size:11.5px;color:var(--bad);margin-top:12px;min-height:17px}
+.link{color:var(--ink2);text-decoration:underline;text-underline-offset:3px}
+.identify-foot{margin-top:12px;padding-top:0;text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:#9AA19C;line-height:1.9}
+.note-card{margin-top:auto;background:var(--bg-soft);border:1px solid var(--rule-soft);border-radius:12px;padding:12px 14px}
+.note-card .lab{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--muted);margin-bottom:5px}
+.note-card p{font-size:11px;color:var(--muted);line-height:1.75}
+
+/* 匹配 */
+.match-card{position:relative;margin-top:26px;border:1px solid #CFE0D7;background:var(--accent-soft);border-radius:14px;padding:18px}
+.match-card .lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--accent);margin-bottom:6px}
+.match-card .nm{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.match-card .co{font-size:12px;color:var(--ink2);margin-top:3px}
+.match-card .tick{position:absolute;top:14px;right:14px;display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;align-items:center;justify-content:center}
+.match-note{font-size:11px;color:#9AA19C;margin-top:12px;line-height:1.7}
+
+/* 通用信息 */
+.info{margin-top:22px;border-top:1px solid var(--rule-soft)}
+.info-row{display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--rule-soft);align-items:baseline}
+.info-row dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--muted);padding-top:2px}
+.info-row dd{font-size:13px;color:var(--ink2);line-height:1.55}
+
+.who{margin-top:22px;padding:15px 16px;background:var(--bg-soft);border:1px solid var(--rule-soft);border-radius:12px}
+.who .hi{font-size:18px;font-weight:800;letter-spacing:-.01em}
+.who .hi small{font-size:11px;font-weight:500;color:var(--muted);margin-left:6px}
+.who .line{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:11px;color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;padding:2px 9px;border-radius:999px;border:1px solid var(--rule);color:var(--muted);background:#fff;white-space:nowrap}
+.chip .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.chip.green{color:var(--accent);background:var(--accent-soft);border-color:#CFE0D7}
+.chip.warm{color:var(--accent-2);background:var(--accent-2-soft);border-color:#EFDACB}
+.chip.gray{color:#8A918D;background:#F4F2EC}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;width:100%;height:52px;border-radius:10px;
+  font-size:14.5px;font-weight:600;letter-spacing:.02em;transition:.16s;
+}
+.btn:active{transform:scale(.985)}
+.btn.primary{background:var(--accent);color:#fff;box-shadow:0 12px 24px -14px rgba(15,95,76,.8)}
+.btn.primary:disabled{background:#C9D3CE;box-shadow:none;color:#fff}
+.btn.ghost{background:#fff;color:var(--ink2);border:1px solid var(--rule)}
+.btn.dark{background:var(--ink);color:#fff}
+.btn.mini{height:40px;font-size:13px;border-radius:8px}
+.btn-stack{display:grid;gap:10px;margin-top:20px}
+.foot-note{margin-top:auto;padding-top:18px;text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;color:#9AA19C;line-height:1.9}
+
+/* 签到 */
+.person{display:flex;align-items:center;gap:12px;margin-top:18px;padding-bottom:16px;border-bottom:1px solid var(--rule-soft)}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:14px;font-weight:700;border:1px solid #CFE0D7;flex:none}
+.person .pn{font-size:14.5px;font-weight:700}
+.person .pc{font-size:11.5px;color:var(--muted);margin-top:1px}
+.window{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.04em;margin-top:14px;text-align:center}
+.tap-zone{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:16px 0 4px;min-height:0}
+.tap{
+  position:relative;width:216px;height:216px;border-radius:50%;flex:none;
+  background:radial-gradient(circle at 34% 28%, #177A60 0%, #0F5F4C 46%, #0A3E32 100%);
+  color:#EDF6F1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 22px 44px -16px rgba(15,95,76,.62),inset 0 1px 0 rgba(255,255,255,.22);
+}
+.tap::before{content:"";position:absolute;inset:-13px;border-radius:50%;border:1px solid rgba(15,95,76,.26);animation:pulse 2.8s ease-out infinite}
+.tap::after{content:"";position:absolute;inset:-26px;border-radius:50%;border:1px dashed rgba(15,95,76,.16)}
+@keyframes pulse{0%{transform:scale(1);opacity:.9}70%{transform:scale(1.055);opacity:0}100%{opacity:0}}
+.tap .t1{font-size:28px;font-weight:800;letter-spacing:.08em}
+.tap .t2{font-family:var(--mono);font-size:8.5px;letter-spacing:.24em;opacity:.62}
+.tap-meta{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--muted)}
+.tap-meta .n{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--ink)}
+.tap-meta .sep{width:1px;height:12px;background:var(--rule)}
+.hint{font-size:10.5px;color:#8A918D;text-align:center;line-height:1.7}
+
+/* 成功 */
+.success{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-bottom:20px}
+.success .ok{width:54px;height:54px;border-radius:50%;background:var(--accent-soft);border:1px solid #CFE0D7;color:var(--accent);display:grid;place-items:center;font-size:22px;margin-bottom:18px}
+.success .big{display:flex;align-items:baseline;justify-content:center;gap:6px;font-family:var(--mono);font-size:56px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.success .big small{font-size:13px;color:var(--muted);font-weight:400;letter-spacing:0}
+.success .cap{font-size:12px;color:var(--muted);margin-top:8px}
+.success .who-line{font-size:13px;color:var(--ink2);margin-top:14px}
+.agenda{margin-top:24px;width:100%;border-top:1px solid var(--rule-soft);padding-top:14px;text-align:left}
+.agenda .lab{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--muted);margin-bottom:8px}
+.agenda-row{display:flex;gap:12px;font-size:11.5px;padding:5px 0;color:var(--ink2)}
+.agenda-row b{font-family:var(--mono);font-size:10.5px;color:var(--accent);font-weight:600;width:40px;flex:none}
+
+/* 问卷 */
+.q{padding:14px 0;border-bottom:1px solid var(--rule-soft)}
+.q:last-of-type{border-bottom:0}
+.qh{display:flex;align-items:baseline;gap:7px;margin-bottom:8px}
+.qn{font-family:var(--mono);font-size:9.5px;color:var(--accent);letter-spacing:.06em}
+.qt{font-size:12.5px;font-weight:600;color:var(--ink2);line-height:1.5}
+.qr{margin-left:auto;font-size:9px;color:#9AA19C;letter-spacing:.06em;white-space:nowrap}
+.stars{display:flex;gap:6px}
+.stars button{font-size:23px;line-height:1;color:#DED8CB;transition:.12s;padding:0}
+.stars button.on{color:var(--accent-2)}
+.ticks{display:flex;gap:4px;margin-top:2px}
+.ticks button{flex:1;height:26px;border-radius:5px;background:#EDE8DC;font-family:var(--mono);font-size:9.5px;color:#9AA19C;transition:.12s}
+.ticks button.on{background:var(--accent);color:#fff}
+.score-big{font-family:var(--mono);font-size:24px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
+.score-big small{font-size:10px;color:var(--muted);font-weight:400}
+.ta{position:relative}
+.ta textarea{
+  width:100%;min-height:76px;border:1px solid var(--rule);border-radius:10px;background:var(--bg-soft);
+  padding:10px 12px 24px;font-size:12px;color:var(--ink);line-height:1.7;resize:none;outline:none;
+}
+.ta textarea:focus{border-color:var(--accent);background:#fff}
+.ta .cnt{position:absolute;right:10px;bottom:7px;font-family:var(--mono);font-size:9px;color:#B4BAB4}
+.anon{display:flex;align-items:center;justify-content:center;gap:5px;font-size:9.5px;color:#9AA19C;font-family:var(--mono);margin-top:9px;letter-spacing:.02em}
+
+/* 表单 */
+.field{margin-top:14px}
+.field label{display:block;font-size:10.5px;color:var(--muted);margin-bottom:5px;font-family:var(--mono);letter-spacing:.06em}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid var(--rule);border-radius:9px;background:var(--bg-soft);
+  padding:11px 12px;font-size:13px;color:var(--ink);outline:none;
+}
+.field input:focus,.field select:focus{border-color:var(--accent);background:#fff}
+.reuse{display:flex;align-items:center;gap:8px;margin-top:14px;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:#F4F8F5;font-size:12px;color:var(--ink2)}
+.reuse input{width:15px;height:15px;margin:0}
+.reuse small{color:var(--muted);font-size:11px}
+.consent{display:flex;align-items:flex-start;gap:8px;margin-top:14px;font-size:11.5px;line-height:1.6;color:var(--ink2)}
+.consent input{width:15px;height:15px;margin:2px 0 0;flex:none}
+.consent a{color:var(--accent)}
+.paste{margin-top:14px;padding:13px 14px;border:1px dashed #C9C3B4;border-radius:12px;background:#FBFAF6}
+.paste-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.paste-hd b{font-size:12.5px;color:var(--ink)}
+.paste-hd span{font-family:var(--mono);font-size:9.5px;color:var(--muted);letter-spacing:.08em}
+.paste-sub{font-size:11px;color:var(--muted);line-height:1.65;margin-bottom:8px}
+.paste textarea{width:100%;min-height:74px;border:1px solid var(--rule);border-radius:9px;background:#fff;padding:9px 11px;font-size:12.5px;line-height:1.7;font-family:inherit;color:var(--ink);resize:vertical;outline:none}
+.paste textarea:focus{border-color:var(--accent)}
+.paste .btn{height:38px;margin-top:9px;font-size:12.5px}
+.paste-tip{margin-top:8px;font-size:11px;line-height:1.6;color:var(--muted);min-height:15px}
+.paste-tip b{color:var(--accent);font-weight:600}
+.paste-note{margin-top:6px;font-size:10px;color:#9AA19C}
+
+/* 弹层 / 提示 */
+.backdrop{position:absolute;inset:0;background:rgba(20,24,22,.32);opacity:0;pointer-events:none;transition:.22s;z-index:30}
+.backdrop.on{opacity:1;pointer-events:auto}
+.sheet{
+  position:absolute;left:0;right:0;bottom:-100%;background:#fff;border-radius:18px 18px 0 0;
+  padding:20px 22px 34px;z-index:31;transition:bottom .28s cubic-bezier(.2,.8,.25,1);
+  max-height:86%;overflow-y:auto;
+}
+.sheet.on{bottom:0}
+.sheet h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.sheet p{font-size:11.5px;color:var(--muted)}
+.reasons{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
+.reason{font-size:12px;padding:7px 13px;border-radius:999px;border:1px solid var(--rule);background:#fff;color:var(--ink2)}
+.reason.on{background:var(--accent-soft);border-color:#CFE0D7;color:var(--accent);font-weight:600}
+.toast{
+  position:absolute;left:50%;bottom:44px;transform:translate(-50%,12px);
+  background:rgba(26,31,29,.92);color:#fff;font-size:11.5px;padding:9px 16px;border-radius:999px;
+  opacity:0;pointer-events:none;transition:.24s;z-index:40;white-space:nowrap;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* 移动端 */
+@media (max-width:900px){
+  body{background:var(--surface)}
+  .stage{display:block;padding:0;max-width:none}
+  .panel{display:none}
+  .device-wrap{display:block}
+  .device{width:100vw;height:100dvh;border-radius:0;box-shadow:none}
+  .notch,.statusbar,.home{display:none}
+  .screen{padding:calc(14px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom))}
+  .mobile-demo{
+    position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:60;
+    background:var(--ink);color:#fff;font-size:11px;letter-spacing:.08em;padding:9px 14px;border-radius:999px;
+    box-shadow:0 10px 24px -12px rgba(26,31,29,.8);
+  }
+  body.sheet-open .mobile-demo{display:none}
+  .mobile-panel{
+    position:fixed;inset:auto 0 0 0;z-index:70;background:#fff;border-radius:18px 18px 0 0;
+    padding:18px 20px calc(26px + env(safe-area-inset-bottom));transform:translateY(105%);transition:.3s;
+    max-height:80vh;overflow:auto;
+  }
+  .mobile-panel.on{transform:none}
+  .mobile-panel .mask-close{position:fixed;inset:0;z-index:69;background:rgba(20,24,22,.34)}
+  .mobile-panel h2{margin-top:14px}
+}
+@media (min-width:901px){
+  .mobile-demo,.mobile-panel{display:none}
+}
+
+/* ===== 本次入校信息（每次确认都要过） ===== */
+.profile{margin-top:16px;border:1px solid var(--rule);border-radius:12px;padding:14px;background:var(--bg-soft)}
+.profile-hd{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.12em;color:var(--muted);margin-bottom:10px}
+.profile-tip{font-size:10px;color:var(--accent);letter-spacing:.04em}
+.pf{display:block;margin-bottom:10px}
+.pf span{display:block;font-size:11px;color:var(--ink2);margin-bottom:5px}
+.pf i{font-style:normal;color:#A6432F;font-size:10px}
+.pf i.opt{color:var(--muted)}
+.pf input{width:100%;height:38px;border:1px solid var(--rule);border-radius:8px;background:#fff;padding:0 10px;font-size:13px;font-family:inherit;color:var(--ink)}
+.pf input:focus{outline:none;border-color:var(--accent)}
+.pf-quick{display:flex;gap:8px;margin-top:2px}
+.pf-quick button{flex:1;height:32px;border:1px solid var(--rule);border-radius:8px;background:#fff;font-size:11.5px;color:var(--ink2);font-family:inherit;cursor:pointer}
+.pf-quick button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+</style>
+</head>
+<body>
+<div id="boot" style="position:fixed;inset:0;z-index:999;background:#EFECE3;display:grid;place-items:center;color:#6C7570;font-size:12px;letter-spacing:.08em">加载中…</div>
+<div class="stage">
+
+  <!-- ============ 演示控制台 ============ -->
+  <aside class="panel" id="panelDesktop">
+    <div class="kicker">Public Code · H5 Demo</div>
+    <h1>扫码签到<br>虚拟演示</h1>
+    <p class="lede">一张公共码 + 手机号后四位识别身份。左侧控制台只在演示模式可用，真实模式下数据直接写入飞书多维表格。</p>
+
+    <h2>扫码入口</h2>
+    <div class="states" id="entryBtns">
+      <button class="state-btn on" data-entry="old">老学员码</button>
+      <button class="state-btn" data-entry="new">新学员码</button>
+    </div>
+
+    <h2>场次状态</h2>
+    <div class="states" id="stateBtns">
+      <button class="state-btn" data-state="confirm">确认中</button>
+      <button class="state-btn" data-state="checkin">进行中 · 签到</button>
+      <button class="state-btn" data-state="survey">评价中</button>
+    </div>
+
+    <h2>试一下这些身份（点击模拟扫码）</h2>
+    <div class="ids" id="idList"></div>
+
+    <h2>实时数据</h2>
+    <div class="stats">
+      <div><b id="stTotal">0</b><span>应到</span></div>
+      <div><b id="stRsvp">0</b><span>已确认</span></div>
+      <div><b id="stSign">0</b><span>已签到</span></div>
+      <div><b id="stSurvey">0</b><span>评价</span></div>
+    </div>
+
+    <div class="panel-actions">
+      <button class="ghost-btn" id="btnGuest">临时登记入口</button>
+      <button class="ghost-btn" id="btnReset">重置演示数据</button>
+      <a class="ghost-btn" href="/staff" target="_blank" style="text-decoration:none">工作人员入口</a>
+    </div>
+    <p class="panel-note" style="margin-top:12px">新学员登记 <b id="newStat">0</b> 人 · 报备已提交</p>
+    <p class="panel-note" style="margin-top:8px" id="modeNote">演示数据保存在 localStorage。</p>
+  </aside>
+
+  <!-- ============ 手机 ============ -->
+  <div class="device-wrap">
+    <div class="device" id="device">
+      <div class="notch"></div>
+      <div class="statusbar">
+        <span>9:41</span>
+        <span class="sb-right">
+          <span class="sig"><i></i><i></i><i></i><i></i></span>
+          <span style="font-family:var(--mono);font-size:10px">5G</span>
+          <span class="batt"></span>
+        </span>
+      </div>
+
+      <div class="app" id="app">
+
+        <!-- 识别 -->
+        <section class="screen active" data-screen="identify">
+          <div class="topbar"><span style="width:22px"></span><span class="ttl">课程签到</span><span style="width:22px"></span></div>
+          <span class="eyebrow"><span class="dot"></span><span id="eyebrowTop">第 12 期 · 2026 年 11 月</span></span>
+          <h2 class="title" id="titleTop">增长战略与<br>组织能力</h2>
+          <p class="sub">输入手机号后四位，找到你的席位。</p>
+
+          <div class="digits" id="digits">
+            <div class="digit"></div><div class="digit"></div><div class="digit"></div><div class="digit"></div>
+          </div>
+          <input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="4" aria-label="手机号后四位">
+          <div class="err" id="err"></div>
+
+          <div class="code-chip" id="codeChip">老学员码</div>
+
+          <div class="note-card">
+            <div class="lab">WHY 4 DIGITS</div>
+            <p>手机号只用来匹配身份，不作为登录凭证——不用注册，也不发验证码。匹配到本人后，页面才会显示你的姓名。</p>
+          </div>
+
+          <div class="identify-foot">
+            无需登录 · 无需关注公众号<br>
+            找不到我？<button class="link" data-go="guest">现场登记</button>
+          </div>
+        </section>
+
+        <!-- 新学员登记 -->
+        <section class="screen" data-screen="newReg">
+          <div class="topbar"><span style="width:22px"></span><span class="ttl">新学员登记</span><span style="width:22px"></span></div>
+          <span class="eyebrow"><span class="dot"></span>新学员码 · 首次扫码</span>
+          <h2 class="title sm">先登记，再入场</h2>
+          <p class="sub">信息用于入校报备，只需填一次；下次扫码直接签到。</p>
+
+          <div class="paste">
+            <div class="paste-hd"><b>快速填写</b><span>选填 · 省事用</span></div>
+            <div class="paste-sub">把身份证号、手机号、车牌号一起粘进来，系统自动拆分填到下面。</div>
+            <textarea id="pasteBox" placeholder="例：张三 13800138000 330102199001011234 浙A12345&#10;也可以直接粘贴一整段文字，多余的会被忽略"></textarea>
+            <button type="button" class="btn" id="btnParse">自动识别并填入</button>
+            <div class="paste-tip" id="pasteTip"></div>
+            <div class="paste-note">粘贴内容只在本机解析，不会上传</div>
+          </div>
+
+          <div class="field"><label>企业名称</label><input id="rCompany" placeholder="请输入企业名称"></div>
+          <div class="field"><label>姓名</label><input id="rName" placeholder="请输入姓名"></div>
+          <div class="field"><label>职务</label><input id="rPosition" placeholder="如：总经理"></div>
+          <div class="field"><label>身份证号</label><input id="rIdcard" maxlength="18" placeholder="用于入校报备"></div>
+          <div class="field"><label>电话号码</label><input id="rPhone" inputmode="numeric" maxlength="11" placeholder="11 位手机号"></div>
+          <div class="field"><label>车牌号（选填）</label><input id="rPlate" placeholder="如：浙A12345" autocapitalize="characters" autocorrect="off" spellcheck="false" style="text-transform:uppercase"></div>
+          <div class="field"><label>邀请人姓名</label><input id="rInviter" placeholder="谁邀请你来的"></div>
+          <div class="field"><label>试听第几天</label>
+            <select id="rTrialDay">
+              <option value="第一天">第一天</option>
+              <option value="第二天">第二天</option>
+              <option value="第三天">第三天</option>
+              <option value="第四天">第四天</option>
+            </select>
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" id="consentNew">
+            <span>我已阅读并同意<a href="/privacy.html" target="_blank">《隐私政策》</a>，同意将以上信息用于入校报备</span>
+          </label>
+          <div class="btn-stack">
+            <button class="btn primary" id="btnNewSubmit">提交并完成报备</button>
+          </div>
+          <div class="foot-note">提交后进入待审名单，由班主任确认<br>信息仅用于入校报备</div>
+        </section>
+
+        <!-- 新学员报名完成 -->
+        <section class="screen" data-screen="newDone">
+          <div class="topbar"><span style="width:22px"></span><span class="ttl">报备已提交</span><span style="width:22px"></span></div>
+          <div class="success">
+            <div class="ok">✓</div>
+            <h2 class="title" style="font-size:21px">报备信息已提交</h2>
+            <div class="cap" style="margin-top:10px">班主任确认后完成入校报备<br>下次扫同一个码即可直接签到</div>
+            <div class="agenda">
+              <div class="lab">YOUR INFO · 登记信息</div>
+              <div class="agenda-row"><b>姓名</b><span id="ndName">—</span></div>
+              <div class="agenda-row"><b>企业</b><span id="ndCompany">—</span></div>
+              <div class="agenda-row"><b>职务</b><span id="ndPosition">—</span></div>
+              <div class="agenda-row"><b>电话</b><span id="ndPhone">—</span></div>
+              <div class="agenda-row"><b>邀请</b><span id="ndInviter">—</span></div>
+            </div>
+            <div class="btn-stack" style="width:100%">
+              <button class="btn primary" id="btnNewCheckin">进入签到</button>
+              <div class="hint" id="newDoneNote">签到将在开课当天开放</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 匹配 -->
+        <section class="screen" data-screen="match">
+          <div class="topbar"><button class="back" data-back-identify>‹</button><span class="ttl">确认身份</span><span style="width:22px"></span></div>
+          <span class="eyebrow"><span class="dot"></span>已找到匹配记录</span>
+          <h2 class="title sm">是你本人吗？</h2>
+          <div class="match-card">
+            <span class="tick">✓</span>
+            <div class="lab">FOUND YOU</div>
+            <div class="nm" id="matchName">张*</div>
+            <div class="co" id="matchCompany">某某科技</div>
+          </div>
+          <p class="match-note">只显示脱敏信息。确认后才会写入你的确认或签到记录。</p>
+          <div class="btn-stack">
+            <button class="btn primary" id="btnItsMe">是我，继续</button>
+            <button class="btn ghost" data-back-identify>不是我</button>
+          </div>
+          <div class="foot-note">手机号仅用于匹配，不作为登录凭证</div>
+        </section>
+
+        <!-- 确认 -->
+        <section class="screen" data-screen="confirm">
+          <div class="topbar"><span style="width:22px"></span><span class="ttl">课程邀请</span><button class="switch" data-switch>切换身份</button></div>
+          <span class="eyebrow"><span class="dot"></span><span id="eyebrowConfirm">第 12 期 · 2026 年 11 月</span></span>
+          <h2 class="title" id="titleConfirm">增长战略与<br>组织能力</h2>
+          <dl class="info">
+            <div class="info-row"><dt>TIME</dt><dd id="infoTime">11 月 21 日 周六 · 09:00–17:00</dd></div>
+            <div class="info-row"><dt>PLACE</dt><dd id="infoPlace">上海 · 静安洲际酒店 3F 宴会厅</dd></div>
+          </dl>
+          <div class="who">
+            <div class="hi">你好，<span id="confirmName">张明</span> <small>这是本期为你预留的席位</small></div>
+            <div class="line">
+              <span class="chip gray" id="rsvpChip"><span class="dot"></span>未确认</span>
+              <span>确认截止 <b class="mono" style="color:var(--ink2);font-weight:600" id="deadline">11-19 18:00</b></span>
+            </div>
+          </div>
+          <label class="reuse" id="reuseRow" hidden>
+            <input type="checkbox" id="reuseLast" checked>
+            <span>沿用上次入校信息 <small id="reuseHint"></small></span>
+          </label>
+          <div class="profile" id="profileBox">
+            <div class="profile-hd"><span>本次入校信息</span><span class="profile-tip">用于进校报备</span></div>
+            <label class="pf"><span>单位名称 <i>必填</i></span><input id="pfCompany" placeholder="例如：某某科技有限公司" autocomplete="organization"></label>
+            <label class="pf"><span>身份证号 <i>必填</i></span><input id="pfIdcard" placeholder="18 位身份证号" autocomplete="off">
+              <em id="pfIdcardHint" style="display:none">已脱敏显示；如需更正，请直接输入完整号码</em></label>
+            <label class="pf"><span>车牌号 <i class="opt">今天不开车可留空</i></span><input id="pfPlate" placeholder="例如：浙A12345" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" style="text-transform:uppercase"></label>
+            <div class="pf-quick" id="pfQuick">
+              <button type="button" data-plate="keep">沿用上次</button>
+              <button type="button" data-plate="change">换车</button>
+              <button type="button" data-plate="none">今天不开车</button>
+            </div>
+          </div>
+          <label class="consent">
+            <input type="checkbox" id="consentConfirm">
+            <span>我已阅读并同意<a href="/privacy.html" target="_blank">《隐私政策》</a>，同意将以上信息用于入校报备</span>
+          </label>
+          <div class="btn-stack">
+            <button class="btn primary" id="btnConfirm">确认参加</button>
+            <button class="btn ghost" id="btnLeave">这次来不了</button>
+          </div>
+          <div class="foot-note">无需登录 · 扫码后 4 位识别<br>截止前可随时修改</div>
+        </section>
+
+        <!-- 签到 -->
+        <section class="screen" data-screen="checkin">
+          <div class="topbar"><span style="width:22px"></span><span class="ttl">现场签到</span><button class="switch" data-switch>切换身份</button></div>
+          <span class="eyebrow"><span class="dot"></span><span id="eyebrowCheckin">第 12 期 · 签到开放中</span></span>
+          <h2 class="title sm" id="titleCheckin">增长战略与组织能力</h2>
+          <div class="person">
+            <div class="avatar" id="ckAvatar">张</div>
+            <div><div class="pn" id="ckName">张明</div><div class="pc" id="ckCompany">某某科技有限公司</div></div>
+          </div>
+          <div class="window" id="ckWindow">CHECK-IN WINDOW 08:30 — 17:30</div>
+          <div class="tap-zone">
+            <button class="tap" id="btnSign"><span class="t1">签到</span><span class="t2">TAP TO SIGN IN</span></button>
+            <div class="tap-meta">
+              <span class="chip green" id="ckChip"><span class="dot"></span>现场签到</span>
+              <span class="sep"></span>
+              <span>已签到 <b class="n" id="ckCount">0</b> 人</span>
+            </div>
+          </div>
+          <div class="hint">签到成功后请出示本页领取资料袋<br>微信扫码进入 · 页面已显示你的姓名</div>
+          <div class="foot-note">不是你本人？点右上角切换身份</div>
+        </section>
+
+        <!-- 签到成功 -->
+        <section class="screen" data-screen="success">
+          <div class="topbar"><span style="width:22px"></span><span class="ttl">签到成功</span><button class="switch" data-switch>切换身份</button></div>
+          <div class="success">
+            <div class="ok">✓</div>
+            <div class="big"><span id="seq">0</span><small>位</small></div>
+            <div class="cap">你是今天第 <span id="seq2">0</span> 位签到</div>
+            <div class="who-line" id="successWho">张明 · 某某科技有限公司</div>
+            <div class="cap" id="successTime">09:13 签到成功</div>
+            <div class="agenda" id="agendaBox" hidden>
+              <div class="lab">TODAY · 今日议程</div>
+              <div id="agendaRows"></div>
+            </div>
+            <div class="btn-stack" style="width:100%">
+              <button class="btn primary" id="btnToSurvey">去评价 · 1 分钟</button>
+              <div class="hint" id="surveyClosed">课后评价 17:30 开放，届时重新扫码即可</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 评价 -->
+        <section class="screen" data-screen="survey">
+          <div class="topbar"><span style="width:22px"></span><span class="ttl">课后评价</span><button class="switch" data-switch>切换身份</button></div>
+          <span class="eyebrow warm"><span class="dot"></span><span id="eyebrowSurvey">第 12 期 · 约 1 分钟</span></span>
+          <h2 class="title">这期课，<br>值得再来吗？</h2>
+
+          <div class="q">
+            <div class="qh"><span class="qn">01</span><span class="qt">整体满意度</span><span class="qr">必答</span></div>
+            <div class="stars" data-stars="q1"><button data-v="1">★</button><button data-v="2">★</button><button data-v="3">★</button><button data-v="4">★</button><button data-v="5">★</button></div>
+          </div>
+
+          <div class="q">
+            <div class="qh"><span class="qn">02</span><span class="qt">内容对我的经营有帮助</span><span class="qr">必答</span></div>
+            <div class="score-big"><span id="q2v">—</span><small> / 10</small></div>
+            <div class="ticks" data-ticks="q2"></div>
+          </div>
+
+          <div class="q">
+            <div class="qh"><span class="qn">03</span><span class="qt">讲师的专业度与表达</span><span class="qr">必答</span></div>
+            <div class="score-big"><span id="q3v">—</span><small> / 10</small></div>
+            <div class="ticks" data-ticks="q3"></div>
+          </div>
+
+          <div class="q">
+            <div class="qh"><span class="qn">04</span><span class="qt">场地与现场服务</span><span class="qr">选答</span></div>
+            <div class="stars" data-stars="q4"><button data-v="1">★</button><button data-v="2">★</button><button data-v="3">★</button><button data-v="4">★</button><button data-v="5">★</button></div>
+          </div>
+
+          <div class="q">
+            <div class="qh"><span class="qn">05</span><span class="qt">一个收获，或一点建议</span><span class="qr">选答</span></div>
+            <div class="ta">
+              <textarea id="q5" maxlength="100" placeholder="最大的一个收获，或最想改进的一点…"></textarea>
+              <span class="cnt" id="q5cnt">0 / 100</span>
+            </div>
+          </div>
+
+          <div class="btn-stack" style="margin-top:14px">
+            <button class="btn dark" id="btnSubmitSurvey" disabled>提交</button>
+          </div>
+          <div class="anon" id="surveyWho">以本人身份提交 · 仅用于课程改进</div>
+        </section>
+
+        <!-- 评价完成 -->
+        <section class="screen" data-screen="thanks">
+          <div class="topbar"><span style="width:22px"></span><span class="ttl">提交成功</span><span style="width:22px"></span></div>
+          <div class="success">
+            <div class="ok">✓</div>
+            <h2 class="title" style="font-size:21px">反馈已收到</h2>
+            <div class="cap" style="margin-top:10px" id="thanksWho">已记录你的姓名，班主任可看到原文</div>
+            <div class="btn-stack" style="width:100%">
+              <button class="btn primary" id="btnThanksDone">完成，返回课程页</button>
+              <button class="btn ghost" id="btnThanksAgain">不是本人？重新识别</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 临时登记 -->
+        <section class="screen" data-screen="guest">
+          <div class="topbar"><button class="back" data-back-identify>‹</button><span class="ttl">现场登记</span><span style="width:22px"></span></div>
+          <span class="eyebrow"><span class="dot"></span>临时旁听 / 新学员</span>
+          <h2 class="title sm">留下你的联系方式</h2>
+          <p class="sub">班主任确认后会为你计入本次签到，不挡人。</p>
+          <div class="field"><label>姓名</label><input id="gName" placeholder="请输入姓名"></div>
+          <div class="field"><label>公司</label><input id="gCompany" placeholder="请输入公司"></div>
+          <div class="field"><label>手机号</label><input id="gMobile" inputmode="numeric" maxlength="11" placeholder="11 位手机号"></div>
+          <div class="btn-stack">
+            <button class="btn primary" id="btnGuestSubmit">提交登记</button>
+          </div>
+          <div class="foot-note">提交后进入待审名单，由班主任确认</div>
+        </section>
+
+        <!-- 登记完成 -->
+        <section class="screen" data-screen="guestDone">
+          <div class="topbar"><span style="width:22px"></span><span class="ttl">登记完成</span><span style="width:22px"></span></div>
+          <div class="success">
+            <div class="ok">✓</div>
+            <h2 class="title" style="font-size:20px">已登记，等待老师确认</h2>
+            <div class="cap" style="margin-top:10px">你的信息已进入本场次的待审名单<br>确认后会计入签到</div>
+            <div class="btn-stack" style="width:100%;margin-top:28px">
+              <button class="btn ghost" data-back-identify>关闭</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="home"></div>
+
+      <!-- 请假弹层 -->
+      <div class="backdrop" id="backdrop"></div>
+      <div class="sheet" id="leaveSheet">
+        <h3>这次来不了</h3>
+        <p>选填一个原因，班主任会收到你的请假。</p>
+        <div class="reasons" id="reasons">
+          <button class="reason">出差</button>
+          <button class="reason">时间冲突</button>
+          <button class="reason">身体原因</button>
+          <button class="reason">其他</button>
+        </div>
+        <div class="btn-stack" style="margin-top:0">
+          <button class="btn primary" id="btnLeaveConfirm">确定请假</button>
+          <button class="btn ghost" id="btnLeaveCancel">再想想</button>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+    </div>
+  </div>
+</div>
+
+<button class="mobile-demo" id="mobileDemo">演示控制</button>
+<div class="mobile-panel" id="mobilePanel"></div>
+
+<script>
+/* ================= 数据层（统一走后端接口） ================= */
+const SESSION_KEY = 'wxops-session-v2';
+const DEFAULT_COURSE = {
+  title: '增长战略与组织能力',
+  period: '第 12 期',
+  date: '11 月 21 日 周六 · 09:00–17:00',
+  place: '浙江大学华家池校区中心大楼南楼251教室',
+  speaker: '王 XX　某咨询合伙人',
+  deadline: '11-19 18:00',
+  window: '08:30 — 17:30'
+};
+
+const S = {
+  mode: 'mock',
+  courseState: 'confirm',
+  entry: 'current',
+  entryMode: 'old',
+  audience: 'current',
+  sessionId: '',
+  course: Object.assign({}, DEFAULT_COURSE),
+  stats: { total: 0, rsvp: 0, signed: 0, surveyed: 0, surveyAvg: null, registered: 0 },
+  students: [],
+  newStudents: [],
+  guests: [],
+  identity: null,
+  identityType: 'old'
+};
+
+/* 三个入口：/q/{课次}/current|new|makeup，兼容 /s /n /a 与 ?s=&m= */
+(function parseEntry(){
+  const m = /^\/q\/([^/]+)\/(current|new|makeup)\/?$/.exec(location.pathname);
+  const short = { '/s': 'current', '/n': 'new', '/a': 'makeup' }[location.pathname.replace(/\/$/, '')];
+  const q = new URLSearchParams(location.search);
+  S.sessionId = (m && decodeURIComponent(m[1])) || q.get('s') || '';
+  S.entry = (m && m[2]) || short || q.get('m') || 'current';
+  if (!['current', 'new', 'makeup'].includes(S.entry)) S.entry = 'current';
+  S.audience = S.entry;
+  S.entryMode = S.entry === 'new' ? 'new' : 'old';
+})();
+
+async function api(path, body) {
+  const payload = (body && typeof body === 'object' && S.sessionId)
+    ? Object.assign({ sessionId: S.sessionId }, body)
+    : body;
+  const res = await fetch(path, {
+    method: body === undefined ? 'GET' : 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: payload === undefined ? undefined : JSON.stringify(payload)
+  });
+  let data = {};
+  try { data = await res.json(); } catch (e) { /* 非 JSON 响应 */ }
+  if (!res.ok) throw new Error(data.error || ('接口异常 ' + res.status));
+  return data;
+}
+
+// 数据由服务端落库，前端不再写 localStorage
+function save() {}
+
+function readSession() {
+  try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch (e) { return null; }
+}
+function writeSession(p) {
+  try { localStorage.setItem(SESSION_KEY, JSON.stringify({ id: p.id, type: p.type || 'old' })); } catch (e) {}
+}
+function clearSession() {
+  try { localStorage.removeItem(SESSION_KEY); } catch (e) {}
+}
+
+function applyPerson(p) {
+  if (!p) return null;
+  S.identity = p.id;
+  S.identityType = p.type || 'old';
+  if (S.identityType === 'new') {
+    S.newStudents = [Object.assign({}, p)];
+  } else {
+    const i = S.students.findIndex(s => s.id === p.id);
+    if (i >= 0) S.students[i] = Object.assign({}, S.students[i], p);
+    else S.students = [Object.assign({}, p)];
+  }
+  writeSession(p);
+  return p;
+}
+
+function applyStats(stats) {
+  if (stats) S.stats = Object.assign({}, S.stats, stats);
+}
+
+function paintCourse() {
+  const c = S.course || DEFAULT_COURSE;
+  const set = (sel, val) => { const el = $(sel); if (el) el.textContent = val; };
+  set('#eyebrowTop', c.period + ' · 扫码签到');
+  set('#eyebrowConfirm', c.period + ' · 课程邀请');
+  set('#eyebrowCheckin', c.period + ' · 签到开放中');
+  set('#eyebrowSurvey', c.period + ' · 约 1 分钟');
+  set('#titleTop', c.title);
+  set('#titleConfirm', c.title);
+  set('#titleCheckin', c.title);
+  set('#infoTime', c.date);
+  set('#infoPlace', c.place);
+  set('#ckWindow', 'CHECK-IN WINDOW ' + c.window);
+  set('#codeChip', [c.period, c.place].filter(Boolean).join(' · '));
+  renderAgenda(c.agenda);
+}
+
+
+/* ================= 工具 ================= */
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const student = () => S.identity ? S.students.find(s => s.id === S.identity) : null;
+const newPerson = () => S.identity ? S.newStudents.find(p => p.id === S.identity) : null;
+const person = () => S.identityType === 'new' ? newPerson() : student();
+const allSignin = () => S.stats.signed || 0;
+const allSurvey = () => S.stats.surveyed || 0;
+const mask = name => name ? name.slice(0,1) + '*' : '';
+const nowHM = () => {
+  const d = new Date();
+  return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+};
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=>t.classList.remove('on'), 1800);
+}
+function show(name){
+  $$('.screen').forEach(el => el.classList.toggle('active', el.dataset.screen === name));
+  const active = $('.screen.active');
+  if(active) active.scrollTop = 0;
+  document.body.dataset.screen = name;
+}
+
+/* ================= 路由 ================= */
+function route(){
+  if(S.identityType === 'new'){
+    const p = newPerson();
+    if(!p){ show('newReg'); return; }
+    if(S.courseState === 'checkin'){
+      if(p.signin){ renderSuccess(); show('success'); }
+      else { renderCheckin(); show('checkin'); }
+    }else if(S.courseState === 'survey'){
+      if(p.survey){ renderThanks(); show('thanks'); }
+      else if(p.signin){ renderSurvey(); show('survey'); }
+      else { renderNewDone(p); show('newDone'); }
+    }else{
+      show('newDone');
+    }
+    return;
+  }
+  const st = student();
+  if(!st){ show('identify'); paintDigits(); return; }
+  if(S.courseState === 'confirm'){ renderConfirm(); show('confirm'); }
+  else if(S.courseState === 'checkin'){
+    if(st.signin){ renderSuccess(); show('success'); }
+    else { renderCheckin(); show('checkin'); }
+  }else{
+    if(st.survey){ renderThanks(); show('thanks'); }
+    else { renderSurvey(); show('survey'); }
+  }
+}
+
+/* ================= 识别 ================= */
+let digits = '';
+let pending = null;
+const otp = $('#otp');
+
+function paintDigits(){
+  const boxes = $$('#digits .digit');
+  boxes.forEach((b, i) => {
+    b.classList.toggle('on', i === digits.length && digits.length < 4);
+    b.innerHTML = digits[i] ? digits[i] : (i === digits.length && digits.length < 4 ? '<span class="caret"></span>' : '');
+  });
+}
+function setDigits(v){
+  digits = v.replace(/\D/g,'').slice(0,4);
+  otp.value = digits;
+  paintDigits();
+  $('#err').textContent = '';
+  if(digits.length === 4) lookup();
+}
+function lookup(){
+  const target = digits;
+  const errEl = $('#err');
+  errEl.textContent = '';
+  api('/api/identify', { l4: target, entry: S.entry })
+    .then(r => {
+      if(r.found){
+        pending = r.person;
+        if(r.audience){ S.audience = r.audience; S.entryType = r.audience; }
+        if(r.notice) toast(r.notice);
+        $('#matchName').textContent = mask(pending.name);
+        $('#matchCompany').textContent = pending.company || '—';
+        show('match');
+      }else if(r.reason === 'multiple'){
+        errEl.textContent = '匹配到多人，请用完整手机号到登记台确认';
+      }else{
+        errEl.innerHTML = '没有找到这个尾号，<button class="link" data-go="guest">现场登记</button> 或找老师核对';
+      }
+    })
+    .catch(e => {
+      errEl.textContent = '识别失败：' + e.message;
+    });
+}
+$('#digits').addEventListener('click', ()=> otp.focus());
+otp.addEventListener('input', e => setDigits(e.target.value));
+otp.addEventListener('focus', ()=> setTimeout(()=>{ if(digits.length<4) paintDigits(); },0));
+
+$('#btnItsMe').addEventListener('click', ()=>{
+  if(!pending) return;
+  applyPerson(pending);
+  digits = '';
+  otp.value = '';
+  paintDigits();
+  resetAnswers();
+  route();
+  renderPanel();
+});
+$$('[data-back-identify]').forEach(b => b.addEventListener('click', ()=>{
+  S.identity = null; clearSession();
+  digits=''; otp.value=''; pending=null;
+  $('#err').textContent='';
+  paintDigits(); show('identify'); renderPanel();
+}));
+
+/* ================= 确认 ================= */
+let profilePlate = '';
+
+function isMakeup(){ return (S.audience || S.entry) === 'makeup'; }
+
+const CONSENT_KEY = 'wxops-consent-v1';
+function rememberConsent(){
+  try { localStorage.setItem(CONSENT_KEY, '1'); } catch(e){}
+}
+function restoreConsent(){
+  try {
+    const ok = localStorage.getItem(CONSENT_KEY) === '1';
+    ['#consentConfirm', '#consentNew'].forEach(sel => { const el = $(sel); if(el && ok) el.checked = true; });
+  } catch(e){}
+}
+
+function fillProfile(st){
+  if(!$('#profileBox')) return;
+  $('#pfCompany').value = st.company || '';
+  $('#pfIdcard').value = st.idcard || '';
+  const ih = $('#pfIdcardHint');
+  if(ih) ih.style.display = st.idcardMasked ? 'block' : 'none';
+
+  const last = st.lastReport;
+  const row = $('#reuseRow');
+  const hasLast = Boolean(last && (last.company || last.plate));
+  if(row){
+    row.hidden = !hasLast;
+    $('#reuseLast').checked = hasLast;
+    if(hasLast){
+      $('#reuseHint').textContent = '（' + [last.company, last.plate || '不开车'].filter(Boolean).join(' · ') + '）';
+    }
+  }
+  applyReuse();
+  profilePlate = st.plate || '';
+  $('#pfPlate').value = profilePlate;
+  $('#eyebrowConfirm').textContent = (S.course.period || '') + (isMakeup() ? ' · 往期补课' : ' · 课程邀请');
+  paintPlateQuick();
+}
+
+function applyReuse(){
+  const chk = $('#reuseLast');
+  const on = chk && chk.checked;
+  $$('.pf').forEach(el => { el.style.display = on ? 'none' : ''; });
+  const q = $('#pfQuick'); if(q) q.style.display = on ? 'none' : '';
+}
+$('#reuseLast').addEventListener('change', applyReuse);
+
+/* 车牌统一大写：输入时实时转换，粘贴/小写都能纠正 */
+function forceUpper(el){
+  if(!el) return;
+  const up = () => {
+    const v = el.value.toUpperCase().replace(/[\s·•\-—]/g, '');
+    if(v !== el.value){
+      const pos = el.selectionStart;
+      el.value = v;
+      try { el.setSelectionRange(pos, pos); } catch(e){}
+    }
+  };
+  el.addEventListener('input', up);
+  el.addEventListener('blur', up);
+}
+forceUpper($('#pfPlate'));
+forceUpper($('#rPlate'));
+
+function paintPlateQuick(){
+  const val = $('#pfPlate').value.trim().toUpperCase();
+  const last = String(profilePlate || '').toUpperCase();
+  $$('#pfQuick button').forEach(b => {
+    const mode = b.dataset.plate;
+    const on = (mode === 'none' && !val)
+      || (mode === 'keep' && val && val === last)
+      || (mode === 'change' && val && val !== last);
+    b.classList.toggle('on', !!on);
+  });
+}
+
+const pfPlateInput = $('#pfPlate');
+if(pfPlateInput) pfPlateInput.addEventListener('input', paintPlateQuick);
+$$('#pfQuick button').forEach(b => b.addEventListener('click', ()=>{
+  const mode = b.dataset.plate;
+  if(mode === 'keep'){ $('#pfPlate').value = profilePlate || ''; }
+  else if(mode === 'none'){ $('#pfPlate').value = ''; }
+  else { $('#pfPlate').focus(); }
+  paintPlateQuick();
+}));
+
+function renderConfirm(){
+  const st = student(); if(!st) return;
+  $('#confirmName').textContent = st.name;
+  $('#deadline').textContent = S.course.deadline || '以课次通知为准';
+  const chip = $('#rsvpChip');
+  if(st.rsvp === 'confirm'){ chip.className = 'chip green'; chip.innerHTML = '<span class="dot"></span>' + (isMakeup() ? '已确认补课' : '已确认'); }
+  else if(st.rsvp === 'leave'){ chip.className = 'chip warm'; chip.innerHTML = '<span class="dot"></span>已请假'; }
+  else { chip.className = 'chip gray'; chip.innerHTML = '<span class="dot"></span>' + (isMakeup() ? '待确认补课' : '未确认'); }
+
+  fillProfile(st);
+
+  const c = $('#btnConfirm'), l = $('#btnLeave');
+  c.textContent = st.rsvp === 'confirm'
+    ? (isMakeup() ? '已确认补课，报备已提交' : '已确认，报备已提交')
+    : (isMakeup() ? '确认补课并报备' : '确认参加并入校报备');
+  c.disabled = st.rsvp === 'confirm';
+  l.textContent = st.rsvp === 'leave' ? '已请假，改为参加' : '这次来不了';
+  l.style.display = isMakeup() ? 'none' : '';
+}
+$('#btnConfirm').addEventListener('click', ()=>{
+  const st = student(); if(!st) return;
+  const company = $('#pfCompany').value.trim();
+  const idcardRaw = $('#pfIdcard').value.trim();
+  // 脱敏串（带 *）表示沿用后台已存的值，不回传；只有重新输入完整号码才覆盖
+  const idcardFull = (idcardRaw.length >= 15 && idcardRaw.indexOf('*') === -1) ? idcardRaw : '';
+  const plate = $('#pfPlate').value.trim().toUpperCase();
+  if($('#consentConfirm') && !$('#consentConfirm').checked){ toast('请先阅读并同意《隐私政策》'); return; }
+  const reuseOn = Boolean($('#reuseLast') && $('#reuseLast').checked && st.lastReport);
+  if(!reuseOn){
+    if(!company){ toast('请填写单位名称，入校报备必填'); $('#pfCompany').focus(); return; }
+    if(!idcardFull && !st.idcardMasked){ toast('请填写完整的身份证号'); $('#pfIdcard').focus(); return; }
+  }
+
+  const btn = $('#btnConfirm');
+  btn.disabled = true;
+  const action = isMakeup() ? 'makeup' : 'confirm';
+  const profile = reuseOn
+    ? { company: st.lastReport.company || company, plate: st.lastReport.plate || '' }
+    : { company, plate };
+  if(!reuseOn && idcardFull) profile.idcard = idcardFull;
+  api('/api/rsvp', { id: st.id, type: 'old', action, profile })
+    .then(r => {
+      rememberConsent();
+      applyPerson(r.person); applyStats(r.stats);
+      renderConfirm(); renderPanel();
+      const updated = r.report && r.report.updated;
+      toast(updated ? '入校信息已更新'
+        : (action === 'makeup' ? '补课已确认，报备已提交' : '已确认，报备已提交'));
+    })
+    .catch(e => { btn.disabled = false; toast('操作失败：' + e.message); });
+});
+$('#btnLeave').addEventListener('click', ()=>{
+  const st = student(); if(!st) return;
+  if(st.rsvp === 'leave'){
+    const rawId = $('#pfIdcard').value.trim();
+    const fullId = (rawId.length >= 15 && rawId.indexOf('*') === -1) ? rawId : '';
+    const p2 = { company: $('#pfCompany').value.trim(), plate: $('#pfPlate').value.trim().toUpperCase() };
+    if(fullId) p2.idcard = fullId;
+    api('/api/rsvp', { id: st.id, type: 'old', action: 'confirm', profile: p2 })
+      .then(r => { applyPerson(r.person); applyStats(r.stats); renderConfirm(); renderPanel(); toast('已改为参加'); })
+      .catch(e => toast('操作失败：' + e.message));
+    return;
+  }
+  openLeave();
+});
+
+let pickedReason = null;
+function openLeave(){
+  pickedReason = null;
+  $$('#reasons .reason').forEach(b => b.classList.remove('on'));
+  document.body.classList.add('sheet-open');
+  $('#backdrop').classList.add('on');
+  $('#leaveSheet').classList.add('on');
+}
+function closeLeave(){
+  document.body.classList.remove('sheet-open');
+  $('#backdrop').classList.remove('on');
+  $('#leaveSheet').classList.remove('on');
+}
+$('#backdrop').addEventListener('click', closeLeave);
+$('#btnLeaveCancel').addEventListener('click', closeLeave);
+$$('#reasons .reason').forEach(b => b.addEventListener('click', ()=>{
+  $$('#reasons .reason').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+  pickedReason = b.textContent.trim();
+}));
+$('#btnLeaveConfirm').addEventListener('click', ()=>{
+  const st = student(); if(!st) return;
+  api('/api/rsvp', { id: st.id, type: 'old', action: 'leave', reason: pickedReason || '' })
+    .then(r => {
+      applyPerson(r.person); applyStats(r.stats);
+      closeLeave(); renderConfirm(); renderPanel();
+      toast('已提交请假，班主任会看到');
+    })
+    .catch(e => toast('操作失败：' + e.message));
+});
+
+/* ================= 签到 ================= */
+function renderCheckin(){
+  const p = person(); if(!p) return;
+  $('#ckAvatar').textContent = p.name.slice(0,1);
+  $('#ckName').textContent = p.name;
+  $('#ckCompany').textContent = p.company;
+  $('#ckChip').innerHTML = '<span class="dot"></span>' + (newPerson() ? '新学员 · 现场签到' : '现场签到');
+  $('#ckCount').textContent = allSignin();
+  $('#btnSign').style.opacity = p.signin ? .45 : 1;
+  $('#btnSign').style.pointerEvents = p.signin ? 'none' : 'auto';
+}
+$('#btnSign').addEventListener('click', ()=>{
+  const p = person(); if(!p || p.signin) return;
+  const btn = $('#btnSign');
+  btn.style.pointerEvents = 'none';
+  api('/api/checkin', { id: p.id, type: S.identityType })
+    .then(r => {
+      applyPerson(r.person); applyStats(r.stats);
+      renderPanel(); renderSuccess(); show('success');
+    })
+    .catch(e => {
+      btn.style.pointerEvents = 'auto';
+      toast('签到失败：' + e.message);
+    });
+});
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+/* 今日议程：课次表「今日议程」按行渲染，支持 "09:00 内容" / "09:00|内容" / 纯内容 */
+function renderAgenda(text){
+  const box = $('#agendaBox'), rows = $('#agendaRows');
+  if(!box || !rows) return;
+  const lines = String(text || '').split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+  if(!lines.length){ box.hidden = true; rows.innerHTML = ''; return; }
+  rows.innerHTML = lines.map(line => {
+    const m = line.match(/^(\d{1,2}[:：]\d{2})\s*[|｜\-–—]?\s*(.*)$/);
+    return m
+      ? '<div class="agenda-row"><b>' + esc(m[1].replace('：',':')) + '</b><span>' + esc(m[2]) + '</span></div>'
+      : '<div class="agenda-row"><span>' + esc(line) + '</span></div>';
+  }).join('');
+  box.hidden = false;
+}
+
+function renderSuccess(){
+  const p = person(); if(!p || !p.signin) return;
+  $('#seq').textContent = p.signin.seq;
+  $('#seq2').textContent = p.signin.seq;
+  $('#successWho').textContent = p.name + ' · ' + p.company;
+  $('#successTime').textContent = p.signin.t + ' 签到成功';
+  const toSurvey = $('#btnToSurvey'), closed = $('#surveyClosed');
+  if(S.courseState === 'survey'){
+    toSurvey.style.display = 'flex';
+    closed.style.display = 'none';
+  }else{
+    toSurvey.style.display = 'none';
+    closed.style.display = 'block';
+  }
+  renderPanel();
+}
+$('#btnToSurvey').addEventListener('click', ()=>{
+  const p = person(); if(!p) return;
+  if(p.survey){ renderThanks(); show('thanks'); }
+  else { renderSurvey(); show('survey'); }
+});
+
+/* ================= 评价 ================= */
+const answers = { q1:0, q2:0, q3:0, q4:0, q5:'' };
+function buildTicks(){
+  $$('[data-ticks]').forEach(box => {
+    if(box.children.length) return;
+    for(let i=1;i<=10;i++){
+      const b = document.createElement('button');
+      b.textContent = i;
+      b.dataset.v = i;
+      b.addEventListener('click', ()=>{
+        const k = box.dataset.ticks;
+        answers[k] = i;
+        paintTicks(k);
+      });
+      box.appendChild(b);
+    }
+  });
+}
+function paintTicks(k){
+  const box = document.querySelector('[data-ticks="'+k+'"]');
+  Array.from(box.children).forEach(b => b.classList.toggle('on', Number(b.dataset.v) <= answers[k]));
+  $('#' + k + 'v').textContent = answers[k] || '—';
+  checkSurveyReady();
+}
+function paintStars(k){
+  const box = document.querySelector('[data-stars="'+k+'"]');
+  Array.from(box.children).forEach(b => b.classList.toggle('on', Number(b.dataset.v) <= answers[k]));
+}
+$$('[data-stars]').forEach(box => {
+  box.addEventListener('click', e => {
+    const btn = e.target.closest('button'); if(!btn) return;
+    const k = box.dataset.stars;
+    answers[k] = Number(btn.dataset.v);
+    paintStars(k);
+    checkSurveyReady();
+  });
+});
+$('#q5').addEventListener('input', e => {
+  answers.q5 = e.target.value;
+  $('#q5cnt').textContent = e.target.value.length + ' / 100';
+});
+function checkSurveyReady(){
+  $('#btnSubmitSurvey').disabled = !(answers.q1 && answers.q2 && answers.q3);
+}
+function resetAnswers(){
+  answers.q1 = answers.q2 = answers.q3 = answers.q4 = 0;
+  answers.q5 = '';
+  $$('[data-stars]').forEach(box => Array.from(box.children).forEach(b => b.classList.remove('on')));
+  $$('[data-ticks]').forEach(box => Array.from(box.children).forEach(b => b.classList.remove('on')));
+  const q2 = $('#q2v'), q3 = $('#q3v');
+  if(q2) q2.textContent = '—';
+  if(q3) q3.textContent = '—';
+  const ta = $('#q5');
+  if(ta){ ta.value = ''; $('#q5cnt').textContent = '0 / 100'; }
+  checkSurveyReady();
+}
+function renderSurvey(){
+  const p = person();
+  if(p) $('#surveyWho').textContent = '以 ' + p.name + ' 的身份提交 · 仅用于课程改进';
+  buildTicks();
+  // 恢复该学员已填一半的内容（同一次会话）
+  ['q1','q4'].forEach(paintStars);
+  ['q2','q3'].forEach(paintTicks);
+  $('#q2v').textContent = answers.q2 || '—';
+  $('#q3v').textContent = answers.q3 || '—';
+  $('#q5').value = answers.q5 || '';
+  $('#q5cnt').textContent = (answers.q5 || '').length + ' / 100';
+  checkSurveyReady();
+}
+$('#btnSubmitSurvey').addEventListener('click', ()=>{
+  const p = person(); if(!p) return;
+  const btn = $('#btnSubmitSurvey');
+  btn.disabled = true;
+  api('/api/survey', { id: p.id, type: S.identityType, answers })
+    .then(r => {
+      applyPerson(r.person); applyStats(r.stats);
+      renderThanks(); show('thanks'); renderPanel();
+    })
+    .catch(e => { btn.disabled = false; toast('提交失败：' + e.message); });
+});
+function backToCourse(){
+  // 回到 H5 的第一屏：课程邀请页（不是预告页，也不是识别页）
+  if(student()){ renderConfirm(); show('confirm'); renderPanel(); }
+  else { paintDigits(); show('identify'); }
+}
+
+$('#btnThanksDone').addEventListener('click', backToCourse);
+$('#btnThanksAgain').addEventListener('click', () => {
+  S.identity = null; S.newStudents = []; clearSession();
+  digits = ''; otp.value = ''; pending = null;
+  if ($('#err')) $('#err').textContent = '';
+  resetAnswers();
+  paintDigits(); show('identify'); renderPanel();
+});
+
+function renderThanks(){
+  const p = person();
+  if(p) $('#thanksWho').textContent = '已记录：' + p.name + (p.company ? ' · ' + p.company : '') + '，班主任可看到原文';
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  set('thanksCount', (S.stats.surveyed || 0) + ' 份');
+  set('thanksAvg', S.stats.surveyAvg == null ? '—' : S.stats.surveyAvg + ' / 5');
+}
+
+/* ================= 临时登记 ================= */
+$('#btnGuestSubmit').addEventListener('click', ()=>{
+  const name = $('#gName').value.trim();
+  const company = $('#gCompany').value.trim();
+  const mobile = $('#gMobile').value.trim();
+  if(!name || mobile.length < 11){ toast('请填写姓名和 11 位手机号'); return; }
+  api('/api/guest', { name, company, mobile })
+    .then(r => {
+      applyStats(r.stats); renderPanel();
+      $('#gName').value = ''; $('#gCompany').value = ''; $('#gMobile').value = '';
+      show('guestDone');
+    })
+    .catch(e => toast('提交失败：' + e.message));
+});
+
+/* ================= 控制台 ================= */
+function renderPanel(){
+  const st = S.stats || {};
+  const set = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = v; };
+  set('stTotal', st.total || 0);
+  set('stRsvp', st.rsvp || 0);
+  set('stSign', st.signed || 0);
+  set('stSurvey', st.surveyed || 0);
+  set('newStat', st.registered || 0);
+
+  const note = $('#modeNote');
+  if(note) note.innerHTML = S.mode === 'live'
+    ? '已连接飞书多维表格 · 签到与评价实时写入'
+    : '本地演示模式 · 数据保存在 <code>data/state.json</code>';
+
+  $$('#stateBtns .state-btn').forEach(b => b.classList.toggle('on', b.dataset.state === S.courseState));
+  $$('#entryBtns .state-btn').forEach(b => b.classList.toggle('on', b.dataset.entry === S.entryMode));
+
+  const list = $('#idList');
+  if(!list) return;
+  list.innerHTML = '';
+  if(S.mode !== 'mock'){
+    const p = document.createElement('p');
+    p.className = 'panel-note';
+    p.textContent = '真实模式不展示名单：扫公共码 + 输入手机后四位即可匹配。';
+    list.appendChild(p);
+    return;
+  }
+  S.students.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'id-row';
+    b.innerHTML = '<span class="nm">' + s.name + '</span><span class="co">' + (s.company || '') + '</span><span class="l4">' + s.l4 + '</span><span class="dot' + (s.signin ? ' ok' : (s.rsvp === 'leave' ? ' no' : '')) + '"></span>';
+    b.addEventListener('click', ()=>{
+      S.identity = null; clearSession(); S.entryMode = 'old'; S.identityType = 'old';
+      show('identify');
+      digits = ''; otp.value = '';
+      setDigits(s.l4);
+    });
+    list.appendChild(b);
+  });
+}
+$$('#stateBtns .state-btn').forEach(b => b.addEventListener('click', ()=>{
+  if(S.mode !== 'mock'){ toast('请到「工作人员入口」切换阶段'); return; }
+  api('/api/demo/state', { state: b.dataset.state })
+    .then(r => { S.courseState = r.state; renderPanel(); route(); })
+    .catch(e => toast('切换失败：' + e.message));
+}));
+$$('#entryBtns .state-btn').forEach(b => b.addEventListener('click', ()=>{
+  S.entryMode = b.dataset.entry;
+  S.identity = null; S.identityType = b.dataset.entry; S.newStudents = []; clearSession();
+  digits = ''; otp.value = ''; pending = null;
+  resetAnswers(); renderPanel(); route();
+}));
+
+/* ================= 快速填写：从一段文字里拆出字段 ================= */
+function parsePaste(raw){
+  let rest = String(raw || '').replace(/\u3000/g, ' ');
+  const out = {};
+
+  // 身份证（18 位，末位可能是 X）——先取走，避免手机号规则误命中其中的数字
+  let m = rest.match(/(?:^|[^0-9])(\d{17}[0-9Xx])(?![0-9Xx])/);
+  if (m) { out.idcard = m[1].toUpperCase(); rest = rest.replace(m[1], ' '); }
+
+  // 手机号
+  m = rest.match(/(?:^|[^0-9])(1[3-9]\d{9})(?!\d)/);
+  if (m) { out.phone = m[1]; rest = rest.replace(m[1], ' '); }
+
+  // 车牌（含新能源 8 位）
+  // 有人会写成「浙A·12345」或「浙a-12345」，先去掉分隔符再匹配
+  const plateRest = rest.replace(/[·•\-—]/g, '');
+  m = plateRest.match(/[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,6}/i);
+  if (m) {
+    out.plate = m[0].toUpperCase();
+    rest = rest.replace(/([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼][A-HJ-NP-Z][A-HJ-NP-Z0-9]{3,4})[·•\-—]?([A-HJ-NP-Z0-9]{1,3})/i, ' ');
+  }
+
+  // 带标签的字段
+  const labeled = (re, key) => {
+    const hit = rest.match(re);
+    if (hit) { out[key] = hit[1].trim(); rest = rest.replace(hit[1], ' '); }
+  };
+  // 标签后面必须跟冒号或空格，避免把"科技有限公司的张三"里的"公司"当标签
+  labeled(/(?:姓名|名字)(?:[:：]|\s)+([\u4e00-\u9fa5]{2,4})/, 'name');
+  labeled(/(?:职务|职位)(?:[:：]|\s)+([\u4e00-\u9fa5]{2,12})/, 'position');
+  labeled(/(?:邀请人|推荐人)(?:[:：]|\s)+([\u4e00-\u9fa5]{2,4})/, 'inviter');
+  labeled(/(?:企业|公司|单位)(?:[:：]|\s)+([^\s，,。;；\n]{2,40})/, 'company');
+
+  // 没写标签时：整段以 2-4 个汉字开头（"张三 138..."），大概率是姓名
+  if (!out.name) {
+    const lead = rest.match(/^\s*([\u4e00-\u9fa5]{2,4})(?=[\s，,。;；]|$)/);
+    const bad = /公司|企业|单位|我是|姓名|电话|手机|身份|车牌|试听|邀请|职务/;
+    if (lead && !bad.test(lead[1])) out.name = lead[1];
+  }
+
+  // 没写标签时，靠"xx有限公司/集团"这类后缀猜企业
+  if (!out.company) {
+    m = rest.match(/([\u4e00-\u9fa5（）()]{2,40}(?:有限公司|股份有限公司|集团|工作室|研究所|研究院|中心|学院))/);
+    if (m) out.company = m[1];
+  }
+  // 去掉"我是/来自"这类口头前缀
+  if (out.company) out.company = out.company.replace(/^(我是|我们是|本人是|来自|就职于|任职于|在)/, '').trim();
+
+  // 试听第几天
+  m = rest.match(/(第[一二三四]天)/);
+  if (m) out.trialDay = m[1];
+
+  return out;
+}
+
+const PASTE_LABEL = { name: '姓名', company: '企业名称', position: '职务', phone: '电话', idcard: '身份证', plate: '车牌', inviter: '邀请人', trialDay: '试听天数' };
+const PASTE_INPUT = { name: '#rName', company: '#rCompany', position: '#rPosition', phone: '#rPhone', idcard: '#rIdcard', plate: '#rPlate', inviter: '#rInviter' };
+
+function fillFromPaste(){
+  const tip = $('#pasteTip');
+  const data = parsePaste($('#pasteBox').value);
+  const keys = Object.keys(data);
+  if (!keys.length) {
+    tip.innerHTML = '没能识别出内容，可以按「身份证号 手机号 车牌号」的顺序粘贴，或直接手填。';
+    return;
+  }
+  keys.forEach((k) => {
+    if (k === 'trialDay') {
+      const sel = $('#rTrialDay');
+      if (sel && Array.from(sel.options).some(o => o.value === data.trialDay)) sel.value = data.trialDay;
+      return;
+    }
+    const el = $(PASTE_INPUT[k]);
+    if (el) el.value = data[k];
+  });
+
+  const got = keys.map(k => PASTE_LABEL[k]).join('、');
+  const missing = ['company', 'name', 'phone', 'idcard'].filter(k => !data[k]).map(k => PASTE_LABEL[k]);
+  tip.innerHTML = '<b>已填入：' + got + '</b>'
+    + (missing.length ? '<br>未识别到' + missing.join('、') + '，请手动补充' : '');
+}
+
+$('#btnParse').addEventListener('click', fillFromPaste);
+$('#pasteBox').addEventListener('paste', () => setTimeout(fillFromPaste, 30));
+
+/* ================= 新学员登记 ================= */
+function renderNewDone(p){
+  $('#ndName').textContent = p.name || '—';
+  $('#ndCompany').textContent = p.company || '—';
+  $('#ndPosition').textContent = p.position || '—';
+  $('#ndPhone').textContent = p.phone || '—';
+  $('#ndInviter').textContent = p.inviter || '—';
+  const btn = $('#btnNewCheckin'), note = $('#newDoneNote');
+  if(S.courseState === 'checkin'){ btn.style.display = 'flex'; btn.textContent = '进入签到'; note.style.display = 'none'; }
+  else if(S.courseState === 'survey'){
+    // 没签到就不能评价：新客刚登记，还在待审
+    if(p.signin){ btn.style.display = 'flex'; btn.textContent = '去评价 · 1 分钟'; note.style.display = 'none'; }
+    else {
+      btn.style.display = 'none';
+      note.style.display = 'block';
+      note.textContent = '已提交，等待班主任审核；签到后才能填写反馈';
+    }
+  }
+  else { btn.style.display = 'none'; note.style.display = 'block'; note.textContent = '签到将在开课当天开放'; }
+}
+$('#btnNewSubmit').addEventListener('click', ()=>{
+  const company = $('#rCompany').value.trim();
+  const name = $('#rName').value.trim();
+  const position = $('#rPosition').value.trim();
+  const idcard = $('#rIdcard').value.trim();
+  const phone = $('#rPhone').value.trim();
+  const plate = $('#rPlate').value.trim();
+  const inviter = $('#rInviter').value.trim();
+  if(!company || !name || !position){ toast('请填写企业名称、姓名和职务'); return; }
+  if($('#consentNew') && !$('#consentNew').checked){ toast('请先阅读并同意《隐私政策》'); return; }
+  if(phone.length !== 11){ toast('请填写 11 位手机号'); return; }
+  if(idcard.length < 15){ toast('身份证号不完整，用于入校报备'); return; }
+  const rec = {
+    company, name, position, idcard, phone,
+    plate: String(plate || '').toUpperCase().replace(/\s/g, ''),
+    inviter,
+    trialDay: $('#rTrialDay') ? $('#rTrialDay').value : ''
+  };
+  api('/api/register', rec)
+    .then(r => {
+      rememberConsent();
+      applyPerson(r.person); applyStats(r.stats);
+      renderNewDone(r.person); show('newDone'); renderPanel();
+      toast('报备信息已提交');
+    })
+    .catch(e => toast('提交失败：' + e.message));
+});
+$('#btnNewCheckin').addEventListener('click', ()=> route());
+$('#btnReset').addEventListener('click', ()=>{
+  if(S.mode !== 'mock'){ toast('真实模式不能重置飞书数据'); return; }
+  api('/api/demo/reset', {})
+    .then(() => {
+      clearSession();
+      S.identity = null; S.identityType = 'old'; S.newStudents = []; S.guests = [];
+      digits = ''; otp.value = ''; pending = null;
+      ['rCompany','rName','rPosition','rIdcard','rPhone','rPlate','rInviter'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = '';
+      });
+      buildTicks(); resetAnswers();
+      return bootstrap();
+    })
+    .then(() => toast('演示数据已重置'))
+    .catch(e => toast('重置失败：' + e.message));
+});
+$('#btnGuest').addEventListener('click', ()=> show('guest'));
+document.addEventListener('click', e => {
+  const go = e.target.closest('[data-go]');
+  if(go) show(go.dataset.go);
+});
+$$('[data-switch]').forEach(b => b.addEventListener('click', ()=>{
+  S.identity = null; S.identityType = S.entryMode; S.newStudents = []; clearSession();
+  digits=''; otp.value=''; pending=null;
+  $('#err').textContent = '';
+  resetAnswers();
+  if(S.identityType === 'new'){ show('newReg'); }
+  else { paintDigits(); show('identify'); }
+  renderPanel();
+}));
+
+/* ================= 移动端面板 ================= */
+const mp = $('#mobilePanel');
+$('#mobileDemo').addEventListener('click', ()=>{
+  mp.innerHTML = '';
+  const close = document.createElement('div');
+  close.className = 'mask-close';
+  close.addEventListener('click', ()=> mp.classList.remove('on'));
+  const clone = $('#panelDesktop').cloneNode(true);
+  clone.id = 'panelMobile';
+  clone.style.display = 'block';
+  clone.style.position = 'static';
+  mp.appendChild(close);
+  mp.appendChild(clone);
+  mp.classList.add('on');
+  wirePanel(clone);
+});
+function wirePanel(root){
+  const set = (id, v) => { const el = root.querySelector('#' + id); if(el) el.textContent = v; };
+  const st = S.stats || {};
+  set('stTotal', st.total || 0);
+  set('stRsvp', st.rsvp || 0);
+  set('stSign', st.signed || 0);
+  set('stSurvey', st.surveyed || 0);
+  set('newStat', st.registered || 0);
+
+  root.querySelectorAll('#stateBtns .state-btn').forEach(b => {
+    b.classList.toggle('on', b.dataset.state === S.courseState);
+    b.addEventListener('click', ()=>{
+      if(S.mode !== 'mock'){ toast('请到「工作人员入口」切换阶段'); return; }
+      api('/api/demo/state', { state: b.dataset.state })
+        .then(r => { S.courseState = r.state; renderPanel(); route(); mp.classList.remove('on'); })
+        .catch(e => toast('切换失败：' + e.message));
+    });
+  });
+  root.querySelectorAll('#entryBtns .state-btn').forEach(b => {
+    b.classList.toggle('on', b.dataset.entry === S.entryMode);
+    b.addEventListener('click', ()=>{
+      S.entryMode = b.dataset.entry;
+      S.identity = null; S.identityType = b.dataset.entry; S.newStudents = []; clearSession();
+      digits = ''; otp.value = ''; pending = null;
+      resetAnswers(); renderPanel(); route();
+      mp.classList.remove('on');
+    });
+  });
+
+  const guest = root.querySelector('#btnGuest');
+  if(guest) guest.addEventListener('click', ()=>{ mp.classList.remove('on'); show('guest'); });
+  const reset = root.querySelector('#btnReset');
+  if(reset) reset.addEventListener('click', ()=>{ $('#btnReset').click(); mp.classList.remove('on'); });
+
+  const list = root.querySelector('#idList');
+  if(!list) return;
+  list.innerHTML = '';
+  if(S.mode !== 'mock'){
+    const p = document.createElement('p');
+    p.className = 'panel-note';
+    p.textContent = '真实模式不展示名单。';
+    list.appendChild(p);
+    return;
+  }
+  S.students.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'id-row';
+    b.innerHTML = '<span class="nm">' + s.name + '</span><span class="co">' + (s.company || '') + '</span><span class="l4">' + s.l4 + '</span><span class="dot' + (s.signin ? ' ok' : (s.rsvp === 'leave' ? ' no' : '')) + '"></span>';
+    b.addEventListener('click', ()=>{
+      S.identity = null; clearSession(); S.entryMode = 'old'; S.identityType = 'old';
+      mp.classList.remove('on');
+      show('identify'); digits=''; otp.value='';
+      setDigits(s.l4);
+    });
+    list.appendChild(b);
+  });
+}
+
+/* ================= 启动 ================= */
+async function bootstrap(){
+  try { await bootstrapInner(); }
+  finally {
+    const b = document.getElementById('boot');
+    if (b) b.remove();
+  }
+}
+
+async function bootstrapInner(){
+  try {
+    const qs = new URLSearchParams();
+    if(S.sessionId) qs.set('s', S.sessionId);
+    if(S.entry) qs.set('m', S.entry);
+    const data = await api('/api/bootstrap' + (qs.toString() ? '?' + qs.toString() : ''));
+    S.mode = data.mode || 'mock';
+    S.courseState = data.state || 'confirm';
+    S.entry = data.entry || S.entry;
+    S.audience = S.entry;
+    if(data.session && data.session.id) S.sessionId = data.session.id;
+    S.course = Object.assign({}, DEFAULT_COURSE, data.course || {});
+    if(data.session){
+      S.course.period = (data.session.name || '').split('·')[0].trim() || S.course.period;
+      if(data.session.place) S.course.place = data.session.place;
+      if(data.session.timeRange) S.course.window = data.session.timeRange;
+      S.course.deadline = data.session.deadline || '';
+    }
+    applyStats(data.stats);
+    S.students = data.students || [];
+    S.newStudents = data.newStudents || [];
+    S.guests = data.guests || [];
+  } catch (e) {
+    toast('后端未连接：' + e.message);
+  }
+
+  paintCourse();
+  buildTicks();
+  restoreConsent();
+  renderPanel();
+
+  // 直接扫码进入时一律从「输入后四位」开始，避免沿用上一个手机尾号的身份；
+  // 只有课程预告页带 ?h=1 过来时才沿用刚识别出的身份
+  const handoff = new URLSearchParams(location.search).get('h') === '1';
+  if(!handoff) clearSession();
+  const sess = handoff ? readSession() : null;
+  if(sess && sess.id){
+    try {
+      const r = await api('/api/person', { id: sess.id, type: sess.type });
+      applyPerson(r.person);
+      route();
+      return;
+    } catch (e) {
+      clearSession();
+    }
+  }
+
+  S.identity = null;
+  S.identityType = S.entry === 'new' ? 'new' : 'old';
+  S.entryMode = S.identityType;
+  digits = ''; otp.value = '';
+  if(S.identityType === 'new'){ renderPanel(); show('newReg'); }
+  else { paintDigits(); renderPanel(); show('identify'); }
+}
+
+/* ================= 阶段自动同步 ================= */
+const PHASE_LABEL = { confirm: '报名确认', checkin: '现场签到', survey: '课后评价' };
+// 只在「看状态」的页面上自动跳转，避免打断正在填表的人
+const PHASE_SAFE_SCREENS = ['identify', 'confirm', 'checkin', 'success', 'survey', 'thanks'];
+
+async function syncPhase(quiet){
+  try {
+    const p = await api('/api/phase');
+    if(p.state === S.courseState) return;
+    S.courseState = p.state;
+    renderPanel();
+    if(PHASE_SAFE_SCREENS.includes(document.body.dataset.screen)){
+      route();
+      if(!quiet) toast('已进入「' + (PHASE_LABEL[p.state] || p.state) + '」');
+    }
+  } catch (e) { /* 网络抖动时下次再试 */ }
+}
+
+bootstrap();
+syncPhase(true);
+setInterval(syncPhase, 60000);
+</script>
+</body>
+</html>

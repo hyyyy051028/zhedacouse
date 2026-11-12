@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作人员入口 · 场次控制</title>
+<style>
+:root{
+  --paper:#EFECE3;--surface:#fff;--ink:#1A1F1D;--ink2:#333A37;--muted:#6C7570;
+  --rule:#E1DCD1;--accent:#0F5F4C;--accent-soft:#E7F0EB;--warm:#B86A37;--bad:#A6432F;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:var(--paper);min-height:100vh;
+  background-image:radial-gradient(900px 420px at 8% -10%,#F8F5EC,rgba(248,245,236,0)),radial-gradient(700px 380px at 100% 0%,#F3F0E5,rgba(243,240,229,0));
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:640px;margin:0 auto;padding:48px 24px 64px}
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+h1{font-family:"Songti SC","Source Han Serif SC",Georgia,serif;font-size:30px;line-height:1.3}
+.lede{font-size:13px;color:var(--muted);line-height:1.9;margin-top:10px}
+.card{margin-top:24px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:22px}
+.card h2{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--muted);margin-bottom:14px}
+.now{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:7px;font-size:15px;font-weight:700;padding:7px 14px;border-radius:999px;background:var(--accent-soft);color:var(--accent);border:1px solid #CFE0D7}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.src{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--rule);border-radius:999px;padding:4px 10px}
+.src.manual{color:var(--warm);border-color:#EFDACB;background:#FBF1E9}
+.next{font-size:12px;color:var(--ink2);margin-top:14px;line-height:1.8}
+.next b{font-family:var(--mono);font-weight:600}
+.btns{display:grid;gap:10px;margin-top:16px}
+.btn{width:100%;height:48px;border:1px solid var(--rule);background:#fff;border-radius:10px;font-size:14px;font-weight:600;color:var(--ink2);cursor:pointer;font-family:inherit}
+.btn:hover{border-color:#C9C3B4}
+.btn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost{background:transparent;border-style:dashed;color:var(--muted);font-weight:500}
+.row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl td{padding:9px 0;border-bottom:1px solid #EFEBE1;color:var(--ink2)}
+.tbl td:first-child{color:var(--muted);width:110px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em}
+.tbl tr:last-child td{border-bottom:0}
+.token{margin-top:16px;display:none}
+.token.on{display:block}
+.token input{width:100%;height:44px;border:1px solid var(--rule);border-radius:9px;background:#FBFAF6;padding:0 12px;font-size:13px;outline:none}
+.token input:focus{border-color:var(--accent);background:#fff}
+.hint{font-size:11px;color:#9AA19C;line-height:1.8;margin-top:12px}
+.hint code{font-family:var(--mono);font-size:10.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:1px 5px}
+.form{display:grid;gap:11px;margin-top:10px}
+.form label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted)}
+.form input,.form textarea{width:100%;margin-top:5px;border:1px solid var(--rule);border-radius:9px;background:#FBFAF6;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;color:var(--ink2)}
+.form textarea{min-height:72px;resize:vertical;line-height:1.7}
+.form input:focus,.form textarea:focus{border-color:var(--accent);background:#fff}
+.form .save{margin-top:4px;background:var(--accent);border-color:var(--accent);color:#fff}
+.checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.checks label{display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-size:12px;letter-spacing:0;color:var(--ink2);border:1px solid var(--rule);border-radius:999px;padding:5px 11px;background:#fff;margin:0}
+.checks input{width:auto;margin:0;padding:0}
+.entry{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-bottom:1px solid #EFEBE1}
+.entry:last-child{border-bottom:0}
+.entry b{font-size:12px;color:var(--ink2)}
+.entry a{font-family:var(--mono);font-size:11px;word-break:break-all;color:var(--accent);text-decoration:none}
+.sel{width:100%;height:40px;border:1px solid var(--rule);border-radius:9px;background:#FBFAF6;padding:0 10px;font-size:13px;font-family:inherit;color:var(--ink2);margin-bottom:6px}
+.toast{position:fixed;left:50%;bottom:32px;transform:translate(-50%,12px);background:rgba(26,31,29,.92);color:#fff;font-size:12px;padding:9px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:.24s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+a{color:var(--accent)}
+@media(max-width:520px){.wrap{padding:32px 18px 48px}h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Staff · Phase Control</div>
+  <h1>场次控制</h1>
+  <p class="lede">学员扫码后落在哪个页面，由这里的阶段决定。默认按课表时间自动流转，需要时可手动临时覆盖。</p>
+
+  <div class="card">
+    <h2>当前阶段</h2>
+    <div class="now">
+      <span class="badge" id="stateBadge"><span class="dot"></span><span id="stateText">加载中…</span></span>
+      <span class="src" id="stateSource">—</span>
+    </div>
+    <div class="next" id="nextInfo">—</div>
+    <div class="btns">
+      <button class="btn" data-state="confirm">报名确认中</button>
+      <button class="btn" data-state="checkin">现场签到中</button>
+      <button class="btn" data-state="survey">课后评价中</button>
+      <button class="btn ghost" id="btnAuto">恢复按课表自动流转</button>
+    </div>
+    <div class="token" id="tokenBox">
+      <input id="tokenInput" placeholder="输入工作人员口令" autocomplete="current-password"
+             autocapitalize="none" autocorrect="off" spellcheck="false">
+      <button class="btn" id="btnSaveToken" style="height:40px;margin-top:10px">保存口令并重试</button>
+      <div class="hint">口令在服务端 <code>.env</code> 的 <code>ADMIN_TOKEN</code> 里设置。</div>
+    </div>
+    <div class="hint">手动覆盖会一直生效，直到点「恢复按课表自动流转」。覆盖记录在 <code>data/phase-override.json</code>。</div>
+  </div>
+
+  <div class="card">
+    <h2>课表</h2>
+    <table class="tbl">
+      <tr><td>签到开始</td><td id="schedStart">—</td></tr>
+      <tr><td>签到结束</td><td id="schedEnd">—</td></tr>
+      <tr><td>服务器时间</td><td id="schedNow">—</td></tr>
+      <tr><td>运行模式</td><td id="modeText">—</td></tr>
+      <tr><td>名册来源</td><td id="rosterLine">—</td></tr>
+    </table>
+    <div class="hint">时间按北京时间（UTC+8）解释，配置项：<code>COURSE_DAY</code>、<code>COURSE_WINDOW_START</code>、<code>COURSE_WINDOW_END</code>。</div>
+  </div>
+
+  <div class="card" id="warnCard" hidden style="border-color:#E8C9A8;background:#FDF6EF">
+    <h2 style="color:#B86A37">需要注意</h2>
+    <div id="warnList" class="hint" style="margin-top:0;color:#8A4B22"></div>
+  </div>
+
+  <div class="card">
+    <h2>课次信息 · 可编辑</h2>
+    <div class="hint" id="sessionHint" style="margin-top:0">加载中…</div>
+    <div class="form" id="sessionForm" hidden>
+      <label>课次名称<input id="sName"></label>
+      <label>上课日期<input id="sDate" type="date"></label>
+      <label>上课时段<input id="sTime" placeholder="如 09:00-12:00"></label>
+      <label>确认出席截止（留空＝课程当天 0 点）<input id="sDeadline" type="datetime-local"></label>
+      <label>报备截止<input id="sReportDeadline" type="datetime-local"></label>
+      <label>签到开放时间<input id="sOpenAt" type="datetime-local"></label>
+      <label>签到关闭时间<input id="sCloseAt" type="datetime-local"></label>
+      <label>课程主题<input id="sTopic"></label>
+      <label>教室<input id="sRoom"></label>
+      <label>上课校区<input id="sCampus" placeholder="玉泉 / 紫金港 / 其他"></label>
+      <label>上课地点<input id="sPlace"></label>
+      <label>主讲人<input id="sSpeaker" placeholder="也可只用下方「讲师及嘉宾」"></label>
+      <label>讲师介绍<textarea id="sIntro" rows="3"></textarea></label>
+      <label>本期收获<textarea id="sTake" rows="2" placeholder="一句话讲这期学员能带走什么"></textarea></label>
+      <label>今日议程<textarea id="sAgenda" rows="3" placeholder="一行一条，例如：&#10;09:00 开场与破冰&#10;10:30 商业模式与资本路径"></textarea></label>
+      <div>
+        <label>讲师及嘉宾</label>
+        <div class="checks" id="sTeachers"></div>
+      </div>
+      <button class="btn save" id="btnSaveSession">保存到多维表格</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>当前课次</h2>
+    <div class="now">
+      <span class="badge" id="curSessionName">—</span>
+      <span class="src" id="curSessionSource">—</span>
+    </div>
+    <select class="sel" id="targetSel" style="margin-top:12px"></select>
+    <div class="row">
+      <button class="btn" id="btnSetTarget">设为当前课次</button>
+      <button class="btn ghost" id="btnAutoTarget">恢复按日期自动</button>
+    </div>
+    <div class="hint">补签、提前把第二天的码发给学员、补录历史课时用。设置后学员页、签到和阶段都以它为准。</div>
+  </div>
+
+  <div class="card">
+    <h2>三入口链接</h2>
+    <select class="sel" id="sessionSel"></select>
+    <div id="entryList"></div>
+    <div class="hint">把对应链接生成二维码即可发给学员：在读 / 新客 / 往期补课各一张。</div>
+  </div>
+
+  <p class="hint"><a href="/">← 回到学员扫码页</a></p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const TOKEN_KEY = 'wxops-admin-token';
+const LABEL = { confirm: '报名确认中', checkin: '现场签到中', survey: '课后评价中' };
+const $ = (s) => document.querySelector(s);
+
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove('on'), 1800);
+}
+
+function fmt(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  const p = (n) => String(n).padStart(2, '0');
+  return (d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+}
+
+function renderPhase(p) {
+  $('#stateText').textContent = LABEL[p.state] || p.state;
+  const src = $('#stateSource');
+  src.textContent = p.source === 'manual' ? '手动覆盖' : '按课表自动';
+  src.className = 'src' + (p.source === 'manual' ? ' manual' : '');
+
+  $('#nextInfo').innerHTML = p.nextChange
+    ? '将于 <b>' + fmt(p.nextChange.at) + '</b> 自动进入「' + p.nextChange.label + '」'
+    : '当前没有后续自动切换（本期已进入评价阶段）';
+
+  document.querySelectorAll('[data-state]').forEach((b) => {
+    b.classList.toggle('on', b.dataset.state === p.state);
+  });
+
+  $('#schedStart').textContent = fmt(p.schedule.checkinStart);
+  $('#schedEnd').textContent = fmt(p.schedule.checkinEnd);
+  $('#schedNow').textContent = fmt(p.serverTime);
+}
+
+function headers() {
+  const token = localStorage.getItem(TOKEN_KEY) || '';
+  return token ? { 'x-admin-token': token } : {};
+}
+
+async function loadPhase() {
+  try {
+    const res = await fetch('/api/phase');
+    const p = await res.json();
+    renderPhase(p);
+  } catch (e) {
+    toast('读取阶段失败：' + e.message);
+  }
+  try {
+    const h = await fetch('/api/health').then((r) => r.json());
+    window.__mode = h.mode;
+    $('#modeText').textContent = h.mode === 'live' ? 'live（飞书多维表格）' : 'mock（本地演示）';
+  } catch { /* 忽略 */ }
+}
+
+async function setState(state) {
+  const res = await fetch('/api/admin/state', {
+    method: 'POST',
+    headers: Object.assign({ 'Content-Type': 'application/json' }, headers()),
+    body: JSON.stringify({ state }),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    if (res.status === 401) {
+      pendingState = state;
+      $('#tokenBox').classList.add('on');
+      $('#tokenInput').focus();
+      throw new Error('口令不正确：注意大小写、不要带空格，输入后点「保存口令并重试」');
+    }
+    throw new Error(data.error || '设置失败');
+  }
+  renderPhase(data);
+  toast(state ? '已切换到「' + LABEL[state] + '」' : '已恢复自动流转');
+}
+
+document.querySelectorAll('[data-state]').forEach((b) => {
+  b.addEventListener('click', () => {
+    setState(b.dataset.state).catch((e) => toast(e.message));
+  });
+});
+$('#btnAuto').addEventListener('click', () => {
+  setState(null).catch((e) => toast(e.message));
+});
+let pendingState = null;
+
+function saveToken() {
+  const v = $('#tokenInput').value.trim();
+  if (!v) { toast('请先输入口令'); $('#tokenInput').focus(); return; }
+  if (v !== v.toLowerCase() && v.toLowerCase().startsWith('wxops-')) {
+    // 手机键盘自动大写首字母的常见情况，直接纠正
+    $('#tokenInput').value = v.toLowerCase();
+  }
+  localStorage.setItem(TOKEN_KEY, $('#tokenInput').value.trim());
+  toast('口令已保存');
+  const retry = pendingState;
+  pendingState = null;
+  if (retry !== null) setState(retry).catch((e) => toast(e.message));
+}
+
+$('#btnSaveToken').addEventListener('click', saveToken);
+$('#tokenInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); saveToken(); }
+});
+$('#tokenInput').addEventListener('change', () => {
+  localStorage.setItem(TOKEN_KEY, $('#tokenInput').value.trim());
+});
+
+const ENTRY_LABEL = [['在读老学员', 'current'], ['新客', 'new'], ['往期补课', 'makeup']];
+let allSessions = [];
+
+function renderCurrent(curId, target) {
+  const cur = allSessions.find((x) => x.id === curId);
+  $('#curSessionName').textContent = cur ? cur.name : '—';
+  const src = $('#curSessionSource');
+  const manual = Boolean(target && target.recordId);
+  src.textContent = manual ? '手动指定' : '按日期自动';
+  src.className = 'src' + (manual ? ' manual' : '');
+}
+
+async function setTarget(recordId) {
+  const res = await fetch('/api/admin/target', {
+    method: 'POST',
+    headers: Object.assign({ 'Content-Type': 'application/json' }, headers()),
+    body: JSON.stringify({ sessionId: recordId }),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    if (res.status === 401) { $('#tokenBox').classList.add('on'); $('#tokenInput').focus(); }
+    throw new Error(data.error || '设置失败');
+  }
+  toast(recordId ? '已切到：' + ((data.session && data.session.name) || '') : '已恢复按日期自动');
+  await loadEntries();
+  loadPhase();
+  loadSessionInfo();
+}
+
+async function loadEntries() {
+  const sel = $('#sessionSel');
+  try {
+    const data = await fetch('/api/sessions').then((r) => r.json());
+    const items = data.items || [];
+    if (!items.length) {
+      $('#entryList').innerHTML = '<div class="hint">还没有可用的课次，请先在飞书课次表里排课。</div>';
+      return;
+    }
+    const curId = data.currentId || '';
+    // 当前课次排最前，其余按日期
+    items.sort((a, b) => (a.id === curId ? -1 : b.id === curId ? 1 : a.date - b.date));
+    allSessions = items;
+    const opts = items.map((s) => '<option value="' + s.id + '">' + (s.name || s.id) + '</option>').join('');
+    sel.innerHTML = opts;
+    if (curId) sel.value = curId;
+    const ts = $('#targetSel');
+    if (ts) {
+      ts.innerHTML = opts;
+      if (data.target && data.target.recordId) ts.value = data.target.recordId;
+      else if (curId) ts.value = curId;
+    }
+    renderCurrent(curId, data.target);
+    renderLinks();
+  } catch (e) {
+    $('#entryList').innerHTML = '<div class="hint">读取课次失败：' + e.message + '</div>';
+  }
+}
+
+function renderLinks() {
+  const id = $('#sessionSel').value;
+  const box = $('#entryList');
+  if (!id) return;
+  box.innerHTML = '';
+  ENTRY_LABEL.forEach(([label, kind]) => {
+    const url = location.origin + '/q/' + encodeURIComponent(id) + '/' + kind;
+    const row = document.createElement('div');
+    row.className = 'entry';
+    const b = document.createElement('b');
+    b.textContent = label;
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.textContent = url;
+    a.addEventListener('click', () => {
+      navigator.clipboard && navigator.clipboard.writeText(url);
+      toast('已复制链接');
+    });
+    const img = document.createElement('img');
+    img.src = '/api/qr?size=200&text=' + encodeURIComponent(url);
+    img.width = 118;
+    img.alt = label + '二维码';
+    img.style.cssText = 'margin-top:8px;border:1px solid var(--rule);border-radius:8px;background:#fff;padding:6px';
+    img.loading = 'lazy';
+    const dl = document.createElement('a');
+    dl.href = img.src;
+    dl.download = 'qr-' + kind + '.png';
+    dl.textContent = '下载二维码';
+    dl.style.fontSize = '11px';
+    row.appendChild(b);
+    row.appendChild(a);
+    row.appendChild(img);
+    row.appendChild(dl);
+    box.appendChild(row);
+  });
+}
+
+$('#sessionSel').addEventListener('change', renderLinks);
+$('#btnSetTarget').addEventListener('click', () => {
+  setTarget($('#targetSel').value).catch((e) => toast(e.message));
+});
+$('#btnAutoTarget').addEventListener('click', () => {
+  setTarget(null).catch((e) => toast(e.message));
+});
+
+
+/* ===== 课次信息（live 模式写回飞书） ===== */
+function toLocalInput(ms) {
+  if (!ms) return '';
+  const d = new Date(ms);
+  const p = (n) => String(n).padStart(2, '0');
+  return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate())
+    + 'T' + p(d.getHours()) + ':' + p(d.getMinutes());
+}
+
+function todayISO(ms) {
+  if (!ms) return '';
+  const d = new Date(ms);
+  const p = (n) => String(n).padStart(2, '0');
+  return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+}
+
+let sessionState = null;
+
+async function loadSessionInfo() {
+  if (window.__mode !== 'live') return;
+  try {
+    const res = await fetch('/api/admin/session', { headers: headers() });
+    if (res.status === 401) {
+      $('#sessionHint').textContent = '需要工作人员口令才能读取/修改课次';
+      $('#sessionForm').hidden = true;
+      return;
+    }
+    const s = await res.json();
+    if (!res.ok) throw new Error(s.error || '读取失败');
+    if (!s) { $('#sessionHint').textContent = '当前没有可编辑的课次'; return; }
+    sessionState = s;
+    $('#sessionHint').textContent = s.name || '';
+    const set = (id, v) => { const el = $('#' + id); if (el) el.value = v || ''; };
+    set('sName', s.name);
+    set('sDate', todayISO(s.date));
+    set('sTime', s.timeRange);
+    set('sDeadline', toLocalInput(s.deadline));
+    set('sReportDeadline', toLocalInput(s.reportDeadline));
+    set('sOpenAt', toLocalInput(s.openAt));
+    set('sCloseAt', toLocalInput(s.closeAt));
+    set('sTopic', s.topic);
+    set('sRoom', s.room);
+    set('sCampus', s.campus);
+    set('sPlace', s.place);
+    set('sSpeaker', s.speaker);
+    set('sIntro', s.intro);
+    set('sTake', s.take);
+    set('sAgenda', s.agenda);
+
+    const box = $('#sTeachers');
+    box.innerHTML = '';
+    (s.teachers || []).forEach((t) => {
+      const id = 'tc_' + t.id;
+      const lab = document.createElement('label');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.value = t.id;
+      cb.id = id;
+      cb.checked = (s.selectedTeachers || []).some((x) => x.id === t.id);
+      lab.appendChild(cb);
+      lab.appendChild(document.createTextNode(t.name + (t.type ? ' · ' + t.type : '')));
+      box.appendChild(lab);
+    });
+    $('#sessionForm').hidden = false;
+  } catch (e) {
+    $('#sessionHint').textContent = '课次信息读取失败：' + e.message;
+  }
+}
+
+async function saveSession() {
+  const patch = {
+    name: $('#sName').value.trim(),
+    date: $('#sDate').value,
+    timeRange: $('#sTime').value.trim(),
+    deadline: $('#sDeadline').value,
+    reportDeadline: $('#sReportDeadline').value,
+    openAt: $('#sOpenAt').value,
+    closeAt: $('#sCloseAt').value,
+    topic: $('#sTopic').value.trim(),
+    room: $('#sRoom').value.trim(),
+    campus: $('#sCampus').value.trim(),
+    place: $('#sPlace').value.trim(),
+    speaker: $('#sSpeaker').value.trim(),
+    intro: $('#sIntro').value.trim(),
+    take: $('#sTake').value.trim(),
+    agenda: $('#sAgenda').value.trim(),
+    teacherIds: Array.from(document.querySelectorAll('#sTeachers input:checked')).map((x) => x.value),
+  };
+  const res = await fetch('/api/admin/session', {
+    method: 'POST',
+    headers: Object.assign({ 'Content-Type': 'application/json' }, headers()),
+    body: JSON.stringify(patch),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    if (res.status === 401) { $('#tokenBox').classList.add('on'); $('#tokenInput').focus(); }
+    throw new Error(data.error || '保存失败');
+  }
+  toast('已保存到多维表格');
+  await loadSessionInfo();
+  loadPhase();
+}
+
+$('#btnSaveSession').addEventListener('click', () => {
+  saveSession().catch((e) => toast(e.message));
+});
+
+async function loadWarnings() {
+  try {
+    const d = await fetch('/api/bootstrap').then((r) => r.json());
+    const w = d.warnings || [];
+    const roster = d.roster || {};
+    if (roster.periodId && roster.count === 0) {
+      w.push('本期名册为空：请检查学员表「所属期次」是否绑定');
+    }
+    const line = $('#rosterLine');
+    if (line && roster.source) {
+      const src = roster.source === 'roster' ? (roster.periodName || '') + '学员表'
+        : roster.source === 'master' ? '学员表（按所属期次）'
+        : '全量学员表（未绑定）';
+      line.textContent = src + ' · ' + (roster.count || 0) + ' 人';
+    }
+    const card = $('#warnCard');
+    if (!w.length) { card.hidden = true; return; }
+    $('#warnList').innerHTML = w.map((x) => '· ' + x).join('<br>');
+    card.hidden = false;
+  } catch (e) { /* 忽略 */ }
+}
+
+loadPhase();
+loadEntries();
+loadSessionInfo();
+loadWarnings();
+setInterval(loadPhase, 30000);
+</script>
+</body>
+</html>

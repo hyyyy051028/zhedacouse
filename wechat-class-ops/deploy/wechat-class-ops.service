@@ -1,0 +1,19 @@
+[Unit]
+Description=wechat-class-ops (扫码签到 H5)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/wechat-class-ops
+Environment=NODE_ENV=production
+Environment=PORT=3000
+ExecStart=/usr/bin/node --env-file-if-exists=.env server.js
+Restart=always
+RestartSec=3
+# 日志进 journald：journalctl -u wechat-class-ops -f
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

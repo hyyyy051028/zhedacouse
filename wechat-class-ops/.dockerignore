@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+data/
+node_modules/
+deploy/
+*.md
+!README.md
+.DS_Store

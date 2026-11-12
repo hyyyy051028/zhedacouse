@@ -1,0 +1,22 @@
+# 把 DOMAIN 换成你的域名，例如 signup.example.com
+{$DOMAIN} {
+	encode gzip
+
+	# 反代到 Node 服务
+	reverse_proxy app:3000 {
+		header_up X-Real-IP {remote_host}
+	}
+
+	# 安全响应头
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options SAMEORIGIN
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	log {
+		output stdout
+		format console
+	}
+}

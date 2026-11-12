@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>课程预告 · 视觉稿 v4</title>
+<style>
+:root{
+  --ink:#111413;--ink2:#31383A;--muted:#6B7370;--faint:#9AA19C;
+  --bg:#FFFFFF;--bg-soft:#F6F5F1;--rule:#EAE7E0;
+  --accent:#0E5A45;--accent-soft:#E8F0EB;
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font);color:var(--ink);background:#E9E7E1;line-height:1.5;-webkit-font-smoothing:antialiased}
+.app{max-width:420px;margin:0 auto;background:var(--bg);min-height:100vh;position:relative;overflow:hidden}
+@media (min-width:560px){
+  body{padding:32px 0}
+  .app{border-radius:26px;box-shadow:0 30px 70px -40px rgba(17,20,19,.45);min-height:820px}
+}
+
+/* ---------- 封面 ---------- */
+.cover{position:relative;height:336px;background:#20302B;overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.03)}
+.cover .scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,18,15,.55) 0%,rgba(10,18,15,.14) 40%,rgba(10,18,15,.86) 100%);
+}
+.cover .top{
+  position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:rgba(255,255,255,.72);
+}
+.cover .bottom{position:absolute;left:0;right:0;bottom:42px;padding:0 20px;color:#fff}
+.cover .kicker{
+  font-size:10.5px;letter-spacing:.24em;color:rgba(255,255,255,.82);font-weight:500;
+  text-shadow:0 1px 14px rgba(8,14,12,.45);
+}
+.cover h1{
+  font-size:29px;line-height:1.24;font-weight:800;letter-spacing:-.02em;margin-top:11px;
+  text-shadow:0 1px 20px rgba(8,14,12,.28);
+}
+.cover .when{
+  margin-top:15px;display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:rgba(255,255,255,.95);
+  text-shadow:0 1px 12px rgba(8,14,12,.4);
+}
+.cover .when i{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5)}
+
+/* ---------- 上浮内容卡 ---------- */
+.body{position:relative;margin-top:-20px;background:var(--bg);border-radius:22px 22px 0 0;padding:20px 20px 104px}
+
+/* 两天：悬浮卡片左右滑动，第二张露一角 */
+.pager{
+  margin:0 -20px;padding-bottom:2px;
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;scroll-padding-left:20px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(to right,#000 0,#000 calc(100% - 54px),transparent 100%);
+  mask-image:linear-gradient(to right,#000 0,#000 calc(100% - 54px),transparent 100%);
+}
+.pager::-webkit-scrollbar{display:none}
+.track{display:flex;gap:12px;align-items:stretch;padding-left:20px;padding-right:44px}
+.panel{
+  flex:0 0 auto;scroll-snap-align:start;
+  background:#fff;border:1px solid var(--rule);border-radius:16px;
+  padding:18px 18px 20px;
+  box-shadow:0 18px 34px -28px rgba(17,20,19,.65);
+}
+
+/* 分页指示 */
+.pager-foot{display:flex;align-items:center;gap:12px;margin-top:14px}
+.dots{display:flex;align-items:center;gap:6px}
+.dots button{
+  width:6px;height:6px;padding:0;border:0;border-radius:99px;background:#D9D5CB;
+  cursor:pointer;transition:width .22s,background .22s;
+}
+.dots button.on{width:20px;background:var(--accent)}
+.pager-foot .swipe{
+  margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--faint);
+}
+.panel .day{
+  font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--accent);
+  margin-bottom:8px;
+}
+.panel h2{font-size:19px;line-height:1.4;font-weight:800;letter-spacing:-.015em}
+.panel .time{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--faint);margin-top:6px}
+
+.speaker{display:flex;align-items:center;gap:11px;margin-top:16px}
+.avatar{
+  width:42px;height:42px;border-radius:50%;flex:0 0 42px;background:var(--accent-soft);color:var(--accent);
+  display:grid;place-items:center;font-size:15px;font-weight:700;letter-spacing:.02em;
+}
+.speaker .nm{font-size:13.5px;font-weight:700;line-height:1.3}
+.speaker .role{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.45}
+
+.take{
+  margin-top:16px;padding:11px 13px;border-radius:10px;background:var(--bg-soft);
+  font-size:12.5px;line-height:1.6;color:var(--ink2);
+}
+.take b{
+  display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;
+  color:var(--faint);font-weight:400;margin-bottom:4px;
+}
+
+/* 场地与规则 */
+.info{margin-top:22px;padding:2px 0}
+.info .row{display:flex;gap:12px;padding:12px 0;font-size:12px;color:var(--ink2);line-height:1.5}
+.info .row+.row{border-top:1px solid rgba(17,20,19,.055)}
+.info .lab{flex:0 0 38px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--faint);padding-top:3px}
+
+/* ---------- 底部固定 CTA ---------- */
+.bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--rule);
+  padding:12px 20px calc(14px + env(safe-area-inset-bottom));
+}
+.bar-in{max-width:420px;margin:0 auto}
+.bar button{
+  width:100%;height:54px;border:0;border-radius:14px;background:var(--accent);color:#fff;
+  font-size:15.5px;font-weight:700;font-family:inherit;letter-spacing:.02em;
+  box-shadow:0 16px 30px -16px rgba(14,90,69,.9);
+}
+.bar .hint{text-align:center;font-size:9.5px;color:var(--faint);margin-top:9px;letter-spacing:.03em}
+
+/* ---------- 底部弹层 ---------- */
+.mask{position:fixed;inset:0;background:rgba(17,20,19,.42);opacity:0;pointer-events:none;transition:.22s;z-index:40}
+.mask.on{opacity:1;pointer-events:auto}
+.sheet{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;border-radius:22px 22px 0 0;
+  padding:10px 20px calc(20px + env(safe-area-inset-bottom));
+  transform:translateY(102%);transition:transform .26s cubic-bezier(.2,0,0,1);
+  max-width:420px;margin:0 auto;
+}
+.sheet.on{transform:none}
+.grip{width:38px;height:4px;border-radius:99px;background:#E2DED5;margin:0 auto 16px}
+.sheet h3{font-size:17px;font-weight:800;letter-spacing:-.01em}
+.sheet .sub{font-size:11.5px;color:var(--muted);margin-top:4px}
+.sheet .digits{display:flex;gap:9px;margin-top:18px}
+.sheet .digit{
+  flex:1;height:56px;border:1px solid var(--rule);border-radius:11px;background:var(--bg-soft);
+  display:grid;place-items:center;font-family:var(--mono);font-size:21px;font-weight:600;color:var(--ink);
+}
+.sheet .digit.on{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(14,90,69,.1)}
+.sheet .go{
+  width:100%;height:50px;margin-top:16px;border:0;border-radius:12px;background:var(--accent);color:#fff;
+  font-size:14.5px;font-weight:700;font-family:inherit;
+}
+.sheet .alt{margin-top:12px;text-align:center;font-size:10.5px;color:var(--faint)}
+.sheet .alt u{color:var(--ink2);text-underline-offset:3px}
+
+.notes{max-width:420px;margin:14px auto 0;padding:0 20px;font-size:11px;color:#6B7370;line-height:1.9;display:none}
+@media (min-width:560px){ .notes{display:block} }
+.notes b{color:#31383A}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="cover">
+    <img src="cover.jpg" alt="华家池校区秋景">
+    <div class="scrim"></div>
+    <div class="top"><span>浙江大学</span><span id="periodTop">金融 26 期</span></div>
+    <div class="bottom">
+      <div class="kicker" id="kicker">11 月课程</div>
+      <h1>金融投资运营<br>实战高级研修班</h1>
+      <div class="when" id="whenRow"><span>11.14–15</span><i></i><span>09:00–16:30</span><i></i><span>华家池校区</span></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="pager" id="pager">
+      <div class="track">
+        <section class="panel" id="panel1">
+          <div class="day" id="d1day">11.14 周六 · DAY 1</div>
+          <h2 id="d1title">商业模式与资本路径</h2>
+          <div class="time" id="d1time">09:00 – 16:30 · 全天</div>
+          <div class="speaker">
+            <div class="avatar" id="d1avatar">张</div>
+            <div>
+              <div class="nm" id="d1name">张华光</div>
+              <div class="role" id="d1role">清华大学商业模式研究工作室执行主任</div>
+            </div>
+          </div>
+          <div class="take"><b>本期收获</b><span id="d1take">看懂商业模式与资本路径的关键判断</span></div>
+        </section>
+
+        <section class="panel" id="panel2">
+          <div class="day" id="d2day">11.15 周日 · DAY 2</div>
+          <h2 id="d2title">品牌增值战略——从品牌溢价看企业投资价值</h2>
+          <div class="time" id="d2time">09:00 – 16:30 · 全天</div>
+          <div class="speaker">
+            <div class="avatar" id="d2avatar">贾</div>
+            <div>
+              <div class="nm" id="d2name">贾大宇</div>
+              <div class="role" id="d2role">正阳品牌营销机构创始人兼 CEO</div>
+            </div>
+          </div>
+          <div class="take"><b>本期收获</b><span id="d2take">用品牌溢价重新估算企业的投资价值</span></div>
+        </section>
+      </div>
+    </div>
+
+    <div class="pager-foot">
+      <div class="dots" id="dots"><button class="on" aria-label="第 1 天"></button><button aria-label="第 2 天"></button></div>
+      <span class="swipe">左右滑动</span>
+    </div>
+
+    <div class="info">
+      <div class="row"><span class="lab">地点</span><span id="placeText">华家池校区 · 中心大楼南楼 251</span></div>
+      <div class="row"><span class="lab">签到</span><span id="signText">两天课程，每天到场签到</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="bar">
+  <div class="bar-in">
+    <button id="openSheet">确认我的席位</button>
+    <div class="hint" id="deadlineHint">确认截止 11.13 18:00 · 无需登录</div>
+  </div>
+</div>
+
+<div class="mask" id="mask"></div>
+<div class="sheet" id="sheet">
+  <div class="grip"></div>
+  <h3>输入手机号后四位</h3>
+  <div class="sub">自动匹配你的席位，不发验证码</div>
+  <div class="digits" id="digits">
+    <div class="digit on">·</div><div class="digit"></div><div class="digit"></div><div class="digit"></div>
+  </div>
+  <input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="4" aria-label="手机号后四位"
+         style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px">
+  <div id="sheetErr" style="margin-top:10px;font-size:11.5px;color:#A6432F;line-height:1.6;min-height:16px"></div>
+  <button class="go" id="sheetGo">找到我的席位</button>
+  <div class="alt">找不到我？<u id="goNew">现场登记</u></div>
+</div>
+
+<div class="notes">
+  <b>v4.3</b>：封面换华家池实景图，拉开小标与标题层级、时间行提亮；两天卡片加宽露出（76px）并给右侧渐变遮罩，卡片高度随内容；分页指示下移对齐；底部主按钮加大一级。
+</div>
+
+<script>
+var pager = document.getElementById('pager');
+var track = pager.querySelector('.track');
+var cards = Array.prototype.slice.call(pager.querySelectorAll('.panel'));
+var dots = Array.prototype.slice.call(document.querySelectorAll('#dots button'));
+var base = 0;
+
+// 卡片比屏幕窄 76px：露出下一张的边，提示右边还有一天
+function layout() {
+  var w = pager.clientWidth;
+  var cardW = Math.max(220, w - 76);
+  cards.forEach(function (c) { c.style.width = cardW + 'px'; });
+  track.style.paddingRight = (w - cardW - 20) + 'px';
+  base = cards[0].offsetLeft;
+}
+
+function goTo(i) {
+  pager.scrollTo({ left: cards[i].offsetLeft - base, behavior: 'smooth' });
+}
+
+pager.addEventListener('scroll', function () {
+  var best = 0;
+  var min = Infinity;
+  cards.forEach(function (c, i) {
+    var d = Math.abs(c.offsetLeft - base - pager.scrollLeft);
+    if (d < min) { min = d; best = i; }
+  });
+  dots.forEach(function (d, i) { d.classList.toggle('on', i === best); });
+}, { passive: true });
+
+dots.forEach(function (d, i) {
+  d.addEventListener('click', function () { goTo(i); });
+});
+
+layout();
+window.addEventListener('resize', layout);
+window.__relayout = layout;
+
+var sheet = document.getElementById('sheet');
+var mask = document.getElementById('mask');
+function openSheet() { sheet.classList.add('on'); mask.classList.add('on'); }
+function closeSheet() { sheet.classList.remove('on'); mask.classList.remove('on'); }
+document.getElementById('openSheet').addEventListener('click', openSheet);
+mask.addEventListener('click', closeSheet);
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
+</script>
+
+<script>
+/* ===== 课程预告页：真实课次数据 + 真实身份识别 ===== */
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var WD = '日一二三四五六';
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var md = function (ms) { var d = new Date(ms); return (d.getMonth() + 1) + '.' + pad(d.getDate()); };
+  var mdLabel = function (ms) { var d = new Date(ms); return (d.getMonth() + 1) + '.' + pad(d.getDate()) + ' 周' + WD[d.getDay()]; };
+  function setText(sel, v) { var el = $(sel); if (el && v) el.textContent = v; }
+  function setErr(msg) { var el = $('#sheetErr'); if (el) el.textContent = msg || ''; }
+
+  var qs = new URLSearchParams(location.search);
+  var sessionId = qs.get('s') || '';
+  var session = null;
+
+  function keyOf(x) { return (x.periodId || '') + '#' + (x.seq || ''); }
+
+  function paintDays(days) {
+    var slots = [
+      ['#d1day', '#d1title', '#d1time', '#d1name', '#d1role', '#d1avatar', 'panel1', '#d1take'],
+      ['#d2day', '#d2title', '#d2time', '#d2name', '#d2role', '#d2avatar', 'panel2', '#d2take']
+    ];
+    var shown = 0;
+    slots.forEach(function (ids, i) {
+      var d = days[i];
+      var panel = document.getElementById(ids[6]);
+      if (!d) { if (panel) panel.style.display = 'none'; return; }
+      shown += 1;
+      if (panel) panel.style.display = '';
+      setText(ids[0], mdLabel(d.date) + ' · DAY ' + (i + 1));
+      setText(ids[1], d.topic || d.name || '');
+      setText(ids[2], (d.timeRange || '') + (d.timeRange ? ' · 全天' : ''));
+      var t = (d.teachers && d.teachers[0]) || null;
+      var nm = (t && t.name) || d.speaker || '';
+      setText(ids[3], nm);
+      setText(ids[4], t ? [t.title, t.org].filter(Boolean).join(' · ') : '');
+      setText(ids[5], nm.slice(0, 1));
+      setText(ids[7], d.take || '');
+    });
+    var dots = document.querySelectorAll('#dots button');
+    if (shown < 2 && dots[1]) dots[1].style.display = 'none';
+    if (window.__relayout) window.__relayout();
+    return shown;
+  }
+
+  async function load() {
+    var data = null;
+    try {
+      var url = '/api/bootstrap' + (sessionId ? '?s=' + encodeURIComponent(sessionId) : '');
+      data = await fetch(url).then(function (r) { return r.json(); });
+      session = data.session || null;
+      if (session && session.id) sessionId = session.id;
+      var course = data.course || {};
+      if (course.period) setText('#periodTop', course.period);
+      if (session && session.date) {
+        setText('#kicker', (new Date(session.date).getMonth() + 1) + ' 月课程');
+      }
+      if (session && session.place) setText('#placeText', session.place);
+      if (course.deadline) {
+        setText('#deadlineHint', '确认截止 ' + course.deadline + ' · 无需登录');
+      } else {
+        setText('#deadlineHint', '确认截止以课次通知为准 · 无需登录');
+      }
+    } catch (e) { /* 离线时保留静态内容 */ }
+
+    try {
+      var list = await fetch('/api/sessions').then(function (r) { return r.json(); });
+      var items = (list && list.items) || [];
+      var cur = items.filter(function (x) { return x.id === sessionId; })[0];
+      var days = cur ? items.filter(function (x) { return keyOf(x) === keyOf(cur); }) : [];
+      days.sort(function (a, b) { return a.date - b.date; });
+      if (days.length) {
+        paintDays(days);
+        setText('#signText', days.length > 1 ? days.length + ' 天课程，每天到场签到' : '当天到场签到');
+        // 封面时间行
+        var when = $('#whenRow');
+        if (when) {
+          var first = days[0], last = days[days.length - 1];
+          var range = first.date === last.date ? md(first.date) : md(first.date) + '–' + md(last.date);
+          var tr = first.timeRange || '';
+          var campus = first.campus || '';
+          when.innerHTML = '<span>' + range + '</span>' + (tr ? '<i></i><span>' + tr + '</span>' : '')
+            + (campus ? '<i></i><span>' + campus + '</span>' : '');
+        }
+      }
+    } catch (e) { /* 忽略，保留静态 */ }
+  }
+
+  /* ---------- 四位识别 ---------- */
+  var digits = '';
+  var otp = $('#otp');
+
+  function paint() {
+    var boxes = document.querySelectorAll('#digits .digit');
+    Array.prototype.forEach.call(boxes, function (b, i) {
+      b.classList.toggle('on', i === digits.length);
+      b.textContent = digits[i] || (i === digits.length ? '·' : '');
+    });
+  }
+
+  function submit() {
+    if (digits.length !== 4) { setErr('请输入手机号后四位'); return; }
+    if (!sessionId) { location.href = '/'; return; }
+    setErr('');
+    var go = $('#sheetGo');
+    if (go) go.disabled = true;
+    fetch('/api/identify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ l4: digits, entry: 'current', sessionId: sessionId })
+    }).then(function (r) {
+      return r.json().then(function (d) { return { ok: r.ok, d: d }; });
+    }).then(function (res) {
+      var d = res.d || {};
+      if (!res.ok) throw new Error(d.error || '识别失败');
+      if (d.found) {
+        try {
+          localStorage.setItem('wxops-session-v2', JSON.stringify({ id: d.person.id, type: d.person.type || 'old' }));
+        } catch (e) { /* 忽略隐私模式 */ }
+        var aud = d.audience === 'makeup' ? 'makeup' : 'current';
+        location.href = '/q/' + encodeURIComponent(sessionId) + '/' + aud + '?h=1';
+        return;
+      }
+      if (d.reason === 'multiple') setErr('匹配到多人，请到登记台用完整手机号核对');
+      else if (d.reason === 'isStudent') setErr(d.notice || '你已有学员记录，请扫描对应入口');
+      else setErr('没有找到这个尾号，可点下方「现场登记」');
+      if (go) go.disabled = false;
+    }).catch(function (e) {
+      setErr('识别失败：' + e.message);
+      if (go) go.disabled = false;
+    });
+  }
+
+  if (otp) {
+    otp.addEventListener('input', function (e) {
+      digits = e.target.value.replace(/\D/g, '').slice(0, 4);
+      e.target.value = digits;
+      paint();
+      if (digits.length === 4) submit();
+    });
+  }
+  var box = $('#digits');
+  if (box) box.addEventListener('click', function () { if (otp) otp.focus(); });
+
+  var openBtn = $('#openSheet');
+  if (openBtn) openBtn.addEventListener('click', function () {
+    setTimeout(function () { if (otp) otp.focus(); }, 260);
+  });
+
+  var goBtn = $('#sheetGo');
+  if (goBtn) goBtn.addEventListener('click', submit);
+
+  var newLink = $('#goNew');
+  if (newLink) newLink.addEventListener('click', function () {
+    location.href = sessionId ? '/q/' + encodeURIComponent(sessionId) + '/new' : '/';
+  });
+
+  paint();
+  load();
+})();
+</script>
+</body>
+</html>

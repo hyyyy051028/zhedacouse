@@ -1,0 +1,13 @@
+{
+  "name": "wechat-class-ops",
+  "version": "0.1.0",
+  "private": true,
+  "description": "扫码签到 H5 + 飞书多维表格接口层",
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "inspect": "node --env-file-if-exists=.env scripts/inspect.js"
+  }
+}
