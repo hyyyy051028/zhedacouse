@@ -169,6 +169,17 @@ function setSessionTarget(recordId) {
   return { target: mockTarget, session: MOCK_SESSION };
 }
 
+function publicDays() {
+  return [{
+    date: MOCK_SESSION.date,
+    topic: '《商业模式与资本路径》',
+    timeRange: MOCK_SESSION.timeRange,
+    take: '',
+    speaker: '张华光',
+    teachers: [{ name: '张华光', title: '执行主任', org: '清华大学商业模式研究工作室', type: '主讲' }],
+  }];
+}
+
 function listSessions() {
   return [{
     id: MOCK_SESSION.recordId,
@@ -334,5 +345,5 @@ function httpError(status, message) {
 
 module.exports = {
   bootstrap, identify, person, rsvp, checkin, survey, register, guest, setState, reset,
-  stats, snapshot, findPerson, httpError, listSessions, currentSession, sessionTarget, setSessionTarget, MOCK_SESSION, publicPerson,
+  stats, snapshot, findPerson, httpError, listSessions, publicDays, currentSession, sessionTarget, setSessionTarget, MOCK_SESSION, publicPerson,
 };

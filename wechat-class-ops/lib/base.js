@@ -803,6 +803,26 @@ async function surveyOf(type, id, sessionArg) {
 
 /* ---------------- 业务动作 ---------------- */
 
+/** 公开给学员页的课次天数：只给日期/主题/时间/讲师，不含 recordId */
+async function publicDays(sessionId) {
+  const session = sessionId ? await sessionFrom(sessionId) : await currentSession().catch(() => null);
+  if (!session) return [];
+  const group = await groupOf(session).catch(() => [session]);
+  const teachers = await loadTeachers().catch(() => []);
+  const list = group.length ? group : [session];
+  return list.map((s) => ({
+    date: s.date,
+    topic: s.topic || s.name || '',
+    timeRange: s.timeRange || '',
+    take: s.take || '',
+    speaker: s.speaker || '',
+    teachers: (s.teacherIds || [])
+      .map((id) => teachers.find((t) => t.id === id))
+      .filter(Boolean)
+      .map((t) => ({ name: t.name, title: t.title, org: t.org, type: t.type })),
+  }));
+}
+
 async function listSessions() {
   const table = await tableRef('session');
   const teachers = await loadTeachers().catch(() => []);
@@ -1391,5 +1411,5 @@ module.exports = {
   publicPerson, maskId, maskPhone,
   stats, getSchema, courseState, currentSession, sessionFrom, syncSchedule, listSessions,
   submitReport, loadReports, periodRoster, courseInfo, sessionInfo, updateSession, loadTeachers,
-  sessionTarget, setSessionTarget,
+  sessionTarget, setSessionTarget, publicDays,
 };

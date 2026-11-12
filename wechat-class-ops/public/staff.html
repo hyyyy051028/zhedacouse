@@ -306,7 +306,13 @@ async function setTarget(recordId) {
 async function loadEntries() {
   const sel = $('#sessionSel');
   try {
-    const data = await fetch('/api/sessions').then((r) => r.json());
+    const res = await fetch('/api/sessions', { headers: headers() });
+    if (res.status === 401) {
+      $('#entryList').innerHTML = '<div class="hint">需要口令才能读取课次</div>';
+      $('#tokenBox').classList.add('on');
+      return;
+    }
+    const data = await res.json();
     const items = data.items || [];
     if (!items.length) {
       $('#entryList').innerHTML = '<div class="hint">还没有可用的课次，请先在飞书课次表里排课。</div>';

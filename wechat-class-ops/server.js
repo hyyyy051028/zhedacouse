@@ -70,6 +70,52 @@ async function sessionOf(body) {
   return impl.sessionFrom(id);
 }
 
+/* ---------------- 基础安全：限流 ---------------- */
+const RATE = new Map();
+
+function clientIp(req) {
+  const ra = req.socket.remoteAddress || '';
+  const behindProxy = ra === '127.0.0.1' || ra === '::1' || /^(10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.)/.test(ra);
+  if (behindProxy) {
+    const fwd = String(req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+    if (fwd) return fwd;
+  }
+  return ra || 'unknown';
+}
+
+function allow(key, limit, windowMs) {
+  const now = Date.now();
+  let e = RATE.get(key);
+  if (!e || now > e.reset) { e = { n: 0, reset: now + windowMs }; RATE.set(key, e); }
+  e.n += 1;
+  if (RATE.size > 5000) {
+    for (const [k, v] of RATE) if (now > v.reset) RATE.delete(k);
+  }
+  return e.n <= limit;
+}
+
+/**
+ * 限流按「设备」为主、IP 只做总量兜底：
+ * 校园 Wi-Fi 下全班共用一个出口 IP，按 IP 掐 10 次/分钟会把整个班挡住。
+ */
+function hitLimit(req, pathname) {
+  const ip = clientIp(req);
+  const dev = String(req.headers['x-device-id'] || '').slice(0, 64);
+  const who = dev ? 'dev:' + dev : 'ip:' + ip;
+
+  if (pathname === '/api/health' || pathname === '/api/qr') return true;
+
+  if (pathname === '/api/identify') {
+    const okMin = allow(who + ':id:m', 10, 60 * 1000);
+    const okHour = allow(who + ':id:h', 50, 60 * 60 * 1000);
+    const okIpCap = allow('ipcap:' + ip, 150, 60 * 1000);   // 防单 IP 狂刷
+    return okMin && okHour && okIpCap;
+  }
+  const okApi = allow(who + ':api:m', 60, 60 * 1000);
+  const okIpCap = allow('ipcap:' + ip, 300, 60 * 1000);
+  return okApi && okIpCap;
+}
+
 const routes = {
   'GET /api/health': async () => ({ ok: true, mode: cfg.mode }),
   'GET /api/bootstrap': async (body, req, url) => {
@@ -84,7 +130,8 @@ const routes = {
     phase.setState(body.state || null, 'staff');
     return phase.current();
   },
-  'GET /api/schema': async () => {
+  'GET /api/schema': async (body, req) => {
+    if (cfg.mode === 'live') requireAdmin(req);
     if (cfg.mode !== 'live') return { mode: 'mock', tables: null, resolved: null, missing: [] };
     const schema = await impl.getSchema();
     return {
@@ -95,7 +142,8 @@ const routes = {
       missing: schema.missing,
     };
   },
-  'GET /api/sessions': async () => {
+  'GET /api/sessions': async (body, req) => {
+    if (cfg.mode === 'live') requireAdmin(req);
     // 给工作人员页生成三入口链接用；live 下取不到课次列表时返回空数组
     if (!impl.listSessions) return { items: [], currentId: '' };
     const items = await impl.listSessions();
@@ -113,6 +161,11 @@ const routes = {
     if (!impl.setSessionTarget) throw Object.assign(new Error('当前模式不支持指定课次'), { status: 501 });
     const r = await impl.setSessionTarget(body.sessionId || null, 'staff');
     return { target: r.target, session: r.session ? { id: r.session.recordId, name: r.session.name } : null };
+  },
+  'GET /api/public/days': async (body, req, url) => {
+    const sid = url.searchParams.get('s') || '';
+    if (!impl.publicDays) return { items: [] };
+    return { items: await impl.publicDays(sid) };
   },
   'POST /api/identify': async (body) => mask(await impl.identify(body.l4, body.entry || body.entryMode, await sessionOf(body))),
   'POST /api/person': async (body) => mask(await impl.person(body.id, body.type, await sessionOf(body))),
@@ -209,7 +262,16 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname.startsWith('/api/')) {
     const handler = routes[key];
     if (!handler) { send(res, 404, { error: `接口不存在：${key}` }); return; }
+
+    if (!hitLimit(req, url.pathname)) {
+      res.writeHead(429, { 'Content-Type': 'application/json; charset=utf-8', 'Retry-After': '60' });
+      res.end(JSON.stringify({ error: '请求过于频繁，请稍后再试' }));
+      return;
+    }
+
     try {
+      // 所有 /api/admin/* 一律要口令（含 GET）
+      if (url.pathname.startsWith('/api/admin/')) requireAdmin(req);
       const body = req.method === 'POST' ? await readBody(req) : {};
       send(res, 200, await handler(body, req, url));
     } catch (err) {

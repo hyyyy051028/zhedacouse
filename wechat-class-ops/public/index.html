@@ -719,13 +719,21 @@ const S = {
   S.entryMode = S.entry === 'new' ? 'new' : 'old';
 })();
 
+function deviceId(){
+  try {
+    let v = localStorage.getItem('wxops-dev');
+    if(!v){ v = 'd' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-6); localStorage.setItem('wxops-dev', v); }
+    return v;
+  } catch(e){ return ''; }
+}
+
 async function api(path, body) {
   const payload = (body && typeof body === 'object' && S.sessionId)
     ? Object.assign({ sessionId: S.sessionId }, body)
     : body;
   const res = await fetch(path, {
     method: body === undefined ? 'GET' : 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: Object.assign({ 'Content-Type': 'application/json' }, deviceId() ? { 'x-device-id': deviceId() } : {}),
     body: payload === undefined ? undefined : JSON.stringify(payload)
   });
   let data = {};
