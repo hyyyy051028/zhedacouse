@@ -215,6 +215,12 @@ function isEntryPath(pathname) {
 
 function serveStatic(req, res, pathname) {
   if (pathname === '/staff' || pathname === '/staff/') pathname = '/staff.html';
+  // 兼容 /ops/xxx.html 形式（工作人员页面放在 /ops 下，与原型站区分）
+  const ops = /^\/ops(\/.*)?$/.exec(pathname);
+  if (ops) {
+    const rest = ops[1] || '/';
+    pathname = rest === '/' ? '/staff.html' : rest;
+  }
   if (isEntryPath(pathname)) pathname = '/';
   const rel = pathname === '/' ? 'index.html' : pathname.replace(/^\/+/, '');
   const file = path.join(PUBLIC_DIR, rel);
