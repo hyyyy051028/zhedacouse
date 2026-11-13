@@ -11,7 +11,8 @@ BRANCH=main
 if [ -n "${1:-}" ]; then MSG="$1"; else MSG="update: $(date '+%Y-%m-%d %H:%M')"; fi
 
 # 1) 本地有改动就先提交
-if ! git diff --quiet || ! git diff --cached --quiet; then
+# 注意：未跟踪的新文件不会出现在 git diff 里，必须用 status 判断
+if [ -n "$(git status --porcelain)" ]; then
   git add -A
   git commit -m "$MSG"
   echo "已提交本地改动"
