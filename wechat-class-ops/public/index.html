@@ -821,6 +821,21 @@ function show(name){
   document.body.dataset.screen = name;
 }
 
+/* ================= 签到窗口 ================= */
+function checkinOpenAt(){
+  return S.checkinStart ? new Date(S.checkinStart).getTime() : 0;
+}
+function checkinLocked(){
+  const t = checkinOpenAt();
+  return t > 0 && Date.now() < t;
+}
+function fmtOpen(iso){
+  if(!iso) return '';
+  const d = new Date(iso);
+  const p = n => String(n).padStart(2,'0');
+  return (d.getMonth()+1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+}
+
 /* ================= 路由 ================= */
 function route(){
   if(S.identityType === 'new'){
@@ -840,7 +855,11 @@ function route(){
   }
   const st = student();
   if(!st){ show('identify'); paintDigits(); return; }
-  if(S.courseState === 'confirm'){ renderConfirm(); show('confirm'); }
+  if(S.courseState === 'confirm'){
+    // 已确认参加的，直接给签到页；没到 0 点则按钮锁定
+    if(st.rsvp === 'confirm'){ renderCheckin(); show('checkin'); }
+    else { renderConfirm(); show('confirm'); }
+  }
   else if(S.courseState === 'checkin'){
     if(st.signin){ renderSuccess(); show('success'); }
     else { renderCheckin(); show('checkin'); }
@@ -1105,11 +1124,26 @@ function renderCheckin(){
   $('#ckCompany').textContent = p.company;
   $('#ckChip').innerHTML = '<span class="dot"></span>' + (newPerson() ? '新学员 · 现场签到' : '现场签到');
   $('#ckCount').textContent = allSignin();
-  $('#btnSign').style.opacity = p.signin ? .45 : 1;
-  $('#btnSign').style.pointerEvents = p.signin ? 'none' : 'auto';
+
+  const locked = checkinLocked();
+  const signBtn = $('#btnSign');
+  signBtn.style.opacity = (locked || p.signin) ? .45 : 1;
+  signBtn.style.pointerEvents = p.signin ? 'none' : 'auto';
+
+  const t1 = signBtn.querySelector('.t1'), t2 = signBtn.querySelector('.t2');
+  if(t1) t1.textContent = locked ? '未开放' : '签到';
+  if(t2) t2.textContent = locked
+    ? ('签到于 ' + fmtOpen(S.checkinStart) + ' 开放')
+    : 'TAP TO SIGN IN';
+
+  const win = $('#ckWindow');
+  if(win) win.textContent = locked
+    ? 'CHECK-IN OPENS ' + fmtOpen(S.checkinStart)
+    : 'CHECK-IN WINDOW ' + (S.course.window || '');
 }
 $('#btnSign').addEventListener('click', ()=>{
   const p = person(); if(!p || p.signin) return;
+  if(checkinLocked()){ toast('签到将于 ' + fmtOpen(S.checkinStart) + ' 开放'); return; }
   const btn = $('#btnSign');
   btn.style.pointerEvents = 'none';
   api('/api/checkin', { id: p.id, type: S.identityType })
@@ -1589,6 +1623,7 @@ async function bootstrapInner(){
     const data = await api('/api/bootstrap' + (qs.toString() ? '?' + qs.toString() : ''));
     S.mode = data.mode || 'mock';
     S.courseState = data.state || 'confirm';
+    S.checkinStart = data.checkinStart || null;
     S.entry = data.entry || S.entry;
     S.audience = S.entry;
     if(data.session && data.session.id) S.sessionId = data.session.id;

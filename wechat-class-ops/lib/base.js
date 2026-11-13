@@ -295,14 +295,15 @@ async function applySessionSchedule(s) {
     const lm = /(\d{1,2}):(\d{2})/.exec(later.timeRange || '');
     nextStart = new Date(localStartMs(later.date, lm ? `${pad(lm[1])}:${lm[2]}` : cfg.course.windowStart)).toISOString();
   }
-  // 课次表「签到开放时间/签到关闭时间」优先
+  // 签到窗口：优先用课次表的「签到开放/关闭时间」；
+  // 没填则默认「课程当天 00:00 开、当天 23:59 关」——课程 9 点开始，不能 9 点才开放签到
   const explicit = s.openAt && s.closeAt && s.openAt < s.closeAt;
   phase.setSchedule({
     day, windowStart, windowEnd,
-    startMs: explicit ? s.openAt : 0,
-    endMs: explicit ? s.closeAt : 0,
+    startMs: explicit ? s.openAt : startOfDayCN(s.date),
+    endMs: explicit ? s.closeAt : endOfDayCN(s.date),
     afterEnd: later ? 'confirm' : 'survey',
-    nextStart,
+    nextStart: later ? startOfDayCN(later.date) : nextStart,
   });
 }
 
@@ -643,6 +644,11 @@ function resolvePlace(s) {
   return place;
 }
 
+/** 北京时间的当天 23:59:59（与服务器所在时区无关） */
+function endOfDayCN(ms) {
+  return startOfDayCN(ms) + 24 * 3600 * 1000 - 1000;
+}
+
 /** 北京时间的当天 00:00（与服务器所在时区无关） */
 function startOfDayCN(ms) {
   const CN = 8 * 3600 * 1000;
@@ -861,6 +867,7 @@ async function bootstrap(sessionArg, entryArg) {
   return {
     mode: 'live',
     state: phase.current().state,
+    checkinStart: phase.current().schedule.checkinStart,
     entry: audience.normaliseEntry(entryArg),
     course,
     session: session ? {
