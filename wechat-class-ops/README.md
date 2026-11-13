@@ -69,6 +69,39 @@ scripts/inspect.js 表结构探测
 - 名册里的人如果不在学员主档，无法签到/报备，`/staff` 顶部会列出姓名，先补录到学员表即可。
 - 12 次课：每次课有自己的二维码和「所属课次」，记录互不覆盖；学员表上的「报备状态/报备提交日期」只是最近一次，报备名单请按课次筛表7。
 
+## 发布到 GitHub
+
+本项目在仓库 `hyyyy051028/zhedacouse` 的 **`wechat-class-ops/`** 目录下（`main` 分支）。
+
+```bash
+./publish.sh                 # 提交本地改动并推送
+./publish.sh "改了签到逻辑"   # 自定义提交说明
+```
+
+没有改动时会提示「远端已是最新」，不会产生空提交。
+
+**它做了什么**：提交本地改动 → 只拉取远端目录结构（不下载仓库历史大文件）→ 把本项目挂到 `wechat-class-ops/` 下 → 推送到 `main`。仓库里的 `.trae/`、`zhedacouse_React/` 和 `gh-pages` 分支都不受影响。
+
+### 换一台机器首次发布
+
+```bash
+git remote add origin ssh://git@ssh.github.com:443/hyyyy051028/zhedacouse.git
+git config core.sshCommand "ssh -i ~/.ssh/id_ed25519_zhedacouse -o StrictHostKeyChecking=accept-new"
+./publish.sh
+```
+
+需要先在 https://github.com/settings/ssh/new 添加本机公钥，并确保该账号对仓库有 Write 权限（或已被邀请为协作者并接受邀请）。
+
+### 两个坑（脚本已处理，手工操作时注意）
+
+- **不要用 `git read-tree --prefix`** 挂目录：会触发下载原仓库全部文件内容，大仓库会卡死；脚本改用 `git mktree --missing` 直接拼树。
+- **父树里已有同名目录时要先剔除**，否则会生成重复条目，被 GitHub 以 `duplicateEntries` 拒绝。
+- **不要执行 `git push origin main`**：本地 `main` 只包含本项目文件，直接推会覆盖仓库结构。只用 `./publish.sh`。
+
+### 敏感文件
+
+`.env`（飞书 App Secret）和 `data/` 已写入 `.gitignore`，不会进入仓库。
+
 ## 已知约束
 
 - 课次表的「签到开放时间 / 签到关闭时间 / 场次状态 / 确认出席截止日」如果为空，阶段按日期 + `上课时段` 正则回落，确认截止日显示「以课次通知为准」
