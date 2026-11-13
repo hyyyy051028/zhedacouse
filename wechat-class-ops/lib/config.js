@@ -39,6 +39,9 @@ module.exports = {
   port: Number(str(env.PORT, '3000')),
   mode: mode === 'live' ? 'live' : 'mock',
 
+  // 部署在子路径时设置，例如 BASE_PATH=/sign → 访问 https://域名/sign/
+  basePath: str(env.BASE_PATH, ''),
+
   feishu: {
     baseUrl: 'https://open.feishu.cn',
     appId,

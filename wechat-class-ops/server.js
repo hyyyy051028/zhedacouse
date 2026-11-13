@@ -10,6 +10,19 @@ const audience = require('./lib/audience');
 const impl = cfg.mode === 'live' ? require('./lib/base') : require('./lib/mock');
 
 const PUBLIC_DIR = path.join(__dirname, 'public');
+
+// 子路径部署支持：BASE_PATH=/sign → 所有请求都带 /sign 前缀
+const BASE = (() => {
+  const raw = String(cfg.basePath || '').trim().replace(/\/+$/, '');
+  if (!raw) return '';
+  return raw.startsWith('/') ? raw : '/' + raw;
+})();
+
+/** 把页面里的绝对路径补上前缀：<script>window.__BASE__="/sign"</script> */
+function injectBase(html) {
+  const tag = `<script>window.__BASE__=${JSON.stringify(BASE)}</script>`;
+  return html.includes('</head>') ? html.replace('</head>', tag + '</head>') : tag + html;
+}
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'application/javascript; charset=utf-8',
@@ -212,15 +225,20 @@ function serveStatic(req, res, pathname) {
       if (rel !== 'index.html') { send(res, 404, 'Not Found'); return; }
       fs.readFile(path.join(PUBLIC_DIR, 'index.html'), (e2, b2) => {
         if (e2) send(res, 404, 'Not Found');
-        else { res.writeHead(200, { 'Content-Type': MIME['.html'], 'Cache-Control': 'no-store' }); res.end(b2); }
+        else {
+          res.writeHead(200, { 'Content-Type': MIME['.html'], 'Cache-Control': 'no-store' });
+          res.end(injectBase(b2.toString('utf8')));
+        }
       });
       return;
     }
+    const ext = path.extname(file);
+    const body = ext === '.html' ? injectBase(buf.toString('utf8')) : buf;
     res.writeHead(200, {
-      'Content-Type': MIME[path.extname(file)] || 'application/octet-stream',
+      'Content-Type': MIME[ext] || 'application/octet-stream',
       'Cache-Control': pathname === '/' ? 'no-store' : 'public, max-age=60',
     });
-    res.end(buf);
+    res.end(body);
   });
 }
 
@@ -255,6 +273,26 @@ async function handleQr(res, url) {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
+
+  // 子路径：/ → /sign/，其余请求剥掉前缀后再路由
+  if (BASE) {
+    if (url.pathname === '/' || url.pathname === '') {
+      res.writeHead(302, { Location: BASE + '/' });
+      res.end();
+      return;
+    }
+    if (url.pathname === BASE) {
+      res.writeHead(302, { Location: BASE + '/' });
+      res.end();
+      return;
+    }
+    if (!url.pathname.startsWith(BASE + '/')) {
+      send(res, 404, { error: '路径不存在，请访问 ' + BASE + '/' });
+      return;
+    }
+    url.pathname = url.pathname.slice(BASE.length) || '/';
+  }
+
   const key = `${req.method} ${url.pathname}`;
 
   if (url.pathname === '/api/qr') { await handleQr(res, url); return; }
@@ -288,7 +326,8 @@ const server = http.createServer(async (req, res) => {
 server.listen(cfg.port, () => {
   console.log(`\n扫码签到服务已启动：http://localhost:${cfg.port}`);
   console.log(`运行模式：${cfg.mode === 'live' ? 'live（飞书多维表格）' : 'mock（本地假数据）'}`);
-  console.log(`三个入口：/q/{课次recordId}/current · /q/{课次recordId}/new · /q/{课次recordId}/makeup`);
+  console.log(`访问路径：${BASE || ''}/（子路径：${BASE || '无'}）`);
+  console.log(`三个入口：${BASE}/q/{课次recordId}/current · ${BASE}/q/{课次recordId}/new · ${BASE}/q/{课次recordId}/makeup`);
   if (cfg.mode === 'mock') console.log('填好 .env 里的 FEISHU_APP_ID / FEISHU_APP_SECRET 并把 FEISHU_MODE 改成 live，即可切到真实数据。');
   if (cfg.mode === 'live' && (!cfg.feishu.appId || !cfg.feishu.appSecret)) {
     console.warn('警告：live 模式缺少 FEISHU_APP_ID / FEISHU_APP_SECRET');

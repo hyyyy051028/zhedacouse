@@ -290,6 +290,7 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
 <script>
 /* ===== 课程预告页：真实课次数据 + 真实身份识别 ===== */
 (function () {
+  var B = window.__BASE__ || '';
   var $ = function (s) { return document.querySelector(s); };
   var WD = '日一二三四五六';
   var pad = function (n) { return String(n).padStart(2, '0'); };
@@ -335,7 +336,7 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
   async function load() {
     var data = null;
     try {
-      var url = '/api/bootstrap' + (sessionId ? '?s=' + encodeURIComponent(sessionId) : '');
+      var url = B + '/api/bootstrap' + (sessionId ? '?s=' + encodeURIComponent(sessionId) : '');
       data = await fetch(url).then(function (r) { return r.json(); });
       session = data.session || null;
       if (session && session.id) sessionId = session.id;
@@ -353,7 +354,7 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
     } catch (e) { /* 离线时保留静态内容 */ }
 
     try {
-      var resp = await fetch('/api/public/days' + (sessionId ? '?s=' + encodeURIComponent(sessionId) : ''));
+      var resp = await fetch(B + '/api/public/days' + (sessionId ? '?s=' + encodeURIComponent(sessionId) : ''));
       var payload = await resp.json();
       var days = Array.isArray(payload) ? payload : ((payload && payload.items) || []);
       days.sort(function (a, b) { return a.date - b.date; });
@@ -388,11 +389,11 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
 
   function submit() {
     if (digits.length !== 4) { setErr('请输入手机号后四位'); return; }
-    if (!sessionId) { location.href = '/'; return; }
+    if (!sessionId) { location.href = B + '/'; return; }
     setErr('');
     var go = $('#sheetGo');
     if (go) go.disabled = true;
-    fetch('/api/identify', {
+    fetch(B + '/api/identify', {
       method: 'POST',
       headers: Object.assign({ 'Content-Type': 'application/json' }, (function () {
         try {
@@ -412,7 +413,7 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
           localStorage.setItem('wxops-session-v2', JSON.stringify({ id: d.person.id, type: d.person.type || 'old' }));
         } catch (e) { /* 忽略隐私模式 */ }
         var aud = d.audience === 'makeup' ? 'makeup' : 'current';
-        location.href = '/q/' + encodeURIComponent(sessionId) + '/' + aud + '?h=1';
+        location.href = B + '/q/' + encodeURIComponent(sessionId) + '/' + aud + '?h=1';
         return;
       }
       if (d.reason === 'multiple') setErr('匹配到多人，请到登记台用完整手机号核对');
@@ -446,7 +447,7 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
 
   var newLink = $('#goNew');
   if (newLink) newLink.addEventListener('click', function () {
-    location.href = sessionId ? '/q/' + encodeURIComponent(sessionId) + '/new' : '/';
+    location.href = sessionId ? B + '/q/' + encodeURIComponent(sessionId) + '/new' : B + '/';
   });
 
   paint();

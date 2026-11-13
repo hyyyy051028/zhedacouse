@@ -350,7 +350,7 @@ h2.title.sm{font-size:19px;line-height:1.45}
     <div class="panel-actions">
       <button class="ghost-btn" id="btnGuest">临时登记入口</button>
       <button class="ghost-btn" id="btnReset">重置演示数据</button>
-      <a class="ghost-btn" href="/staff" target="_blank" style="text-decoration:none">工作人员入口</a>
+      <a class="ghost-btn" href="/staff" target="_blank" id="staffLink" style="text-decoration:none">工作人员入口</a>
     </div>
     <p class="panel-note" style="margin-top:12px">新学员登记 <b id="newStat">0</b> 人 · 报备已提交</p>
     <p class="panel-note" style="margin-top:8px" id="modeNote">演示数据保存在 localStorage。</p>
@@ -431,7 +431,7 @@ h2.title.sm{font-size:19px;line-height:1.45}
 
           <label class="consent">
             <input type="checkbox" id="consentNew">
-            <span>我已阅读并同意<a href="/privacy.html" target="_blank">《隐私政策》</a>，同意将以上信息用于入校报备</span>
+            <span>我已阅读并同意<a href="/privacy.html" target="_blank" class="privacyLink">《隐私政策》</a>，同意将以上信息用于入校报备</span>
           </label>
           <div class="btn-stack">
             <button class="btn primary" id="btnNewSubmit">提交并完成报备</button>
@@ -514,7 +514,7 @@ h2.title.sm{font-size:19px;line-height:1.45}
           </div>
           <label class="consent">
             <input type="checkbox" id="consentConfirm">
-            <span>我已阅读并同意<a href="/privacy.html" target="_blank">《隐私政策》</a>，同意将以上信息用于入校报备</span>
+            <span>我已阅读并同意<a href="/privacy.html" target="_blank" class="privacyLink">《隐私政策》</a>，同意将以上信息用于入校报备</span>
           </label>
           <div class="btn-stack">
             <button class="btn primary" id="btnConfirm">确认参加</button>
@@ -680,6 +680,8 @@ h2.title.sm{font-size:19px;line-height:1.45}
 
 <script>
 /* ================= 数据层（统一走后端接口） ================= */
+// 子路径部署前缀：由服务端注入 window.__BASE__（如 "/sign"），本地直连时为空
+const B = window.__BASE__ || '';
 const SESSION_KEY = 'wxops-session-v2';
 const DEFAULT_COURSE = {
   title: '增长战略与组织能力',
@@ -731,7 +733,7 @@ async function api(path, body) {
   const payload = (body && typeof body === 'object' && S.sessionId)
     ? Object.assign({ sessionId: S.sessionId }, body)
     : body;
-  const res = await fetch(path, {
+  const res = await fetch(B + path, {
     method: body === undefined ? 'GET' : 'POST',
     headers: Object.assign({ 'Content-Type': 'application/json' }, deviceId() ? { 'x-device-id': deviceId() } : {}),
     body: payload === undefined ? undefined : JSON.stringify(payload)
@@ -1604,6 +1606,10 @@ async function bootstrapInner(){
   } catch (e) {
     toast('后端未连接：' + e.message);
   }
+
+  document.querySelectorAll('.privacyLink').forEach(function (a) { a.href = B + '/privacy.html'; });
+  const sl = document.getElementById('staffLink');
+  if (sl) sl.href = B + '/staff';
 
   paintCourse();
   buildTicks();

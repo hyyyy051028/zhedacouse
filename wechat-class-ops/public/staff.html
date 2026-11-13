@@ -164,6 +164,7 @@ a{color:var(--accent)}
 <div class="toast" id="toast"></div>
 
 <script>
+const B = window.__BASE__ || '';
 const TOKEN_KEY = 'wxops-admin-token';
 const LABEL = { confirm: '报名确认中', checkin: '现场签到中', survey: '课后评价中' };
 const $ = (s) => document.querySelector(s);
@@ -209,21 +210,21 @@ function headers() {
 
 async function loadPhase() {
   try {
-    const res = await fetch('/api/phase');
+    const res = await fetch(B + '/api/phase');
     const p = await res.json();
     renderPhase(p);
   } catch (e) {
     toast('读取阶段失败：' + e.message);
   }
   try {
-    const h = await fetch('/api/health').then((r) => r.json());
+    const h = await fetch(B + '/api/health').then((r) => r.json());
     window.__mode = h.mode;
     $('#modeText').textContent = h.mode === 'live' ? 'live（飞书多维表格）' : 'mock（本地演示）';
   } catch { /* 忽略 */ }
 }
 
 async function setState(state) {
-  const res = await fetch('/api/admin/state', {
+  const res = await fetch(B + '/api/admin/state', {
     method: 'POST',
     headers: Object.assign({ 'Content-Type': 'application/json' }, headers()),
     body: JSON.stringify({ state }),
@@ -287,7 +288,7 @@ function renderCurrent(curId, target) {
 }
 
 async function setTarget(recordId) {
-  const res = await fetch('/api/admin/target', {
+  const res = await fetch(B + '/api/admin/target', {
     method: 'POST',
     headers: Object.assign({ 'Content-Type': 'application/json' }, headers()),
     body: JSON.stringify({ sessionId: recordId }),
@@ -306,7 +307,7 @@ async function setTarget(recordId) {
 async function loadEntries() {
   const sel = $('#sessionSel');
   try {
-    const res = await fetch('/api/sessions', { headers: headers() });
+    const res = await fetch(B + '/api/sessions', { headers: headers() });
     if (res.status === 401) {
       $('#entryList').innerHTML = '<div class="hint">需要口令才能读取课次</div>';
       $('#tokenBox').classList.add('on');
@@ -344,7 +345,7 @@ function renderLinks() {
   if (!id) return;
   box.innerHTML = '';
   ENTRY_LABEL.forEach(([label, kind]) => {
-    const url = location.origin + '/q/' + encodeURIComponent(id) + '/' + kind;
+    const url = location.origin + B + '/q/' + encodeURIComponent(id) + '/' + kind;
     const row = document.createElement('div');
     row.className = 'entry';
     const b = document.createElement('b');
@@ -358,7 +359,7 @@ function renderLinks() {
       toast('已复制链接');
     });
     const img = document.createElement('img');
-    img.src = '/api/qr?size=200&text=' + encodeURIComponent(url);
+    img.src = B + '/api/qr?size=200&text=' + encodeURIComponent(url);
     img.width = 118;
     img.alt = label + '二维码';
     img.style.cssText = 'margin-top:8px;border:1px solid var(--rule);border-radius:8px;background:#fff;padding:6px';
@@ -406,7 +407,7 @@ let sessionState = null;
 async function loadSessionInfo() {
   if (window.__mode !== 'live') return;
   try {
-    const res = await fetch('/api/admin/session', { headers: headers() });
+    const res = await fetch(B + '/api/admin/session', { headers: headers() });
     if (res.status === 401) {
       $('#sessionHint').textContent = '需要工作人员口令才能读取/修改课次';
       $('#sessionForm').hidden = true;
@@ -473,7 +474,7 @@ async function saveSession() {
     agenda: $('#sAgenda').value.trim(),
     teacherIds: Array.from(document.querySelectorAll('#sTeachers input:checked')).map((x) => x.value),
   };
-  const res = await fetch('/api/admin/session', {
+  const res = await fetch(B + '/api/admin/session', {
     method: 'POST',
     headers: Object.assign({ 'Content-Type': 'application/json' }, headers()),
     body: JSON.stringify(patch),
@@ -494,7 +495,7 @@ $('#btnSaveSession').addEventListener('click', () => {
 
 async function loadWarnings() {
   try {
-    const d = await fetch('/api/bootstrap').then((r) => r.json());
+    const d = await fetch(B + '/api/bootstrap').then((r) => r.json());
     const w = d.warnings || [];
     const roster = d.roster || {};
     if (roster.periodId && roster.count === 0) {
