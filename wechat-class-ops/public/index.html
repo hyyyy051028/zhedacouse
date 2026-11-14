@@ -1642,9 +1642,11 @@ async function bootstrapInner(){
     toast('后端未连接：' + e.message);
   }
 
-  document.querySelectorAll('.privacyLink').forEach(function (a) { a.href = B + '/privacy.html'; });
+  // 辅助页面：根路径部署时走 /ops（与 Nginx 现有转发一致），子路径部署时走 BASE
+  const AUX = B || '/ops';
+  document.querySelectorAll('.privacyLink').forEach(function (a) { a.href = AUX + '/privacy.html'; });
   const sl = document.getElementById('staffLink');
-  if (sl) sl.href = B + '/staff';
+  if (sl) sl.href = AUX + '/staff.html';
 
   paintCourse();
   buildTicks();
